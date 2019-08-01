@@ -1,0 +1,17 @@
+dubbo:
+  application:
+    qosEnable: true # qos-server can not bind localhost:22222
+    qosPort: 33333
+    qosAcceptForeignIp: false
+    name: dubbo-consumer # dubbo name
+  registry:
+    address: zookeeper://10.10.41.14:2181 # dubbo registry
+  consumer:
+    timeout: 10000 # timeout
+
+server:
+  port: 8082
+
+spring:
+  application:
+    name: dubbo-consumer # application name
