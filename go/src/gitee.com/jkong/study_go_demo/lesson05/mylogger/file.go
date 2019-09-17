@@ -54,15 +54,19 @@ func (f *FileLogger) initFile() {
 func (f *FileLogger) Debug(format string, args ...interface{}) {
 	//f.file.Write()
 	// F：生成一个文件
-	msg := fmt.Sprintf(format, args) // 得到用户记录的日志
+	msg := fmt.Sprintf(format, args...) // 得到用户记录的日志
 
-	// todo 日志格式：[时间][文件：行号][函数名][日志级别] 日志信息
+	// 日志格式：[时间][文件：行号][函数名][日志级别] 日志信息
 	nowStr := time.Now().Format("2006-01-02 15:04:05.000")
+	// 3: 代表函数的调用层级数
+	// 第0层：runtime.Caller(skip)
+	// 第1层：getCallerInfo(3)
+	// 第2层：调用 Debug(format string, args ...interface{}) 的函数信息
+	fileName, funcName, line := getCallerInfo(2)
+	logMsg := fmt.Sprintf("[%s][%s:%d][%s][%s] %s \n", nowStr, fileName, line, funcName, "Debug", msg)
 
-
-
-	_, err := fmt.Fprintf(f.file, msg) // 利用fmt包将msg字符串写到f.file文件中
-
+	// 利用fmt包将msg字符串写到f.file文件中
+	_, err := fmt.Fprintf(f.file, logMsg)
 	if err != nil {
 		panic(fmt.Errorf("debug log msg error: %v", err))
 	}
