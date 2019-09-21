@@ -32,5 +32,13 @@ func main() {
         })
     })
 
+    r.Any("/any", func(context *gin.Context) {
+        context.JSON(http.StatusOK, gin.H{"msg":"ang request method"})
+    })
+
+    r.NoRoute(func(context *gin.Context) {
+        context.JSON(http.StatusNotFound, gin.H{"msg":"api not found!"})
+    })
+
     r.Run(":8081")
 }
