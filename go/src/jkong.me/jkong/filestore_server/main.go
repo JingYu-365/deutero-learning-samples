@@ -9,12 +9,13 @@ import (
 func main() {
 	http.HandleFunc("/file/upload", handler.UploadHandler)
 	http.HandleFunc("/file/upload/suc", handler.UploadSucHandler)
-	http.HandleFunc("/file/meta",handler.GetFileMetaHandler)
-	http.HandleFunc("/file/query",handler.FileQueryHandler)
-	http.HandleFunc("/file/download",handler.DownloadFileHandler)
+	http.HandleFunc("/file/meta", handler.GetFileMetaHandler)
+	http.HandleFunc("/file/download", handler.DownloadFileHandler)
+	http.HandleFunc("/file/meta/modification", handler.UpdateFileMetaHandler)
+	http.HandleFunc("/file/delete", handler.DeleteFileMetaHandler)
 
 	err := http.ListenAndServe(":8080", nil)
-	if err!= nil {
+	if err != nil {
 		fmt.Printf("failed to start server, err:%s", err.Error())
 	}
 
