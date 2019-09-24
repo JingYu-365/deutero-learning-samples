@@ -10,10 +10,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>provider-service</artifactId>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>7</source>
+                    <target>7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <properties>
         <netty-all.version>4.1.29.Final</netty-all.version>
         <java.version>1.8</java.version>
         <dubbo.version>2.7.3</dubbo.version>
+        <httpasyncclient.version>4.1.3</httpasyncclient.version>
+        <spring-data-mongodb.version>2.0.8.RELEASE</spring-data-mongodb.version>
     </properties>
 
     <dependencies>
@@ -39,10 +53,31 @@
             <version>${dubbo.version}</version>
             <type>pom</type>
         </dependency>
+
+        <!-- mongodb -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.data</groupId>-->
+            <!--<artifactId>spring-data-mongodb</artifactId>-->
+            <!--<version>${spring-data-mongodb.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- async http-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpasyncclient</artifactId>
+            <version>${httpasyncclient.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>jkong.me</groupId>
             <artifactId>common-interface</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
