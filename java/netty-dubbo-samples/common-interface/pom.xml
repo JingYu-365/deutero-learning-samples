@@ -10,12 +10,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>common-interface</artifactId>
+    <properties>
+        <spring-data-mongodb.version>1.10.9</spring-data-mongodb.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.6</version>
         </dependency>
+        <!-- mongodb -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>1.10.23.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
 </project>

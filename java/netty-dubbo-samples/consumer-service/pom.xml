@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>consumer-service</artifactId>
+
     <properties>
         <netty-all.version>4.1.29.Final</netty-all.version>
         <java.version>1.8</java.version>
@@ -39,11 +40,23 @@
             <version>${dubbo.version}</version>
             <type>pom</type>
         </dependency>
+
         <dependency>
             <groupId>jkong.me</groupId>
             <artifactId>common-interface</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
