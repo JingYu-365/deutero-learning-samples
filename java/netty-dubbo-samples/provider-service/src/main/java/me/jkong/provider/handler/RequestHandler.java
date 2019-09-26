@@ -15,8 +15,6 @@ import me.jkong.provider.util.http.HttpResponseProcessor;
 public class RequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest msg) {
-
-
     }
 
 
