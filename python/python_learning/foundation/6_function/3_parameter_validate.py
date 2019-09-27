@@ -12,4 +12,5 @@ def my_abs(x):
 
 
 print(my_abs(-123))
+# 参数类型错误抛出异常
 # print(my_abs("123"))
