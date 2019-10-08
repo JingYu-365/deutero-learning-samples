@@ -1,2 +1,6 @@
 go/.idea/workspace.xml
 go/.idea
+go/bin
+go/pkg
+go/src/github.com
+go/src/gopkg.in

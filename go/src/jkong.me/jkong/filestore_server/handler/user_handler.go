@@ -25,11 +25,12 @@ func UserSignUpHandler(w http.ResponseWriter, r *http.Request) {
 		userName := r.FormValue("username")
 		password := r.FormValue("password")
 
-		user, err := db.GetUserInfo(userName)
-		if err != nil {
-			w.Write([]byte("REGISTER FAILED!"))
+		if len(userName) < 3 || len(password) < 5 {
+			w.Write([]byte("Invalid Parameter!"))
 			return
 		}
+
+		user, _ := db.GetUserInfo(userName)
 		if user != nil {
 			w.Write([]byte("REGISTER FAILED, USER HAS EXISTED!"))
 			return
@@ -38,7 +39,7 @@ func UserSignUpHandler(w http.ResponseWriter, r *http.Request) {
 		enc_password := util.Sha1([]byte(password + salt))
 		suc := db.UserSignUp(userName, enc_password)
 		if suc {
-			w.Write([]byte("SUCCESS!"))
+			w.Write([]byte("SUCCESS"))
 			return
 		} else {
 			w.Write([]byte("REGISTER FAILED!"))
@@ -58,17 +59,23 @@ func UserSignInHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	r.ParseForm()
-
+	// 校验用户名和密码
 	username := r.FormValue("username")
 	password := r.FormValue("password")
-
 	enc_password := util.Sha1([]byte(password + salt))
-	user, err := db.GetUserInfo(username)
-
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+	user, _ := db.GetUserInfo(username)
+	if user == nil {
+		w.Write([]byte("sigin in failed!"))
 		return
 	}
+
+	// 生成登陆token
+
+
+
+	// 重定向到主页
+
+
 
 	if enc_password != user.UserPwd {
 		w.Write([]byte("SIGN IN FAILED!"))
