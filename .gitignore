@@ -1,6 +1,8 @@
-go/.idea/workspace.xml
-go/.idea
-go/bin
-go/pkg
-go/src/github.com
-go/src/gopkg.in
+**/.idea
+**/.idea
+**/bin
+**/pkg
+**/src/github.com
+**/src/gopkg.in
+**/*.iml
+**/target
