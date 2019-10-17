@@ -17,11 +17,16 @@ public class MainServer {
         EventLoopGroup boss = new NioEventLoopGroup();
         EventLoopGroup worker = new NioEventLoopGroup();
 
-        ServerBootstrap serverBootstrap = new ServerBootstrap();
-        serverBootstrap.group(boss, worker).channel(NioServerSocketChannel.class)
-                .childHandler(new ServerInitializer());
+        try {
+            ServerBootstrap serverBootstrap = new ServerBootstrap();
+            serverBootstrap.group(boss, worker).channel(NioServerSocketChannel.class)
+                    .childHandler(new ServerInitializer());
 
-        ChannelFuture future = serverBootstrap.bind(2365).sync();
-        future.channel().closeFuture().sync();
+            ChannelFuture future = serverBootstrap.bind(2365).sync();
+            future.channel().closeFuture().sync();
+        } finally {
+            boss.shutdownGracefully();
+            worker.shutdownGracefully();
+        }
     }
 }
