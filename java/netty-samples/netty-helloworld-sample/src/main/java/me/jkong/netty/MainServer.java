@@ -5,6 +5,8 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 /**
  * @author JKong
@@ -14,12 +16,18 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  */
 public class MainServer {
     public static void main(String[] args) throws InterruptedException {
+
+        // NioEventLoopGroup extents ScheduledExecutorService
         EventLoopGroup boss = new NioEventLoopGroup();
         EventLoopGroup worker = new NioEventLoopGroup();
 
         try {
-            ServerBootstrap serverBootstrap = new ServerBootstrap();
-            serverBootstrap.group(boss, worker).channel(NioServerSocketChannel.class)
+            ServerBootstrap serverBootstrap = new ServerBootstrap()
+                    .group(boss, worker)
+                    // handler 方法是为 boss 添加处理器
+                    .handler(new LoggingHandler(LogLevel.INFO))
+                    .channel(NioServerSocketChannel.class)
+                    // childHandler 方法是为 worker 添加处理器
                     .childHandler(new ServerInitializer());
 
             ChannelFuture future = serverBootstrap.bind(2365).sync();

@@ -13,11 +13,19 @@ import io.netty.handler.codec.http.HttpServerCodec;
  * @date 2019/10/17 7:47.
  */
 public class ServerInitializer extends ChannelInitializer<SocketChannel> {
+    /**
+     * 每一次连接请求，都将会初始化 pipeline
+     * todo 验证为什么所有的请求不都使用同一个pipeline?
+     *
+     * @param socketChannel channel
+     * @throws Exception
+     */
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
+
         System.out.println("... init channel ...");
         ChannelPipeline pipeline = socketChannel.pipeline();
         pipeline.addLast("httpServerCodec", new HttpServerCodec());
-        pipeline.addLast("httpServerHandler",new HttpServerHandler());
+        pipeline.addLast("httpServerHandler", new HttpServerHandler());
     }
 }
