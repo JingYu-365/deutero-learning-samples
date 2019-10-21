@@ -12,6 +12,7 @@
         <module>netty-helloworld-sample</module>
         <module>netty-socket-samples</module>
         <module>netty-chat-server-sample</module>
+        <module>netty-heart-beat-sample</module>
     </modules>
 
     <properties>
