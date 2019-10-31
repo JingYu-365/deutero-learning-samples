@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>netty_heart_beat_sample</artifactId>
+    <artifactId>netty-heart-beat-sample</artifactId>
     <build>
         <plugins>
             <plugin>
