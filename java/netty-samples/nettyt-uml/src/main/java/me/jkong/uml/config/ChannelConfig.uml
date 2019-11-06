@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="166.5" y="160.0">io.netty.util.AttributeKey</node>
+    <node x="181.25" y="0.0">io.netty.util.Constant</node>
+    <node x="218.0" y="315.0">io.netty.util.AttributeMap</node>
+    <node x="12.5" y="160.0">io.netty.channel.ChannelOption</node>
+    <node x="246.24999999999997" y="80.0">io.netty.util.ConstantPool</node>
+    <node x="0.0" y="395.0">io.netty.channel.DefaultChannelConfig</node>
+    <node x="79.24999999999999" y="80.0">io.netty.util.AbstractConstant</node>
+    <node x="233.5" y="395.0">io.netty.channel.Channel</node>
+    <node x="388.0" y="315.0">io.netty.handler.codec.http.multipart.Attribute</node>
+    <node x="20.5" y="315.0">io.netty.channel.ChannelConfig</node>
+    <node x="0.0" y="240.0">io.netty.channel.sctp.SctpChannelOption</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="io.netty.channel.DefaultChannelConfig" target="io.netty.channel.ChannelConfig">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="io.netty.util.AbstractConstant" target="io.netty.util.Constant">
+      <point x="0.0" y="-15.0" />
+      <point x="152.75" y="55.0" />
+      <point x="206.0" y="55.0" />
+      <point x="-24.75" y="15.0" />
+    </edge>
+    <edge source="io.netty.channel.sctp.SctpChannelOption" target="io.netty.channel.ChannelOption">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="io.netty.util.AttributeKey" target="io.netty.util.AbstractConstant">
+      <point x="0.0" y="-15.0" />
+      <point x="226.0" y="135.0" />
+      <point x="189.5" y="135.0" />
+      <point x="36.75" y="15.0" />
+    </edge>
+    <edge source="io.netty.util.ConstantPool" target="io.netty.util.Constant">
+      <point x="0.0" y="-15.0" />
+      <point x="308.75" y="55.0" />
+      <point x="255.5" y="55.0" />
+      <point x="24.75" y="15.0" />
+    </edge>
+    <edge source="io.netty.channel.ChannelOption" target="io.netty.util.AbstractConstant">
+      <point x="0.0" y="-15.0" />
+      <point x="79.5" y="135.0" />
+      <point x="115.99999999999999" y="135.0" />
+      <point x="-36.75" y="15.0" />
+    </edge>
+    <edge source="io.netty.channel.Channel" target="io.netty.util.AttributeMap">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="186.0" y="212.5" />
+  <SelectedNodes>
+    <node>io.netty.channel.DefaultChannelConfig</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
