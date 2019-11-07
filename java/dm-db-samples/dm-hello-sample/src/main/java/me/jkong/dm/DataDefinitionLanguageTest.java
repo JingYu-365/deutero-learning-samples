@@ -1,11 +1,13 @@
 package me.jkong.dm;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * @author JKong
@@ -21,6 +23,11 @@ public class DataDefinitionLanguageTest {
     @Before
     public void init() {
         conn = DataBaseInitializer.getConn();
+    }
+
+    @After
+    public void close() throws SQLException {
+        DataBaseInitializer.disConnect();
     }
 
     /*******************************************************************************************************************
@@ -56,6 +63,9 @@ public class DataDefinitionLanguageTest {
     /*******************************************************************************************************************
      * 创建数据表
      *
+     * 1. 自增列功能定义
+     *  IDENTITY [ (种子, 增量) ]
+     *  IDENTITY 适用于 INT(-2147483648 ～ +2147483647)、 BIGINT(-263～+263-2)类型的列。 每个表只能创建一个自增列；
      * @throws SQLException sql ex
      */
     @Test
@@ -64,9 +74,9 @@ public class DataDefinitionLanguageTest {
         // 注意：
         // 1. 模式名一定全部转为大写
         // 2. 字段及表名需要使用'\"'括起来
-        String sql = "CREATE TABLE \"JKONG_TEST\".\"product\"\n" +
+        String sql = "CREATE TABLE \"JKONG_TEST\".\"product2\"\n" +
                 // 给主键设置约束名，方便主键删除。
-                "(\"product_id\" INT IDENTITY(1,1) CONSTRAINT \"product_id_pri\" NOT CLUSTER PRIMARY KEY," +
+                "(\"product_id\" INT IDENTITY(1,1) CONSTRAINT \"product2_pri\" NOT CLUSTER PRIMARY KEY," +
                 "\"pro_name\" VARCHAR(50),\n" +
                 "\"author\" VARCHAR(50),\n" +
                 "\"publisher\" VARCHAR(50),\n" +
@@ -75,16 +85,6 @@ public class DataDefinitionLanguageTest {
                 "\"productno\" VARCHAR(50),\n" +
                 "\"satetystocklevel\" INT,\n" +
                 "\"originalprice\" DECIMAL(22,6),\n" +
-                "\"newprice\" DECIMAL(22,6),\n" +
-                "\"discount\" DECIMAL(22,6),\n" +
-                "\"description\" VARCHAR2(50),\n" +
-                "\"photo\" VARCHAR(50),\n" +
-                "\"pro_type\" VARCHAR2(50),\n" +
-                "\"papertotal\" INT,\n" +
-                "\"wordtotal\" INT,\n" +
-                "\"sellstarttime\" DATETIME(6),\n" +
-                "\"sellendtime\" DATETIME(6),\n" +
-                "\"productid\" INT,\n" +
                 "UNIQUE(\"productno\")) ";
         statement.execute(sql);
 
@@ -167,16 +167,16 @@ public class DataDefinitionLanguageTest {
         // 被修改的字段不存在会抛错：列[product_TMP]不存在
 
         // 添加唯一约束
-//        String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" ADD CONSTRAINT \"TEST_CONSTRAINT\" UNIQUE (\"rpoduct_TMP\")";
+        // String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" ADD CONSTRAINT \"TEST_CONSTRAINT\" UNIQUE (\"rpoduct_TMP\")";
 
         // 删除唯一约束
-//        String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" DROP CONSTRAINT \"TEST_CONSTRAINT\ CASCADE" ;
+        // String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" DROP CONSTRAINT \"TEST_CONSTRAINT\ CASCADE" ;
 
         // 添加主键
         String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" ADD CONSTRAINT \"product_id_pri\" NOT CLUSTER  PRIMARY KEY(\"product_id\")";
 
         // 删除主键
-//        String sql = "alter table \"JKONG_TEST\".\"product\" DROP constraint \"product_id_pri\"" ;
+        // String sql = "alter table \"JKONG_TEST\".\"product\" DROP constraint \"product_id_pri\"" ;
 
         // 修改主键
         // 注意：
@@ -186,7 +186,7 @@ public class DataDefinitionLanguageTest {
         // 1. 主键名采用：{tableName}_pKey 的格式
         // 2. 目前支持每张表一个主键，
         // 2. 首先使用 modify 去修改主键，如果抛错，则说明主键本不存在，然后再调用 ADD 添加主键。
-//        String sql = "alter table \"JKONG_TEST\".\"product\" modify constraint \"product_id_pri\" to NOT CLUSTER primary key (\"product_id\",\"pro_name\")" ;
+        // String sql = "alter table \"JKONG_TEST\".\"product\" modify constraint \"product_id_pri\" to NOT CLUSTER primary key (\"product_id\",\"pro_name\")" ;
         statement.execute(sql);
         System.out.println(OVER);
         statement.close();
@@ -200,32 +200,17 @@ public class DataDefinitionLanguageTest {
     @Test
     public void selectTablePrimaryKey() throws SQLException {
         // 查询语句
-        String sql = "select CONSTRAINT_NAME from user_constraints where OWNER='JKONG_TEST' AND TABLE_NAME='product' and CONSTRAINT_TYPE='P'";
+        String sql = "SELECT CONSTRAINT_NAME FROM user_constraints WHERE OWNER='JKONG_TEST' AND TABLE_NAME='product' and CONSTRAINT_TYPE='P'";
         // 创建语句对象
         Statement stmt = conn.createStatement();
         // 执行查询
         ResultSet rs = stmt.executeQuery(sql);
         // 显示结果集
-        System.out.println(displayResultSet(rs));
+        System.out.println(DataQueryLanguageTest.displayResultSet(rs));
         // 关闭结果集
         rs.close();
         // 关闭语句
         stmt.close();
-    }
-
-    private Map<String, Object> displayResultSet(ResultSet rs) throws SQLException {
-        // 取得结果集元数据
-        ResultSetMetaData rsmd = rs.getMetaData();
-        // 取得结果集所包含的列数
-        int numCols = rsmd.getColumnCount();
-        // 显示结果集中所有数据
-        Map<String, Object> resultMap = new HashMap<String, Object>();
-        while (rs.next()) {
-            for (int i = 1; i <= numCols; i++) {
-                resultMap.put(rsmd.getColumnLabel(i), rs.getObject(i));
-            }
-        }
-        return resultMap;
     }
 
 
@@ -263,7 +248,7 @@ public class DataDefinitionLanguageTest {
         Statement statement = conn.createStatement();
         // 被修改的字段不存在会抛错：列[product_TMP]不存在
         String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" ALTER COLUMN \"TEST_FIELD\" SET DEFAULT \"1\"";
-//        String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" ALTER COLUMN \"TEST_FIELD\" DROP DEFAULT";
+        // String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" ALTER COLUMN \"TEST_FIELD\" DROP DEFAULT";
         statement.execute(sql);
         System.out.println(OVER);
         statement.close();
@@ -303,23 +288,7 @@ public class DataDefinitionLanguageTest {
         Statement statement = conn.createStatement();
         // 被修改的字段不存在会抛错：列[product_TMP]不存在
         String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" MODIFY \"product_TMP\" VARCHAR(200)";
-//        String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" MODIFY \"product_TMP\" INTEGER";
-        statement.execute(sql);
-        System.out.println(OVER);
-        statement.close();
-    }
-
-    /**
-     * 基表数据删除语句
-     * <p>
-     * TRUNCATE TABLE [<模式名>.]<表名>[PARTITION [(]<分区名>[)]];
-     *
-     * @throws SQLException sql ex
-     */
-    @Test
-    public void dropField() throws SQLException {
-        Statement statement = conn.createStatement();
-        String sql = "TRUNCATE TABLE \"JKONG_TEST\".\"product\"";
+        // String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" MODIFY \"product_TMP\" INTEGER";
         statement.execute(sql);
         System.out.println(OVER);
         statement.close();
@@ -343,7 +312,7 @@ public class DataDefinitionLanguageTest {
     public void createIndex() throws SQLException {
         Statement statement = conn.createStatement();
         // 创建索引
-//        String sql = "CREATE INDEX \"pro_name_index\" ON \"JKONG_TEST\".\"product\"(\"pro_name\")";
+        // String sql = "CREATE INDEX \"pro_name_index\" ON \"JKONG_TEST\".\"product\"(\"pro_name\")";
 
         // 如果索引不存在则创建，如果存在则替还索引
         String sql = "CREATE OR REPLACE INDEX \"pro_name_index\" ON \"JKONG_TEST\".\"product\"(\"author\")";
