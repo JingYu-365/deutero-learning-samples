@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>druid-samples</artifactId>
+        <groupId>me.jkong.druid</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>druid-hello-sample</artifactId>
+
+    <properties>
+        <DmJdbcDriver18.version>1.8</DmJdbcDriver18.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.dm</groupId>
+                <artifactId>DmJdbcDriver18</artifactId>
+                <version>${DmJdbcDriver18.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.dm</groupId>
+            <artifactId>DmJdbcDriver18</artifactId>
+        </dependency>
+    </dependencies>
+</project>
