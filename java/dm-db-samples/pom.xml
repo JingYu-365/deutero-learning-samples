@@ -15,6 +15,7 @@
 
     <properties>
         <DmJdbcDriver18.version>1.8</DmJdbcDriver18.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencyManagement>
@@ -26,6 +27,11 @@
                 <!--<scope>system</scope>-->
                 <!--<systemPath>${project.basedir}/lib/jdbc/DmJdbcDriver18.jar</systemPath>-->
             </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -33,6 +39,11 @@
         <dependency>
             <groupId>com.dm</groupId>
             <artifactId>DmJdbcDriver18</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
