@@ -17,6 +17,7 @@
         <module>netty-nio-samples</module>
         <module>nettyt-uml</module>
         <module>netty-reactor-sample</module>
+        <module>netty-resteasy-sample</module>
     </modules>
 
     <properties>

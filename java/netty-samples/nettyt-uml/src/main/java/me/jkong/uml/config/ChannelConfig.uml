@@ -54,12 +54,10 @@
       <point x="0.0" y="15.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="186.0" y="212.5" />
-  <SelectedNodes>
-    <node>io.netty.channel.DefaultChannelConfig</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="1.0" x="186.0" y="213.0" />
+  <SelectedNodes />
   <Categories />
   <SCOPE>All</SCOPE>
-  <VISIBILITY>private</VISIBILITY>
+  <VISIBILITY>public</VISIBILITY>
 </Diagram>
 
