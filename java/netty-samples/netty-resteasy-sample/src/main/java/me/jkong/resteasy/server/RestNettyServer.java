@@ -1,7 +1,6 @@
 package me.jkong.resteasy.server;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.util.Asserts;
 import org.jboss.resteasy.plugins.server.netty.NettyJaxrsServer;
 import org.jboss.resteasy.spi.ResteasyDeployment;
 
@@ -60,7 +59,9 @@ public class RestNettyServer {
 
 
         // extract controller
-        Asserts.check(!controllers.isEmpty(), "controllers must not empty!");
+        if (controllers.isEmpty()) {
+            throw new IllegalArgumentException("controllers is empty!");
+        }
         deployment.getResources().addAll(controllers);
 
         // extract providers

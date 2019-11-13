@@ -12,7 +12,7 @@ import java.util.Collection;
 /**
  * @author JKong
  * @version v1.0
- * @description TODO
+ * @description 启动类
  * @date 2019/11/11 14:12.
  */
 public class Application {
