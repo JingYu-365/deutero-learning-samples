@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>netty-dubbo-samples</artifactId>
-        <groupId>jkong.me</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>me.jkong.dubbo</groupId>
+        <version>0.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -42,9 +42,9 @@
         </dependency>
 
         <dependency>
-            <groupId>jkong.me</groupId>
             <artifactId>common-interface</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>me.jkong.dubbo</groupId>
+            <version>0.0.1</version>
         </dependency>
     </dependencies>
     <build>

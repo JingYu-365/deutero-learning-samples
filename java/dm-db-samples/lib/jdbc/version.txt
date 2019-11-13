@@ -1,2 +1,0 @@
-server version:V8.1.0.147
-jdbc build date:2019-03-27

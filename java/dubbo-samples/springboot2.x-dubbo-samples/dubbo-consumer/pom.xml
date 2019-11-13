@@ -8,9 +8,9 @@
         <version>2.1.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.jkong</groupId>
+    <groupId>me.jkong.dubbo</groupId>
     <artifactId>dubbo-consumer</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>dubbo-consumer</name>
     <description>Dubbo demo project for Spring Boot</description>
 
@@ -52,8 +52,8 @@
         <!--personal module-->
         <dependency>
             <artifactId>dubbo-common</artifactId>
-            <groupId>com.jkong</groupId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>me.jkong.dubbo</groupId>
+            <version>0.0.1</version>
         </dependency>
     </dependencies>
 

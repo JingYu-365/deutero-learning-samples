@@ -4,10 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>jkong.me</groupId>
+    <parent>
+        <groupId>me.jkong.dubbo</groupId>
+        <artifactId>dubbo-samples</artifactId>
+        <version>0.0.1</version>
+    </parent>
     <artifactId>netty-dubbo-samples</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
     <modules>
         <module>provider-service</module>
         <module>consumer-service</module>
