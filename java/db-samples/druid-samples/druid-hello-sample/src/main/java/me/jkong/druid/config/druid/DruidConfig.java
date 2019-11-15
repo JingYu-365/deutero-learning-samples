@@ -53,6 +53,7 @@ public class DruidConfig {
             try {
                 rs.close();
                 pstmt.close();
+                // Connection.close()只会释放连接到连接池，而不会关闭物理数据库连接。
                 conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();

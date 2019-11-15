@@ -35,11 +35,6 @@ public class DataManipulationLanguageTest {
      * @throws SQLException
      */
     @Test
-    /**
-     * 往产品信息表插入数据
-     *
-     * @throws SQLException 异常
-     */
     public void insertTable() throws SQLException {
         // 插入数据语句
         // 注意点：
@@ -67,6 +62,26 @@ public class DataManipulationLanguageTest {
         pstmt.setString(6, "9787101046123");
         pstmt.setInt(7, 10);
         pstmt.setBigDecimal(8, new BigDecimal(19.0000));
+        // 执行语句
+        pstmt.executeUpdate();
+        // 关闭语句
+        pstmt.close();
+    }
+
+    @Test
+    public void insertTableDefaultField() throws SQLException {
+        // 插入数据语句
+        // 注意点：
+        // 1. 列名使用双引号括起来
+
+        // 违反表[product]唯一性约束
+        String sql = "INSERT INTO \"JKONG_TEST\".\"product23\"(" +
+                "\"pro_name\") " +
+                "VALUES(?);";
+        // 创建语句对象
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        // 为参数赋值
+        pstmt.setString(1, "三国演义");
         // 执行语句
         pstmt.executeUpdate();
         // 关闭语句

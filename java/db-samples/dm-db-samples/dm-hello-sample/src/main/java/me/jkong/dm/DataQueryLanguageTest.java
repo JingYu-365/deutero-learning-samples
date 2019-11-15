@@ -40,7 +40,7 @@ public class DataQueryLanguageTest {
     @Test
     public void queryProduct() throws SQLException {
         // 查询语句
-        String sql = "SELECT * FROM \"JKONG_TEST\".\"product2\"";
+        String sql = "SELECT * FROM \"JKONG_TEST\".\"product23\" WHERE \"system_time\" >= to_date('2019-11-14 17:41:35','YYYY-MM-DD HH24:MI:SS')";
         executeSql(sql);
     }
 

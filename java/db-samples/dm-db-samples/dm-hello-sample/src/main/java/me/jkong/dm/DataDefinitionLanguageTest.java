@@ -91,6 +91,24 @@ public class DataDefinitionLanguageTest {
         System.out.println(OVER);
         statement.close();
     }
+    @Test
+    public void createEmptyTable() throws SQLException {
+        Statement statement = conn.createStatement();
+        // 注意：
+        // 1. 模式名一定全部转为大写
+        // 2. 字段及表名需要使用'\"'括起来
+        String sql = "CREATE TABLE \"JKONG_TEST\".\"product234\" " +
+                "(\"pro_name\" VARCHAR(50) default 'jkong' constraint pro_name_not_null not null,\n" +
+                "\"system_time\" timestamp default CURRENT_TIMESTAMP, " +
+//                "constraint pro_name_unique unique(\"pro_name\"), " +
+//                "constraint system_time_not_null unique(\"system_time\") " +
+                "CONSTRAINT pro_name_unique UNIQUE  ( \"system_time\", \"pro_name\"  ) " +
+                ")";
+        statement.execute(sql);
+
+        System.out.println(OVER);
+        statement.close();
+    }
 
     /**
      * 删除表
@@ -102,7 +120,7 @@ public class DataDefinitionLanguageTest {
         Statement statement = conn.createStatement();
         // 注意表名需要使用'\"'括起来
         // CASCADE：
-        String sql = "DROP TABLE IF EXISTS \"JKONG_TEST\".\"product\" CASCADE";
+        String sql = "DROP TABLE IF EXISTS \"JKONG_TEST\".\"product234\" CASCADE";
         statement.execute(sql);
         System.out.println(OVER);
         statement.close();
@@ -227,7 +245,7 @@ public class DataDefinitionLanguageTest {
     public void alterRenameField() throws SQLException {
         Statement statement = conn.createStatement();
         // 被修改的字段不存在会抛错：列[product_TMP]不存在
-        String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" ALTER COLUMN \"TEST_FIELD\" RENAME TO \"rpoduct_TMP\"";
+        String sql = "ALTER TABLE \"JKONG_TEST\".\"product234\" ALTER COLUMN \"pro_name\" RENAME TO \"pro_name\"";
         statement.execute(sql);
         System.out.println(OVER);
         statement.close();
@@ -247,7 +265,7 @@ public class DataDefinitionLanguageTest {
     public void alterDefaultField() throws SQLException {
         Statement statement = conn.createStatement();
         // 被修改的字段不存在会抛错：列[product_TMP]不存在
-        String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" ALTER COLUMN \"TEST_FIELD\" SET DEFAULT \"1\"";
+        String sql = "ALTER TABLE \"JKONG_TEST\".\"product234\" ALTER COLUMN \"pro_name\" SET DEFAULT '1'";
         // String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" ALTER COLUMN \"TEST_FIELD\" DROP DEFAULT";
         statement.execute(sql);
         System.out.println(OVER);
@@ -268,7 +286,7 @@ public class DataDefinitionLanguageTest {
     public void alterNotNullField() throws SQLException {
         Statement statement = conn.createStatement();
         // 被修改的字段不存在会抛错：列[product_TMP]不存在
-        String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" ALTER COLUMN \"TEST_FIELD\" SET NOT NULL";
+        String sql = "ALTER TABLE \"JKONG_TEST\".\"product234\" ALTER COLUMN \"pro_name\" SET NOT NULL";
         statement.execute(sql);
         System.out.println(OVER);
         statement.close();
@@ -287,7 +305,7 @@ public class DataDefinitionLanguageTest {
     public void modifyField() throws SQLException {
         Statement statement = conn.createStatement();
         // 被修改的字段不存在会抛错：列[product_TMP]不存在
-        String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" MODIFY \"product_TMP\" VARCHAR(200)";
+        String sql = "ALTER TABLE \"JKONG_TEST\".\"product234\" MODIFY \"pro_name\" VARCHAR(200)";
         // String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" MODIFY \"product_TMP\" INTEGER";
         statement.execute(sql);
         System.out.println(OVER);
