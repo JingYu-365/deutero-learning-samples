@@ -6,10 +6,19 @@
 
     <groupId>me.jkong.db</groupId>
     <artifactId>db-samples</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1</version>
 
     <modules>
         <module>dm-db-samples</module>
+        <module>kingbase-db-samples</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.6</version>
+        </dependency>
+    </dependencies>
 </project>

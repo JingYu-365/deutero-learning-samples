@@ -4,10 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * @author JKong
@@ -38,7 +35,8 @@ public class DataDefinitionLanguageTest {
     @Test
     public void createSchema() throws SQLException {
         Statement statement = conn.createStatement();
-        String sql = "CREATE SCHEMA jkong_test AUTHORIZATION SYSDBA;";
+        // dm 数据库统一会将schema转为大写
+        String sql = "CREATE SCHEMA jkong_test123 AUTHORIZATION SYSDBA;";
         statement.execute(sql);
 
         System.out.println(OVER);
@@ -91,6 +89,7 @@ public class DataDefinitionLanguageTest {
         System.out.println(OVER);
         statement.close();
     }
+
     @Test
     public void createEmptyTable() throws SQLException {
         Statement statement = conn.createStatement();
@@ -98,7 +97,7 @@ public class DataDefinitionLanguageTest {
         // 1. 模式名一定全部转为大写
         // 2. 字段及表名需要使用'\"'括起来
         String sql = "CREATE TABLE \"JKONG_TEST\".\"product234\" " +
-                "(\"pro_name\" VARCHAR(50) default 'jkong' constraint pro_name_not_null not null,\n" +
+                "(\"pro_name\" VARCHAR(50) default null null,\n" +
                 "\"system_time\" timestamp default CURRENT_TIMESTAMP, " +
 //                "constraint pro_name_unique unique(\"pro_name\"), " +
 //                "constraint system_time_not_null unique(\"system_time\") " +
@@ -156,7 +155,12 @@ public class DataDefinitionLanguageTest {
     @Test
     public void addField() throws SQLException {
         Statement statement = conn.createStatement();
-        String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" ADD COLUMN \"product_TMP\" VARCHAR(255)";
+        String sql = "ALTER TABLE \"JKONG_TEST\".\"product234\" ADD COLUMN \"product_TMP\" VARCHAR(255)" +
+//                " DEFAULT 'JKONG_TEST' " +
+//                "CONSTRAINT product_TMP_not_null NOT NULL " +
+//                "CONSTRAINT \"product_TMP_pri\" NOT CLUSTER PRIMARY KEY (\"product_TMP\") ";
+//                "CONSTRAINT \"TEST_CONSTRAINT\" UNIQUE (\"product_TMP\")" +
+                "";
 //        String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" DROP COLUMN \"product_TMP\" CASCADE";
         statement.execute(sql);
         System.out.println(OVER);
@@ -265,8 +269,8 @@ public class DataDefinitionLanguageTest {
     public void alterDefaultField() throws SQLException {
         Statement statement = conn.createStatement();
         // 被修改的字段不存在会抛错：列[product_TMP]不存在
-        String sql = "ALTER TABLE \"JKONG_TEST\".\"product234\" ALTER COLUMN \"pro_name\" SET DEFAULT '1'";
-        // String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" ALTER COLUMN \"TEST_FIELD\" DROP DEFAULT";
+        String sql = "ALTER TABLE \"JKONG_TEST\".\"product234\" ALTER COLUMN \"product_TMP\" SET DEFAULT '1'";
+//         String sql = "ALTER TABLE \"JKONG_TEST\".\"product234\" ALTER COLUMN \"product_TMP\" DROP DEFAULT";
         statement.execute(sql);
         System.out.println(OVER);
         statement.close();
@@ -305,8 +309,30 @@ public class DataDefinitionLanguageTest {
     public void modifyField() throws SQLException {
         Statement statement = conn.createStatement();
         // 被修改的字段不存在会抛错：列[product_TMP]不存在
-        String sql = "ALTER TABLE \"JKONG_TEST\".\"product234\" MODIFY \"pro_name\" VARCHAR(200)";
+        String sql = "ALTER TABLE \"JKONG_TEST\".\"product234\" MODIFY \"product_TMP\" VARCHAR(100) default null null ";
         // String sql = "ALTER TABLE \"JKONG_TEST\".\"product\" MODIFY \"product_TMP\" INTEGER";
+        statement.execute(sql);
+        System.out.println(OVER);
+        statement.close();
+    }
+
+    /**
+     * 修改字段定义
+     * <p>
+     * ALTER TABLE [<模式名>.]<表名> <修改表定义子句>
+     * <修改表定义子句> ::=
+     * MODIFY <列定义>|
+     *
+     * @throws SQLException
+     */
+    @Test
+    public void dropField() throws SQLException {
+        String name = "\"JKONG_TEST\".\"product234\"";
+        String column = "\"product_TMP\"";
+        String sql = "ALTER TABLE %s DROP COLUMN %s CASCADE";
+        sql = String.format(sql, name, column);
+        Statement statement = conn.createStatement();
+        // 被修改的字段不存在会抛错：列[product_TMP]不存在
         statement.execute(sql);
         System.out.println(OVER);
         statement.close();
@@ -318,7 +344,7 @@ public class DataDefinitionLanguageTest {
      * <p>
      * CREATE [OR REPLACE] [CLUSTER|NOT PARTIAL][UNIQUE | BITMAP| SPATIAL] INDEX <索引名>
      * ON [<模式名>.]<表名>(<索引列定义>{,<索引列定义>}) [GLOBAL] [<STORAGE 子句>] [NOSORT] [ONLINE];
-     *
+     * <p>
      * 1. UNIQUE    指明该索引为唯一索引；         todo 支持
      * 2. BITMAP    指明该索引为位图索引；
      * 3. SPATIAL   指明该索引为空间索引；
@@ -333,7 +359,7 @@ public class DataDefinitionLanguageTest {
         // String sql = "CREATE INDEX \"pro_name_index\" ON \"JKONG_TEST\".\"product\"(\"pro_name\")";
 
         // 如果索引不存在则创建，如果存在则替还索引
-        String sql = "CREATE OR REPLACE INDEX \"pro_name_index\" ON \"JKONG_TEST\".\"product\"(\"author\")";
+        String sql = "CREATE OR REPLACE INDEX \"pro_name_index\" ON \"JKONG_TEST\".\"product234\"(\"author\")";
         statement.execute(sql);
         System.out.println(OVER);
         statement.close();
@@ -355,7 +381,7 @@ public class DataDefinitionLanguageTest {
     public void updateIndex() throws SQLException {
         Statement statement = conn.createStatement();
         // 如果索引不存在则创建，如果存在则替还索引
-        String sql = "ALTER INDEX \"JKONG_TEST\".\"pro_name_index\" RENAME TO \"author_index\"";
+        String sql = "ALTER INDEX \"JKONG_TEST\".\"pro_name_index\" RENAME TO \"JKONG_TEST\".\"author_index\"";
         statement.execute(sql);
         System.out.println(OVER);
         statement.close();

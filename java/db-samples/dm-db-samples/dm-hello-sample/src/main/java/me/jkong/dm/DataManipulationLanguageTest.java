@@ -132,7 +132,7 @@ public class DataManipulationLanguageTest {
      * @throws SQLException sql ex
      */
     @Test
-    public void dropField() throws SQLException {
+    public void truncateTable() throws SQLException {
         Statement statement = conn.createStatement();
         String sql = "TRUNCATE TABLE \"JKONG_TEST\".\"product\"";
         statement.execute(sql);

@@ -14,7 +14,6 @@
 
     <modules>
         <module>dm-hello-sample</module>
-        <module>dm-utils-sample</module>
     </modules>
 
     <properties>
@@ -47,7 +46,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
