@@ -44,7 +44,7 @@ public class DataManipulationLanguageTest {
     @Order(1)
     public void insertData() throws SQLException {
         String sql = "INSERT INTO JKONG_TEST.products(product_id,product_name,author,publisher,publishtime,product_subcategoryid,productno,satetystocklevel,originalprice) " +
-                "VALUES(1,'三国演义','罗贯中','中华书局','2005-04-01',4,'9787101046123',10,19.0000);";
+                "VALUES(1,'三国演义1','罗贯中','中华书局','2005-04-01',4,'9787101046123',10,19.0000),(2,'三国演义2','罗贯中','中华书局','2005-04-01',4,'9787101046123',10,19.0000);";
         statement.executeUpdate(sql);
     }
 

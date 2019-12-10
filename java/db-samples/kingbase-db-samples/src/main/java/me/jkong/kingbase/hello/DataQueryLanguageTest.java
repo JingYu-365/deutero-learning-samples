@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * @author JKong
  * @version v1.0
- * @description TODO
+ * @description DQL
  * @date 2019/12/3 11:52.
  */
 public class DataQueryLanguageTest {
@@ -72,6 +72,7 @@ public class DataQueryLanguageTest {
             resultList.add(resultMap);
         }
         System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(resultList));
+        assert resultList.size() == 1;
     }
 
     private Map<String,String> initFieldsMap() {
