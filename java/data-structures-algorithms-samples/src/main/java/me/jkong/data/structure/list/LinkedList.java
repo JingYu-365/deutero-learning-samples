@@ -81,7 +81,7 @@ public class LinkedList<E> {
             throw new IllegalArgumentException("Get failed. Index is illegal.");
         }
         
-        Node cur = dummyHead.next;
+        Node<E> cur = dummyHead.next;
         for (int i = 0; i < index; i++) {
             cur = cur.next;
         }
@@ -117,7 +117,7 @@ public class LinkedList<E> {
         if (index < 0 || index > size) {
             throw new IllegalArgumentException("Get failed. Index is illegal.");
         }
-        Node cur = dummyHead.next;
+        Node<E> cur = dummyHead.next;
         for (int i = 0; i < index; i++) {
             cur = cur.next;
         }
@@ -154,12 +154,12 @@ public class LinkedList<E> {
             throw new IllegalArgumentException("Get failed. Index is illegal.");
         }
         
-        Node pre = dummyHead;
+        Node<E> pre = dummyHead;
         for (int i = 0; i < index; i++) {
             pre = pre.next;
         }
         
-        Node ret = pre.next;
+        Node<E> ret = pre.next;
         pre.next = ret.next;
         ret.next = null;
         size--;
@@ -198,7 +198,7 @@ public class LinkedList<E> {
         return sb.toString();
     }
     
-    private class Node {
+    private class Node<E> {
         public E e;
         public Node next;
         
