@@ -10,17 +10,17 @@ import java.util.Objects;
  */
 public class LinkedList<E> {
     
-    private Node dummyHead;
+    private Node<E> dummyHead;
     private int size;
     
     public LinkedList(E e) {
         this();
-        dummyHead.next = new Node(e);
+        dummyHead.next = new Node<E>(e);
         size++;
     }
     
     public LinkedList() {
-        dummyHead = new Node(null);
+        dummyHead = new Node<E>(null);
         size = 0;
     }
     
@@ -44,11 +44,11 @@ public class LinkedList<E> {
             throw new IllegalArgumentException("Add failed. Index is illegal.");
         }
         
-        Node prev = dummyHead;
+        Node<E> prev = dummyHead;
         for (int i = 0; i < index; i++) {
             prev = prev.next;
         }
-        prev.next = new Node(e, prev.next);
+        prev.next = new Node<E>(e, prev.next);
         size++;
     }
     
@@ -133,7 +133,7 @@ public class LinkedList<E> {
      * @return true：存在，false：不存在
      */
     public boolean contains(E e) {
-        Node cur = dummyHead.next;
+        Node<E> cur = dummyHead.next;
         while (cur != null) {
             if (Objects.equals(cur.e, e)) {
                 return true;
@@ -184,6 +184,27 @@ public class LinkedList<E> {
         return remove(size - 1);
     }
     
+    /**
+     * 删除指定元素
+     * @param e 元素
+     */
+    public void removeElement(E e) {
+        if (dummyHead == null) {
+            throw new IllegalArgumentException("RemoveElement failed, element is empty.");
+        }
+        
+        Node<E> prev = dummyHead.next;
+        while (prev.next != null) {
+            if (Objects.equals(e, prev.next.e)) {
+                Node<E> delNode = prev.next.next;
+                prev.next = delNode.next;
+                delNode.next = null;
+                return;
+            }
+            prev = prev.next;
+        }
+    }
+    
     public void reverse() {
         // todo
     }
@@ -191,7 +212,7 @@ public class LinkedList<E> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Node cur = dummyHead.next; cur != null; cur = cur.next) {
+        for (Node<E> cur = dummyHead.next; cur != null; cur = cur.next) {
             sb.append(cur.e != null ? cur : null).append(" -> ");
         }
         sb.append("NULL");
@@ -200,9 +221,9 @@ public class LinkedList<E> {
     
     private class Node<E> {
         public E e;
-        public Node next;
+        public Node<E> next;
         
-        public Node(E e, Node next) {
+        public Node(E e, Node<E> next) {
             this.e = e;
             this.next = next;
         }
