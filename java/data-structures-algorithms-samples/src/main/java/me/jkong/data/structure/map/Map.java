@@ -62,5 +62,5 @@ public interface Map<K, V> {
      *
      * @return 元素数量
      */
-    int size();
+    int getSize();
 }
