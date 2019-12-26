@@ -22,7 +22,7 @@ public interface Map<K, V> {
      * @param key key
      * @return 原数据
      */
-    V remove(K key);
+    void remove(K key);
     
     
     /**

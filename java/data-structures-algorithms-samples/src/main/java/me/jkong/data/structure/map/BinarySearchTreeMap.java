@@ -1,9 +1,5 @@
 package me.jkong.data.structure.map;
 
-import me.jkong.data.structure.tree.BinarySearchTree;
-
-import java.util.Timer;
-
 /**
  * @author JKong
  * @version v1.0
@@ -42,9 +38,8 @@ public class BinarySearchTreeMap<K extends Comparable<K>, V> implements Map<K, V
     }
 
     @Override
-    public V remove(K key) {
-
-        return null;
+    public void remove(K key) {
+        root = remove(root, key);
     }
 
     private Node<K, V> remove(Node<K, V> node, K key) {

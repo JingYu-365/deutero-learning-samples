@@ -40,7 +40,7 @@ public class LinkedListMap<K, V> implements Map<K, V> {
     }
     
     @Override
-    public V remove(K k) {
+    public void remove(K k) {
         
         Node<K, V> prev = dummyNode;
         while (prev.next != null) {
@@ -49,12 +49,10 @@ public class LinkedListMap<K, V> implements Map<K, V> {
                 prev.next = delNode.next;
                 prev.next = null;
                 size--;
-                return prev.value;
             } else {
                 prev = prev.next;
             }
         }
-        return null;
     }
     
     @Override
@@ -129,7 +127,7 @@ public class LinkedListMap<K, V> implements Map<K, V> {
         }
         System.out.println(map.getSize());
         System.out.println(map.get("this"));
-        
+
         map.remove("this");
         System.out.println(map.get("this"));
     }
