@@ -11,44 +11,44 @@ public interface Map<K, V> {
     /**
      * 添加元素
      *
-     * @param k key
-     * @param v value
+     * @param key key
+     * @param value value
      */
-    void put(K k, V v);
+    void put(K key, V value);
     
     /**
      * 移除元素
      *
-     * @param k key
+     * @param key key
      * @return 原数据
      */
-    V remove(K k);
+    V remove(K key);
     
     
     /**
      * 是否包含指定元素
      *
-     * @param k key
+     * @param key key
      * @return true：存在，false：不存在
      */
-    boolean contains(K k);
+    boolean contains(K key);
     
     /**
      * 根据key获取值
      *
-     * @param k key
+     * @param key key
      * @return value
      */
-    V get(K k);
+    V get(K key);
     
     /**
      * 添加元素
      *
-     * @param k key
-     * @param v value
+     * @param key key
+     * @param value value
      * @return 原数据
      */
-    V set(K k, V v);
+    V set(K key, V value);
     
     /**
      * 是否为空
