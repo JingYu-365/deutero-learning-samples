@@ -52,7 +52,7 @@ public class DataQueryLanguageTest {
 
         Map<String, String> fieldsMap = initFieldsMap();
 
-        String sql = "SELECT * FROM JKONG_TEST.products WHERE PRODUCT_ID = 2";
+        String sql = "SELECT product_id,product_name,author,publisher,publishtime FROM JKONG_TEST.products WHERE PRODUCT_ID = 2";
         ResultSet resultSet = statement.executeQuery(sql);
 
         KbResultSetMetaData metaData = (KbResultSetMetaData) resultSet.getMetaData();
@@ -76,7 +76,7 @@ public class DataQueryLanguageTest {
     }
 
     private Map<String,String> initFieldsMap() {
-        String[] split = "product_id,product_name,author,publisher,publishtime,product_subcategoryid,productno,satetystocklevel,originalprice".split(",");
+        String[] split = "product_id,product_name,author,publisher,publishtime,default_time,product_subcategoryid,productno,satetystocklevel,originalprice".split(",");
 
         Map<String,String> fields = new HashMap<>(16);
         for (String filed : split) {

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="26.0" y="-107.0">io.netty.channel.ChannelFuture</node>
+    <node x="49.0" y="-267.0">java.util.concurrent.Future</node>
+    <node x="49.0" y="-187.0">io.netty.util.concurrent.Future</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="io.netty.channel.ChannelFuture" target="io.netty.util.concurrent.Future">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="io.netty.util.concurrent.Future" target="java.util.concurrent.Future">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="156.0" y="0.0" />
+  <SelectedNodes>
+    <node>java.util.concurrent.Future</node>
+    <node>io.netty.util.concurrent.Future</node>
+    <node>io.netty.channel.ChannelFuture</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

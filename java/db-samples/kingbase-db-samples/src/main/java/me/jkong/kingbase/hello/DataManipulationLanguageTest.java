@@ -64,7 +64,13 @@ public class DataManipulationLanguageTest {
         statement.executeUpdate(sql);
     }
 
-
+    @Test
+    @Order(4)
+    @Disabled
+    public void truncateData() throws SQLException {
+        String sql = "TRUNCATE TABLE JKONG_test.products";
+        statement.execute(sql);
+    }
 
     /*
     - 新增数据

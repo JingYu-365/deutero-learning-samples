@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author JKong
  * @version v1.0
- * @description TODO
+ * @description HeartBeatServerInitializer
  * @date 2019/10/21 12:54.
  */
 public class HeartBeatServerInitializer extends ChannelInitializer<SocketChannel> {
@@ -20,6 +20,6 @@ public class HeartBeatServerInitializer extends ChannelInitializer<SocketChannel
         ch.pipeline().addLast(new IdleStateHandler(5,6,7, TimeUnit.SECONDS))
                 .addLast(new StringDecoder())
                 .addLast(new StringEncoder())
-                .addLast(new HeartBeatHandler());
+                .addLast(new HeartBeatServerHandler());
     }
 }

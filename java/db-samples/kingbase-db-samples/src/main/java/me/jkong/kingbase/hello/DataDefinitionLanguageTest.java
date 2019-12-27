@@ -81,6 +81,7 @@ public class DataDefinitionLanguageTest {
                 "author VARCHAR(50)," +
                 "publisher VARCHAR(50)," +
                 "publishtime timestamp(6)," +
+                "default_time timestamp default current_timestamp," +
                 "product_subcategoryid integer ," +
                 "productno VARCHAR(50)," +
                 "satetystocklevel integer ," +
@@ -112,7 +113,7 @@ public class DataDefinitionLanguageTest {
     @Test
     @Disabled
     public void dropTableTest() throws SQLException {
-        String sql = "DROP table JKong_test.products";
+        String sql = "DROP TABLE IF EXISTS JKong_test.products CASCADE";
         statement.execute(sql);
     }
 
@@ -169,7 +170,7 @@ public class DataDefinitionLanguageTest {
 
     /**
      * 修改字段类型
-     *
+     * todo 不支持modify
      * @throws SQLException
      */
     @Test
@@ -288,21 +289,35 @@ public class DataDefinitionLanguageTest {
 
     @Test
     @Order(15)
-    public void addIndexForTable() throws SQLException {
-//        String sql = "CREATE INDEX field_index_name ON JKong_test.products (product_name)";
-        String sql = "CREATE UNIQUE INDEX field_index_name ON JKong_test.products (product_name)";
-        statement.execute(sql);
+    public void updatePrimaryKeyField() throws SQLException {
+        String sql1 = "ALTER TABLE JKong_test.products DROP CONSTRAINT field_primary_key_name";
+        statement.addBatch(sql1);
+        String sql2 = "ALTER TABLE JKong_test.products ADD CONSTRAINT field_primary_key_name PRIMARY KEY (product_id,product_name)";
+        statement.addBatch(sql2);
+        int[] ints = statement.executeBatch();
+        for (int i = 0; i < ints.length; i++) {
+            int anInt = ints[i];
+            System.out.println(anInt);
+        }
     }
 
     @Test
     @Order(16)
+    public void addIndexForTable() throws SQLException {
+        String sql = "CREATE INDEX field_index_name ON JKong_test.products (product_name)";
+//        String sql = "CREATE UNIQUE INDEX field_index_name ON JKong_test.products (product_name)";
+        statement.execute(sql);
+    }
+
+    @Test
+    @Order(17)
     public void updateIndex() throws SQLException {
         String sql = "ALTER INDEX JKong_test.field_index_name RENAME TO field_index_name_tmp";
         statement.execute(sql);
     }
 
     @Test
-    @Order(17)
+    @Order(18)
     @Disabled
     public void dropIndexFromTable() throws SQLException {
         String sql = "DROP INDEX JKong_test.field_index_name_tmp";

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-69.75" y="-95.0">io.netty.util.concurrent.EventExecutorChooserFactory.EventExecutorChooser</node>
+    <node x="-223.62499999999997" y="-175.0">io.netty.util.concurrent.EventExecutorChooserFactory</node>
+    <node x="-377.0" y="-95.0">io.netty.util.concurrent.DefaultEventExecutorChooserFactory</node>
+    <node x="-125.24999999999997" y="-15.0">io.netty.util.concurrent.DefaultEventExecutorChooserFactory.PowerOfTwoEventExecutorChooser</node>
+    <node x="-367.25" y="-15.0">io.netty.util.concurrent.DefaultEventExecutorChooserFactory.GenericEventExecutorChooser</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="io.netty.util.concurrent.DefaultEventExecutorChooserFactory.GenericEventExecutorChooser" target="io.netty.util.concurrent.EventExecutorChooserFactory.EventExecutorChooser">
+      <point x="55.5" y="-15.0" />
+      <point x="-200.75" y="-35.0" />
+      <point x="-25.25" y="-35.0" />
+      <point x="-44.5" y="15.0" />
+    </edge>
+    <edge source="io.netty.util.concurrent.DefaultEventExecutorChooserFactory.PowerOfTwoEventExecutorChooser" target="io.netty.util.concurrent.EventExecutorChooserFactory.EventExecutorChooser">
+      <point x="63.0" y="-15.0" />
+      <point x="44.5" y="15.0" />
+    </edge>
+    <edge source="io.netty.util.concurrent.DefaultEventExecutorChooserFactory.GenericEventExecutorChooser" target="io.netty.util.concurrent.DefaultEventExecutorChooserFactory">
+      <point x="-55.5" y="-15.0" />
+      <point x="-65.25" y="15.0" />
+    </edge>
+    <edge source="io.netty.util.concurrent.DefaultEventExecutorChooserFactory.PowerOfTwoEventExecutorChooser" target="io.netty.util.concurrent.DefaultEventExecutorChooserFactory">
+      <point x="-63.0" y="-15.0" />
+      <point x="-62.25" y="-45.0" />
+      <point x="-181.25" y="-45.0" />
+      <point x="65.25" y="15.0" />
+    </edge>
+    <edge source="io.netty.util.concurrent.DefaultEventExecutorChooserFactory" target="io.netty.util.concurrent.EventExecutorChooserFactory">
+      <point x="0.0" y="-15.0" />
+      <point x="-246.5" y="-120.0" />
+      <point x="-168.62499999999997" y="-120.0" />
+      <point x="-55.0" y="15.0" />
+    </edge>
+    <edge source="io.netty.util.concurrent.EventExecutorChooserFactory.EventExecutorChooser" target="io.netty.util.concurrent.EventExecutorChooserFactory">
+      <point x="0.0" y="-15.0" />
+      <point x="19.25" y="-120.0" />
+      <point x="-58.625" y="-120.0" />
+      <point x="55.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="0.0" />
+  <SelectedNodes>
+    <node>io.netty.util.concurrent.EventExecutorChooserFactory.EventExecutorChooser</node>
+    <node>io.netty.util.concurrent.EventExecutorChooserFactory</node>
+    <node>io.netty.util.concurrent.DefaultEventExecutorChooserFactory.PowerOfTwoEventExecutorChooser</node>
+    <node>io.netty.util.concurrent.DefaultEventExecutorChooserFactory.GenericEventExecutorChooser</node>
+    <node>io.netty.util.concurrent.DefaultEventExecutorChooserFactory</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

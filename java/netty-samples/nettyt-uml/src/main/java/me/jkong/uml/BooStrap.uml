@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="436.0">io.netty.bootstrap.ServerBootstrap.ServerBootstrapAcceptor</node>
+    <node x="370.0" y="229.5">io.netty.bootstrap.Bootstrap</node>
+    <node x="384.0" y="0.0">io.netty.bootstrap.AbstractBootstrap</node>
+    <node x="5.0" y="218.0">io.netty.bootstrap.ServerBootstrap</node>
+    <node x="749.0" y="275.5">io.netty.bootstrap.AbstractBootstrap.PendingRegistrationPromise</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="io.netty.bootstrap.ServerBootstrap" target="io.netty.bootstrap.AbstractBootstrap">
+      <point x="0.0" y="-84.0" />
+      <point x="177.5" y="193.0" />
+      <point x="439.1666666666667" y="193.0" />
+      <point x="-110.33333333333331" y="84.0" />
+    </edge>
+    <edge source="io.netty.bootstrap.ServerBootstrap.ServerBootstrapAcceptor" target="io.netty.bootstrap.ServerBootstrap">
+      <point x="0.0" y="-72.5" />
+      <point x="0.0" y="84.0" />
+    </edge>
+    <edge source="io.netty.bootstrap.AbstractBootstrap.PendingRegistrationPromise" target="io.netty.bootstrap.AbstractBootstrap">
+      <point x="0.0" y="-26.5" />
+      <point x="855.0" y="193.0" />
+      <point x="659.8333333333333" y="193.0" />
+      <point x="110.33333333333326" y="84.0" />
+    </edge>
+    <edge source="io.netty.bootstrap.Bootstrap" target="io.netty.bootstrap.AbstractBootstrap">
+      <point x="0.0" y="-72.5" />
+      <point x="0.0" y="84.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="263.5" y="95.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
