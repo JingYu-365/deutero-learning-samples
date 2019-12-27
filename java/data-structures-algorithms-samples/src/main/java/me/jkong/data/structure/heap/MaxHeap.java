@@ -56,9 +56,9 @@ public class MaxHeap<E extends Comparable<E>> {
      */
     public int parent(int index) {
         if (index == 0) {
-            throw new IllegalArgumentException("index-0 doesn't have parent");
+            throw new IllegalArgumentException("Index-0 doesn't have parent");
         }
-        return (index - 1) >> 2;
+        return (index - 1) >> 1;
     }
 
     /**
@@ -68,7 +68,7 @@ public class MaxHeap<E extends Comparable<E>> {
      * @return 左孩子节点下标
      */
     public int leftChild(int index) {
-        return (index + 1) << 2 - 1;
+        return rightChild(index) - 1;
     }
 
     /**
@@ -78,7 +78,7 @@ public class MaxHeap<E extends Comparable<E>> {
      * @return 右孩子节点下标
      */
     public int rightChild(int index) {
-        return (index + 1) << 2;
+        return (index + 1) << 1;
     }
 
     /**
@@ -103,5 +103,20 @@ public class MaxHeap<E extends Comparable<E>> {
             this.data.swap(parent(i), i);
             i = parent(i);
         }
+    }
+
+
+    public static void main(String[] args) {
+
+        MaxHeap<Integer> maxHeap = new MaxHeap<>();
+
+        System.out.println(maxHeap.parent(5));
+        System.out.println(maxHeap.leftChild(2));
+        System.out.println(maxHeap.rightChild(2));
+
+        System.out.println(maxHeap.parent(2));
+        System.out.println(maxHeap.leftChild(0));
+        System.out.println(maxHeap.rightChild(0));
+
     }
 }
