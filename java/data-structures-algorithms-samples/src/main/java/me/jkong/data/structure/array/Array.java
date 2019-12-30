@@ -186,8 +186,8 @@ public class Array<E> {
         }
         
         E ret = data[index];
-        if (size - index + 1 >= 0) {
-            System.arraycopy(data, index + 1, data, index, size - index + 1);
+        for (int i = index + 1; i < getSize(); i++) {
+            data[i-1] = data[i];
         }
         size--;
         
@@ -252,5 +252,12 @@ public class Array<E> {
         }
         arrStringBuilder.append("]");
         return arrStringBuilder.toString();
+    }
+    
+    public static void main(String[] args) {
+        Array<Integer> array = new Array<>();
+        array.addLast(1);
+        array.removeLast();
+        System.out.println(array.toString());
     }
 }

@@ -2,6 +2,8 @@ package me.jkong.data.structure.heap;
 
 import me.jkong.data.structure.array.Array;
 
+import java.util.Random;
+
 /**
  * @author JKong
  * @version v1.0
@@ -19,17 +21,17 @@ import me.jkong.data.structure.array.Array;
  * 其中：i为元素在数组中的下标。
  */
 public class MaxHeap<E extends Comparable<E>> {
-
+    
     private Array<E> data;
-
+    
     public MaxHeap(int capacity) {
         this.data = new Array<>(capacity);
     }
-
+    
     public MaxHeap() {
         this.data = new Array<>();
     }
-
+    
     /**
      * 返回堆中元素数量
      *
@@ -38,7 +40,7 @@ public class MaxHeap<E extends Comparable<E>> {
     public int getSize() {
         return this.data.getSize();
     }
-
+    
     /**
      * 当前堆是否为空
      *
@@ -47,7 +49,7 @@ public class MaxHeap<E extends Comparable<E>> {
     public boolean isEmpty() {
         return this.data.isEmpty();
     }
-
+    
     /**
      * 获取父节点下标
      *
@@ -60,7 +62,7 @@ public class MaxHeap<E extends Comparable<E>> {
         }
         return (index - 1) >> 1;
     }
-
+    
     /**
      * 获取当前节点左孩子节点下标
      *
@@ -70,7 +72,7 @@ public class MaxHeap<E extends Comparable<E>> {
     public int leftChild(int index) {
         return rightChild(index) - 1;
     }
-
+    
     /**
      * 获取当前节点右孩子节点下标
      *
@@ -80,7 +82,7 @@ public class MaxHeap<E extends Comparable<E>> {
     public int rightChild(int index) {
         return (index + 1) << 1;
     }
-
+    
     /**
      * 向堆中添加元素
      * 1. 将元素添加到堆中
@@ -92,7 +94,7 @@ public class MaxHeap<E extends Comparable<E>> {
         this.data.addLast(e);
         siftUp(data.getSize() - 1);
     }
-
+    
     /**
      * 判断添加的元素与其父节点是否满足父节点大于所有自己节点的条件，如果不满则进行交换。
      *
@@ -104,19 +106,86 @@ public class MaxHeap<E extends Comparable<E>> {
             i = parent(i);
         }
     }
-
-
+    
+    public E extractMax() {
+        E ret = findMax();
+        // 将最后一个元素替换第0个元素，然后再将最后一个元素置空
+        data.swap(0, getSize() - 1);
+        data.removeLast();
+        // 将第0个元素下沉，以满足最大堆的规则（任何节点都小于其父节点）
+        siftDown(0);
+        return ret;
+    }
+    
+    /**
+     * 将制定元素进行下沉
+     *
+     * @param k 数据下标
+     */
+    private void siftDown(int k) {
+        
+        while (leftChild(k) < getSize()) {
+            int j = leftChild(k);
+            if (rightChild(k) < getSize() &&
+                    data.get(leftChild(k)).compareTo(data.get(rightChild(k))) < 0) {
+                j = rightChild(k);
+            }
+            // data[j] 为 leftChild 和 rightChild 中的最大值
+            if (data.get(k).compareTo(data.get(j)) >= 0) {
+                // 如果data[k]大于data[j]则说明不在需要继续下沉
+                break;
+            }
+            // 与最大子节点交换位置，实现下沉
+            data.swap(k, j);
+            // 赋值，继续下沉
+            k = j;
+        }
+        
+    }
+    
+    /**
+     * 查询最大值
+     *
+     * @return 最大值
+     */
+    public E findMax() {
+        if (getSize() == 0) {
+            throw new IllegalArgumentException("Cannot findMax from empty Heap.");
+        }
+        return data.get(0);
+    }
+    
+    
     public static void main(String[] args) {
-
+        
         MaxHeap<Integer> maxHeap = new MaxHeap<>();
 
-        System.out.println(maxHeap.parent(5));
-        System.out.println(maxHeap.leftChild(2));
-        System.out.println(maxHeap.rightChild(2));
-
-        System.out.println(maxHeap.parent(2));
-        System.out.println(maxHeap.leftChild(0));
-        System.out.println(maxHeap.rightChild(0));
-
+//        System.out.println(maxHeap.parent(5));
+//        System.out.println(maxHeap.leftChild(2));
+//        System.out.println(maxHeap.rightChild(2));
+//
+//        System.out.println(maxHeap.parent(2));
+//        System.out.println(maxHeap.leftChild(0));
+//        System.out.println(maxHeap.rightChild(0));
+        
+        
+        int n = 100000;
+        Random random = new Random();
+        for (int i = 0; i < n; i++) {
+            maxHeap.add(random.nextInt(Integer.MAX_VALUE));
+        }
+        
+        int[] data = new int[n];
+        for (int i = 0; i < data.length; i++) {
+            data[i] = maxHeap.extractMax();
+        }
+        
+        for (int i = 0; i < data.length - 1; i++) {
+            if (data[i] < data[i + 1]) {
+                throw new IllegalArgumentException("Error");
+            }
+        }
+        
+        System.out.println("test is completed.");
     }
 }

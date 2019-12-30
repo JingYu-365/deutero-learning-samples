@@ -1,5 +1,7 @@
 package me.jkong.data.structure.queue;
 
+import me.jkong.data.structure.heap.MaxHeap;
+
 /**
  * @author JKong
  * @version v1.0
@@ -10,29 +12,36 @@ package me.jkong.data.structure.queue;
  * 顺序线性结构   O(n)            O(1)
  * 堆           O(logn)         O(logn)
  */
-public class PriorityQueue<E> implements Queue<E> {
+public class PriorityQueue<E extends Comparable<E>> implements Queue<E> {
+    
+    private MaxHeap<E> data;
+    
+    public PriorityQueue() {
+        data = new MaxHeap<>();
+    }
+    
     @Override
     public void enqueue(E e) {
-    
+        data.add(e);
     }
     
     @Override
     public E dequeue() {
-        return null;
+        return data.extractMax();
     }
     
     @Override
     public E getFront() {
-        return null;
+        return data.findMax();
     }
     
     @Override
     public int getSize() {
-        return 0;
+        return data.getSize();
     }
     
     @Override
     public boolean isEmpty() {
-        return false;
+        return data.isEmpty();
     }
 }
