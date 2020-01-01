@@ -1,15 +1,17 @@
 package me.jkong.data.structure.tree;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
-import javax.management.Query;
-import java.util.function.LongFunction;
-
 /**
  * @author JKong
  * @version v1.0
  * @description 线段树
  * @date 2019/12/30 3:05 下午.
+ * <p>
+ * 二维线段树
+ * 多维线段树
+ * 动态线段树
+ * 树状数组（Binary Index Tree）
+ * <p>
+ * RMQ问题（Range Minimum Query）
  */
 public class SegmentTree<E> {
     
@@ -143,6 +145,56 @@ public class SegmentTree<E> {
         return merger.merge(leftQueryResult, rightQueryResult);
     }
     
+    /**
+     * 更新
+     *
+     * @param index 下标
+     * @param e     元素
+     * @return 原数据值
+     */
+    public E set(int index, E e) {
+        if (index < 0 || index > getSize() - 1) {
+            throw new IllegalArgumentException("Index is illegal.");
+        }
+        E ret = data[index];
+        data[index] = e;
+        set(0, 0, getSize() - 1, index, e);
+        return ret;
+    }
+    
+    private void set(int treeIndex, int l, int r, int index, E e) {
+        // 递归终止条件
+        if (l == r) {
+            tree[treeIndex] = e;
+            return;
+        }
+        
+        // 继续递归
+        int mid = l + (r - l) / 2;
+        int leftTreeIndex = leftChild(index);
+        int rightTreeIndex = rightChild(index);
+        
+        if (index >= mid + 1) {
+            set(rightTreeIndex, mid + 1, r, index, e);
+        } else {    // index <= mid
+            set(leftTreeIndex, l, mid, index, e);
+        }
+        
+        tree[treeIndex] = merger.merge(tree[leftTreeIndex], tree[rightTreeIndex]);
+        
+    }
+    
+    /**
+     * 区间范围内所有元素更新（采用懒惰更新思维）
+     * 借助lazy数组记录未更新的内容，然后下次对元素操作时先判断在lazy中时否有待更新的数据。
+     *
+     * @param leftIndex  区间的左边界
+     * @param rightIndex 区间的右边界
+     * @param e          元素
+     */
+    public void batchSet(int leftIndex, int rightIndex, E e) {
+    
+    }
     
     @Override
     public String toString() {
@@ -162,6 +214,7 @@ public class SegmentTree<E> {
         res.append(']');
         return res.toString();
     }
+    
     
     public static void main(String[] args) {
         Integer[] nums = new Integer[]{-2, 0, 3, -5, 2, -1};
