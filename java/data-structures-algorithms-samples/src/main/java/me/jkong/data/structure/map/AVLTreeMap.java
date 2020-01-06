@@ -41,6 +41,21 @@ public class AVLTreeMap<K extends Comparable<K>, V> implements Map<K, V> {
             node.value = value;
         }
         
+        return reBalanced(node);
+    }
+    
+    /**
+     * 平衡树结构
+     *
+     * @param node 节点
+     * @return 平衡后的节点
+     */
+    private Node<K, V> reBalanced(Node<K, V> node) {
+    
+        if (node == null) {
+            return null;
+        }
+        
         // 更新高度
         node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
         
@@ -67,7 +82,6 @@ public class AVLTreeMap<K extends Comparable<K>, V> implements Map<K, V> {
                 return leftRotate(node);
             }
         }
-        
         return node;
     }
     
@@ -137,34 +151,36 @@ public class AVLTreeMap<K extends Comparable<K>, V> implements Map<K, V> {
             return null;
         }
         
+        Node<K, V> retNode;
         if (key.compareTo(node.key) < 0) {
             node.left = remove(node.left, key);
-            return node;
+            retNode = node;
         } else if (key.compareTo(node.key) > 0) {
             node.right = remove(node.right, key);
-            return node;
+            retNode = node;
         } else { // e == node.e
             if (node.right == null) {
                 // 只有左子树
                 Node<K, V> leftNode = node.left;
                 node.left = null;
                 size--;
-                return leftNode;
+                retNode = leftNode;
             } else if (node.left == null) {
                 // 只有右子树
                 Node<K, V> rightNode = node.right;
                 node.right = null;
                 size--;
-                return rightNode;
+                retNode = rightNode;
             } else {
                 // 双子节点 -> 将右子树的最小节点 替换 此节点
                 Node<K, V> successor = minimum(node.right);
-                successor.right = removeMin(node.right);
+                successor.right = remove(node.right, successor.key);
                 successor.left = node.left;
                 node.left = node.right = null;
-                return successor;
+                retNode = successor;
             }
         }
+        return reBalanced(retNode);
     }
     
     /**
@@ -174,17 +190,10 @@ public class AVLTreeMap<K extends Comparable<K>, V> implements Map<K, V> {
      * @return 最小节点
      */
     public Node<K, V> minimum(Node<K, V> node) {
-        if (node == null) {
-            return null;
+        if(node.left == null) {
+            return node;
         }
-        
-        Node<K, V> leftNode = node.left;
-        while (node.left != null) {
-            leftNode = node.left;
-            node = node.left;
-        }
-        
-        return leftNode;
+        return minimum(node.left);
     }
     
     /**
@@ -194,17 +203,10 @@ public class AVLTreeMap<K extends Comparable<K>, V> implements Map<K, V> {
      * @return 最大节点
      */
     public Node<K, V> maximum(Node<K, V> node) {
-        if (node == null) {
-            return null;
+        if(node.right == null) {
+            return node;
         }
-        
-        Node<K, V> rightNode = node.right;
-        while (node.right != null) {
-            rightNode = node.right;
-            node = node.right;
-        }
-        
-        return rightNode;
+        return maximum(node.right);
     }
     
     /**
@@ -228,8 +230,8 @@ public class AVLTreeMap<K extends Comparable<K>, V> implements Map<K, V> {
             size--;
             return rightNode;
         }
-        node.left = removeMax(node.left);
-        return node;
+        node.left = removeMin(node.left);
+        return reBalanced(node);
     }
     
     /**
@@ -254,7 +256,7 @@ public class AVLTreeMap<K extends Comparable<K>, V> implements Map<K, V> {
             return leftNode;
         }
         node.right = removeMax(node.right);
-        return node;
+        return reBalanced(node);
     }
     
     @Override
@@ -428,6 +430,14 @@ public class AVLTreeMap<K extends Comparable<K>, V> implements Map<K, V> {
             
             System.out.println("is BST : " + map.isBinarySearchTree());
             System.out.println("is Balanced : " + map.isBalanced());
+            
+            for (String word : words) {
+                map.remove(word);
+                if (!map.isBinarySearchTree() || !map.isBalanced()) {
+                    throw new IllegalArgumentException("Error");
+                }
+            }
+            System.out.println("success!");
         }
         
         System.out.println();
