@@ -3,23 +3,24 @@ package me.jkong.data.structure.union;
 /**
  * @author JKong
  * @version v1.0
- * @description 使用树结构实现并查集 实现size优化
+ * @description 使用树结构实现并查集 实现rank优化 路径压缩
  * @date 2020/1/3 7:08 上午.
  */
-public class QuickUnionFind2 implements UnionFind {
+public class QuickUnionFindPathCompression implements UnionFind {
     
     private int[] parent;
     /**
-     * 存放每个节点的元素个数
+     * rank[i] 表示已i为根的集合所表示的树的层数,
+     * 由于路径压缩的存在，所以rank[i]已经不能实际体现每个节点真实的层高，只是大概代表谁高谁低。
      */
-    private int[] sz;
+    private int[] rank;
     
-    public QuickUnionFind2(int size) {
+    public QuickUnionFindPathCompression(int size) {
         parent = new int[size];
-        sz = new int[size];
+        rank = new int[size];
         for (int i = 0; i < parent.length; i++) {
             parent[i] = i;
-            sz[i] = 1;
+            rank[i] = 1;
         }
     }
     
@@ -40,6 +41,9 @@ public class QuickUnionFind2 implements UnionFind {
         }
         
         while (p != parent[p]) {
+            if (parent[p] != parent[parent[p]]) {
+                parent[p] = parent[parent[p]];
+            }
             p = parent[p];
         }
         return p;
@@ -54,14 +58,16 @@ public class QuickUnionFind2 implements UnionFind {
             return;
         }
         
-        // 根据两个元素所在树的元素个数不同判断合并方向
-        // 将元素少的集合合并到元素多的集合上
-        if (sz[pRoot] < sz[qRoot]) {
+        // 根据两个元素所在树的 rank 不同判断合并方向
+        // 将 rank 低的集合合并到 rank 高的集合上
+        if (rank[pRoot] < rank[qRoot]) {
             parent[pRoot] = qRoot;
-            sz[qRoot] += sz[pRoot];
-        } else {
+        } else if (rank[pRoot] > rank[qRoot]) {
             parent[qRoot] = pRoot;
-            sz[pRoot] += sz[qRoot];
+        } else {
+            // rank[pRoot] == rank[qRoot] 情况
+            parent[qRoot] = pRoot;
+            rank[pRoot] += 1;
         }
     }
     
