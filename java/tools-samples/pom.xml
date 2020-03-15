@@ -6,7 +6,13 @@
 
     <groupId>me.jkong.tools</groupId>
     <artifactId>tools-samples</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1</version>
+    <modules>
+        <module>bouncy-castle-sample</module>
+        <module>xml-process-samples</module>
+        <module>json-process-samples</module>
+    </modules>
 
 
 </project>

@@ -1,7 +1,14 @@
 package com.jkong.xml.xpath;
 
-import org.junit.jupiter.api.*;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -21,7 +28,6 @@ public class XmlXpathUtilsTest {
 
     @BeforeAll
     public static void setUp() throws Exception {
-
         StringBuilder sb = new StringBuilder();
         sb.append("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>")
                 .append("<classes>")
@@ -67,7 +73,7 @@ public class XmlXpathUtilsTest {
         Document document = XmlXpathUtils.document(str);
         XPath xpath = XmlXpathUtils.xpath();
         Integer age = XmlXpathUtils.asInteger("/classes/students/student[age>24]/age", document, xpath);
-        Assertions.assertEquals(age,25);
+        Assertions.assertEquals(age, 25);
     }
 
     @Test
@@ -75,9 +81,18 @@ public class XmlXpathUtilsTest {
     void testAsIntegerByDefaultXPath() throws IOException, SAXException, ParserConfigurationException, XPathExpressionException {
         Document document = XmlXpathUtils.document(str);
         Integer age = XmlXpathUtils.asInteger("/classes/students/student[age>24]/age", document);
-        Assertions.assertEquals(age,25);
+        Assertions.assertEquals(age, 25);
     }
 
+    @Test
+    @DisplayName("测试通过默认xpath获取String型数据")
+    void testAsStringByDefaultXPath() throws IOException, SAXException, ParserConfigurationException, XPathExpressionException, DocumentException {
+        SAXReader reader = new SAXReader();
+        org.dom4j.Document document = reader.read(str);
+        Element rootElement = document.getRootElement();
+        Element teachers = rootElement.element("teachers");
+        System.out.println(teachers.asXML());
+    }
 
 
 

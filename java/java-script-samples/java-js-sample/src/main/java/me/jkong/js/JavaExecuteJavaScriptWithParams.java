@@ -18,7 +18,7 @@ public class JavaExecuteJavaScriptWithParams {
 //        Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
         try {
             // 1. 直接获取参数执行结果（只能为Double，使用Float和Integer会抛出异常）
-            Double result = (Double) engine.eval("a+b");
+            String result = String.valueOf(engine.eval("a+b"));
             System.out.println("result = " + result);
             
             // 2. 定义表达式执行，并获取结果

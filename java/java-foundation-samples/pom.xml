@@ -12,6 +12,8 @@
     <modules>
         <module>java-io-sample</module>
         <module>java-socket-sample</module>
+        <module>java-thread-sample</module>
+        <module>java-dynamic-proxy-sample</module>
     </modules>
 
     <properties>

@@ -16,33 +16,35 @@ import java.net.URL;
  * @date 2020/2/4 4:07 下午.
  */
 public class JavaExecuteJavaScriptFunctionWithParams {
-    
+
     public static void main(String[] args) {
         // 1. 创建引擎
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("javascript");
-        
+
         // 2. 读取js文件
         String jsFileName = "./script/test.js";
         URL resource = JavaExecuteJavaScriptFunctionWithParams.class.getClassLoader().getResource(jsFileName);
-        
+
         FileReader reader = null;
         try {
             // 3. 获取指定脚本 reader
             if (resource != null) {
                 reader = new FileReader(resource.getPath());
             }
-            
+
             // 4. 引擎加载脚本 reader
             engine.eval(reader);
             if (engine instanceof Invocable) {
                 // 5. 调用add方法，并传入两个参数
                 Invocable invoke = (Invocable) engine;
-                Double c = (Double) invoke.invokeFunction("add", 5, 3);
+                Object param1 = new Integer(5);
+                Object param2 = new Integer(3);
+                Double c = (Double) invoke.invokeFunction("add", param1, param2);
                 // c = merge(4, 3);
                 System.out.println("c = " + c);
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

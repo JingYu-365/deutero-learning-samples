@@ -26,6 +26,10 @@ public class JSONPathTest {
             "{\"age\": 26,\"gradePoint\": 9.6,\"name\": \"zhaoLiu\",\"stuId\": \"a4\",\"stuNo\": \"126\"}]," +
             "\"teacher\": {\"age\": 30,\"name\": \"JKong\",\"teacherId\": \"$1\"}}";
 
+    public static void main(String[] args) {
+        // todo 测试
+        System.out.println(JsonPath.parse(json).read("$.teacher",String.class));
+    }
     @Test
     @DisplayName("获取根节点元素 【$】")
     void getRoot() {
