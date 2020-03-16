@@ -12,7 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class BeanAliasDemo {
     public static void main(String[] args) {
-        String location = "classpath:META-INFO/bean-definition-context.xml";
+        String location = "classpath:META-INF/bean-definition-context.xml";
         BeanFactory beanFactory = new ClassPathXmlApplicationContext(location);
         User user = beanFactory.getBean("user", User.class);
         User userJkong = beanFactory.getBean("userJkong", User.class);

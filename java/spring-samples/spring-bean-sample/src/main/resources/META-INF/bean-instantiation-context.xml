@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 静态方法实例化 bean -->
+    <bean id="user-instantiation-by-static-method" class="me.jkong.spring.ioc.overview.domain.User"
+          factory-method="createUser"/>
+
+    <!-- 实例Bean方法实例化Bean-->
+    <bean id="user-instantiation-by-factory" factory-bean="userFactory" factory-method="createUser"/>
+    <bean id="userFactory" class="me.jkong.spring.ioc.bean.factory.DefaultUserFactory"/>
+
+    <!-- 使用FactoryBean 实例化Bean-->
+    <bean id="user-instantiation-by-factory-bean" class="me.jkong.spring.ioc.bean.factory.UserFactoryBean"/>
+
+</beans>
