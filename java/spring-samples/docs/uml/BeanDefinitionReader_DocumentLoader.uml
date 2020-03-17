@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="20.0" y="82.0">org.springframework.beans.factory.xml.DefaultDocumentLoader</node>
+    <node x="51.5" y="0.0">org.springframework.beans.factory.xml.DocumentLoader</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.beans.factory.xml.DefaultDocumentLoader" target="org.springframework.beans.factory.xml.DocumentLoader">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.beans.factory.xml.DefaultDocumentLoader" target="org.springframework.beans.factory.xml.DefaultDocumentLoader">
+      <point x="0.0" y="16.0" />
+      <point x="137.5" y="134.0" />
+      <point x="0.0" y="134.0" />
+      <point x="0.0" y="98.0" />
+      <point x="-117.5" y="-0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="127.5" y="67.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

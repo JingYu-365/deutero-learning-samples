@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="282.0" y="82.0">org.springframework.beans.factory.xml.PluggableSchemaResolver</node>
+    <node x="0.0" y="82.0">org.springframework.beans.factory.xml.DelegatingEntityResolver</node>
+    <node x="555.0" y="82.0">org.springframework.beans.factory.xml.BeansDtdResolver</node>
+    <node x="9.0" y="164.0">org.springframework.beans.factory.xml.ResourceEntityResolver</node>
+    <node x="322.5" y="0.0">org.xml.sax.EntityResolver</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.beans.factory.xml.ResourceEntityResolver" target="org.springframework.beans.factory.xml.DelegatingEntityResolver">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.beans.factory.xml.PluggableSchemaResolver" target="org.xml.sax.EntityResolver">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.beans.factory.xml.BeansDtdResolver" target="org.xml.sax.EntityResolver">
+      <point x="0.0" y="-16.0" />
+      <point x="650.0" y="57.0" />
+      <point x="465.83333333333337" y="57.0" />
+      <point x="57.33333333333334" y="16.0" />
+    </edge>
+    <edge source="org.springframework.beans.factory.xml.DelegatingEntityResolver" target="org.xml.sax.EntityResolver">
+      <point x="0.0" y="-16.0" />
+      <point x="131.0" y="57.0" />
+      <point x="351.16666666666663" y="57.0" />
+      <point x="-57.33333333333334" y="16.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="372.5" y="98.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

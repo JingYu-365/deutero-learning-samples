@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="9.0" y="164.0">org.springframework.core.io.support.PathMatchingResourcePatternResolver</node>
+    <node x="672.0" y="164.0">org.springframework.core.io.ClassRelativeResourceLoader</node>
+    <node x="387.62499999999994" y="0.0">org.springframework.core.io.ResourceLoader</node>
+    <node x="551.25" y="82.0">org.springframework.core.io.DefaultResourceLoader</node>
+    <node x="0.0" y="323.0">org.springframework.core.io.ProtocolResolver</node>
+    <node x="0.0" y="246.0">org.springframework.web.context.support.ServletContextResourcePatternResolver</node>
+    <node x="63.0" y="82.0">org.springframework.core.io.support.ResourcePatternResolver</node>
+    <node x="390.0" y="164.0">org.springframework.core.io.FileSystemResourceLoader</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.web.context.support.ServletContextResourcePatternResolver" target="org.springframework.core.io.support.PathMatchingResourcePatternResolver">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.core.io.support.ResourcePatternResolver" target="org.springframework.core.io.ResourceLoader">
+      <point x="0.0" y="-16.0" />
+      <point x="189.5" y="57.0" />
+      <point x="430.62499999999994" y="57.0" />
+      <point x="-43.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.core.io.support.PathMatchingResourcePatternResolver" target="org.springframework.core.io.support.ResourcePatternResolver">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.core.io.ClassRelativeResourceLoader" target="org.springframework.core.io.DefaultResourceLoader">
+      <point x="0.0" y="-16.0" />
+      <point x="816.5" y="139.0" />
+      <point x="727.5" y="139.0" />
+      <point x="58.75" y="16.0" />
+    </edge>
+    <edge source="org.springframework.core.io.FileSystemResourceLoader" target="org.springframework.core.io.DefaultResourceLoader">
+      <point x="0.0" y="-16.0" />
+      <point x="521.0" y="139.0" />
+      <point x="610.0" y="139.0" />
+      <point x="-58.75" y="16.0" />
+    </edge>
+    <edge source="org.springframework.core.io.DefaultResourceLoader" target="org.springframework.core.io.ResourceLoader">
+      <point x="0.0" y="-16.0" />
+      <point x="668.75" y="57.0" />
+      <point x="516.625" y="57.0" />
+      <point x="43.00000000000006" y="16.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="480.5" y="177.5" />
+  <SelectedNodes>
+    <node>org.springframework.core.io.support.PathMatchingResourcePatternResolver</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

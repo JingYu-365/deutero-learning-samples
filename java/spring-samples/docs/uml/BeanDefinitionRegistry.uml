@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="152.25" y="0.0">org.springframework.core.AliasRegistry</node>
+    <node x="0.0" y="82.0">org.springframework.core.SimpleAliasRegistry</node>
+    <node x="84.75" y="164.0">org.springframework.beans.factory.support.SimpleBeanDefinitionRegistry</node>
+    <node x="237.0" y="82.0">org.springframework.beans.factory.support.BeanDefinitionRegistry</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.beans.factory.support.BeanDefinitionRegistry" target="org.springframework.core.AliasRegistry">
+      <point x="0.0" y="-16.0" />
+      <point x="359.0" y="57.0" />
+      <point x="274.5" y="57.0" />
+      <point x="40.75" y="16.0" />
+    </edge>
+    <edge source="org.springframework.core.SimpleAliasRegistry" target="org.springframework.core.AliasRegistry">
+      <point x="0.0" y="-16.0" />
+      <point x="108.5" y="57.0" />
+      <point x="193.0" y="57.0" />
+      <point x="-40.75" y="16.0" />
+    </edge>
+    <edge source="org.springframework.beans.factory.support.SimpleBeanDefinitionRegistry" target="org.springframework.beans.factory.support.BeanDefinitionRegistry">
+      <point x="74.5" y="-16.0" />
+      <point x="308.25" y="139.0" />
+      <point x="359.0" y="139.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.beans.factory.support.SimpleBeanDefinitionRegistry" target="org.springframework.core.SimpleAliasRegistry">
+      <point x="-74.5" y="-16.0" />
+      <point x="159.25" y="139.0" />
+      <point x="108.5" y="139.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="527.5" y="195.5" />
+  <SelectedNodes>
+    <node>org.springframework.core.SimpleAliasRegistry</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
