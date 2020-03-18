@@ -14,15 +14,15 @@
   </nodes>
   <notes />
   <edges>
-    <edge source="org.springframework.web.context.support.ServletContextResourcePatternResolver" target="org.springframework.core.io.support.PathMatchingResourcePatternResolver">
-      <point x="0.0" y="-16.0" />
-      <point x="0.0" y="16.0" />
-    </edge>
     <edge source="org.springframework.core.io.support.ResourcePatternResolver" target="org.springframework.core.io.ResourceLoader">
       <point x="0.0" y="-16.0" />
       <point x="189.5" y="57.0" />
       <point x="430.62499999999994" y="57.0" />
       <point x="-43.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.web.context.support.ServletContextResourcePatternResolver" target="org.springframework.core.io.support.PathMatchingResourcePatternResolver">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
     </edge>
     <edge source="org.springframework.core.io.support.PathMatchingResourcePatternResolver" target="org.springframework.core.io.support.ResourcePatternResolver">
       <point x="0.0" y="-16.0" />
@@ -47,10 +47,8 @@
       <point x="43.00000000000006" y="16.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="480.5" y="177.5" />
-  <SelectedNodes>
-    <node>org.springframework.core.io.support.PathMatchingResourcePatternResolver</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="1.0" x="480.5" y="236.5" />
+  <SelectedNodes />
   <Categories />
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>

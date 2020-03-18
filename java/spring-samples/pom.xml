@@ -12,6 +12,7 @@
     <modules>
         <module>spring-ioc-container-overview-sample</module>
         <module>spring-bean-sample</module>
+        <module>jkong-spring-resource-sample</module>
     </modules>
 
 
