@@ -13,4 +13,7 @@ public interface UserFactory {
     User createUser();
 
     void initUserFactory();
+
+    void myDestroy();
+
 }

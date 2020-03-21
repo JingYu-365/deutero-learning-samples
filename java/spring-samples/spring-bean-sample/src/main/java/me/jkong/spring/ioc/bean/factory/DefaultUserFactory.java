@@ -1,9 +1,11 @@
 package me.jkong.spring.ioc.bean.factory;
 
 import me.jkong.spring.ioc.overview.domain.User;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 /**
  * @author JKong
@@ -11,7 +13,7 @@ import javax.annotation.PostConstruct;
  * @description 用户工厂
  * @date 2020-03-16 21:03.
  */
-public class DefaultUserFactory implements UserFactory, InitializingBean {
+public class DefaultUserFactory implements UserFactory, InitializingBean, DisposableBean {
 
     @Override
     public User createUser() {
@@ -23,7 +25,7 @@ public class DefaultUserFactory implements UserFactory, InitializingBean {
 
     // 基于@PostConstruct
     @PostConstruct
-    public void  init() {
+    public void init() {
         System.out.println("bean initialization.");
     }
 
@@ -35,5 +37,21 @@ public class DefaultUserFactory implements UserFactory, InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("InitializingBean#afterPropertiesSet()：init user factory");
+    }
+
+    // =============== 销毁Bean ===============
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("DisposableBean#destroy(): destroy user factory.");
+    }
+
+    @PreDestroy
+    public void beforeDestroy() {
+        System.out.println("自定义销毁方法：destroy user factory.");
+    }
+
+    public void myDestroy() {
+        System.out.println("bean destroy.");
     }
 }

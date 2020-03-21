@@ -1,13 +1,11 @@
 package me.jkong.spring.ioc.bean.creation;
 
-import com.sun.org.apache.xml.internal.security.Init;
 import me.jkong.spring.ioc.bean.factory.DefaultUserFactory;
 import me.jkong.spring.ioc.bean.factory.UserFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
+import org.springframework.context.annotation.Lazy;
 
 /**
  * @author JKong
@@ -28,14 +26,21 @@ public class BeanInitializationDemo {
         // 启动spring 应用上下文
         applicationContext.refresh();
 
+        // 非延迟初始化的Bean，会在上下文启动时完成初始化；延迟初始化的Bean，会在第一次被使用时，初始化。
+        System.out.println("\nSpring 上下文已启动...\n");
+
         // 依赖查找
         UserFactory userFactory = applicationContext.getBean(UserFactory.class);
+        System.out.println(userFactory);
 
+        System.out.println("Spring 上下文准备关闭...");
         // 关闭beanfactory容器
         applicationContext.close();
+        System.out.println("Spring 上下文已经关闭...");
     }
 
-    @Bean(initMethod = "initUserFactory")
+    @Bean(initMethod = "initUserFactory", destroyMethod = "myDestroy")
+    @Lazy(value = true)
     public UserFactory userFactory() {
         return new DefaultUserFactory();
     }
