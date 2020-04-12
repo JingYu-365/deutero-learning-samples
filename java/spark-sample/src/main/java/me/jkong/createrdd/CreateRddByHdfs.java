@@ -9,15 +9,15 @@ import org.apache.spark.api.java.function.Function2;
 /**
  * @author JKong
  * @version v1.0
- * @description 从本地文件创建 RDD
- * @date 2020-04-12 09:30.
+ * @description 通过HDFS文件创建RDD
+ * @date 2020-04-12 10:12.
  */
-public class CreateRddByLocalFile {
+public class CreateRddByHdfs {
     public static void main(String[] args) {
         SparkConf conf = new SparkConf().setAppName("CreateRddByLocalFile").setMaster("local");
         JavaSparkContext sc = new JavaSparkContext(conf);
 
-        JavaRDD<String> dataRdd = sc.textFile("/Users/zhdh/Desktop/pride-and-prejudice.txt");
+        JavaRDD<String> dataRdd = sc.textFile("hdfs://localhost:9000/pride-and-prejudice.txt");
 
         JavaRDD<Integer> lineLength = dataRdd.map(new Function<String, Integer>() {
             @Override
