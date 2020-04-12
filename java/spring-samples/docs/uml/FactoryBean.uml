@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.beans.factory.FactoryBean</OriginalElement>
+  <nodes>
+    <node x="0.0" y="160.0">org.springframework.beans.factory.serviceloader.ServiceLoaderFactoryBean</node>
+    <node x="139.5" y="0.0">org.springframework.beans.factory.FactoryBean</node>
+    <node x="219.0" y="160.0">org.springframework.beans.factory.serviceloader.ServiceFactoryBean</node>
+    <node x="58.0" y="80.0">org.springframework.beans.factory.serviceloader.AbstractServiceLoaderBasedFactoryBean</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.beans.factory.serviceloader.AbstractServiceLoaderBasedFactoryBean" target="org.springframework.beans.factory.FactoryBean">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.springframework.beans.factory.serviceloader.ServiceFactoryBean" target="org.springframework.beans.factory.serviceloader.AbstractServiceLoaderBasedFactoryBean">
+      <point x="0.0" y="-15.0" />
+      <point x="298.5" y="135.0" />
+      <point x="269.5" y="135.0" />
+      <point x="70.5" y="15.0" />
+    </edge>
+    <edge source="org.springframework.beans.factory.serviceloader.ServiceLoaderFactoryBean" target="org.springframework.beans.factory.serviceloader.AbstractServiceLoaderBasedFactoryBean">
+      <point x="0.0" y="-15.0" />
+      <point x="99.5" y="135.0" />
+      <point x="128.5" y="135.0" />
+      <point x="-70.5" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="60.0" y="15.0" />
+  <SelectedNodes>
+    <node>org.springframework.beans.factory.serviceloader.AbstractServiceLoaderBasedFactoryBean</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
