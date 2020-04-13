@@ -1,4 +1,4 @@
-package me.jkong.wordcount;
+package me.jkong.core.wordcount;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -11,7 +11,6 @@ import org.apache.spark.api.java.function.VoidFunction;
 import scala.Tuple2;
 
 import java.util.Arrays;
-import java.util.Iterator;
 
 /**
  * @author JKong

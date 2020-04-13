@@ -1,4 +1,4 @@
-package me.jkong.createrdd;
+package me.jkong.core.createrdd;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;

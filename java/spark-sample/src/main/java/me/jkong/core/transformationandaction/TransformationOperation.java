@@ -1,4 +1,4 @@
-package me.jkong.transformationandaction;
+package me.jkong.core.transformationandaction;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;

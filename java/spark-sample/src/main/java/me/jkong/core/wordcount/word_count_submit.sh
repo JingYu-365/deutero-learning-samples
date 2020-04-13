@@ -1,5 +1,5 @@
 spark-submit \
---class me.jkong.wordcount.WordCountCluster \
+--class me.jkong.core.wordcount.WordCountCluster \
 --num-executors 1 \
 --driver-memory 512m \
 --executor-memory 512m \

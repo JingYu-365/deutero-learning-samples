@@ -1,4 +1,4 @@
-package me.jkong.transformationandaction;
+package me.jkong.core.transformationandaction;
 
 /**
  * @author JKong

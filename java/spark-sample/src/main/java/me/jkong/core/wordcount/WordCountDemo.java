@@ -1,4 +1,4 @@
-package me.jkong.wordcount;
+package me.jkong.core.wordcount;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
