@@ -13,7 +13,6 @@
         <module>spring-ioc-container-overview-sample</module>
         <module>spring-bean-sample</module>
         <module>spring-dependency-lookup-sample</module>
-        <module>jkong-spring-resource-sample</module>
     </modules>
 
 
