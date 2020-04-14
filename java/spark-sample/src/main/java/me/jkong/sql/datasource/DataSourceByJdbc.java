@@ -1,9 +1,12 @@
 package me.jkong.sql.datasource;
 
+import me.jkong.common.User;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -73,38 +76,79 @@ public class DataSourceByJdbc {
     public static void main(String[] args) {
         SparkSession spark = SparkSession.builder().master("local").appName("DataSourceByJdbc").getOrCreate();
 
-        // Note: JDBC loading and saving can be achieved via either the load/save or jdbc methods
-        // Loading data from a JDBC source
-        Dataset<Row> jdbcDF = spark.read()
-                .format("jdbc")
-                .option("url", "jdbc:postgresql://10.10.32.6/test?user=fred&password=secret")
-                .option("dbtable", "schema.tablename")
-                .option("user", "username")
-                .option("password", "password")
-                .load();
+        operatePostgreSql(spark);
 
+
+        spark.stop();
+    }
+
+    private static void operatePostgreSql(SparkSession spark) {
+        // Note: JDBC的加载和保存可以通过 load/save 或 jdbc 方法来实现
+
+
+        // 方式一：从JDBC源加载数据
+//        Dataset<Row> jdbcDF = spark.read()
+//                .format("jdbc")
+//                .option("url", "jdbc:postgresql://10.10.32.6:5432/wingconn")
+//                .option("dbtable", "comm.user")
+//                .option("user", "comm")
+//                .option("password", "123@abcd")
+//                .load();
+//
+//        jdbcDF.show();
+//        jdbcDF.printSchema();
+
+        // 方式二：
         Properties connectionProperties = new Properties();
-        connectionProperties.put("user", "username");
-        connectionProperties.put("password", "password");
+        connectionProperties.put("user", "comm");
+        connectionProperties.put("password", "123@abcd");
+        connectionProperties.put("driver", "org.postgresql.Driver");
         Dataset<Row> jdbcDF2 = spark.read()
-                .jdbc("jdbc:postgresql:dbserver", "schema.tablename", connectionProperties);
+                .jdbc("jdbc:postgresql://10.10.32.6:5432/wingconn", "comm.user", connectionProperties);
+        jdbcDF2.show();
+        jdbcDF2.printSchema();
 
-        // Saving data to a JDBC source
-        jdbcDF.write()
-                .format("jdbc")
-                .option("url", "jdbc:postgresql:dbserver")
-                .option("dbtable", "schema.tablename")
-                .option("user", "username")
-                .option("password", "password")
-                .save();
+        // 创建查询临时视图
+        jdbcDF2.createOrReplaceTempView("user1");
+        // 执行查询
+        spark.sql("select name,age from user1").show();
 
-        jdbcDF2.write()
-                .jdbc("jdbc:postgresql:dbserver", "schema.tablename", connectionProperties);
 
-        // Specifying create table column data types on write
-        jdbcDF.write()
-                .option("createTableColumnTypes", "name CHAR(64), comments VARCHAR(1024)")
-                .jdbc("jdbc:postgresql:dbserver", "schema.tablename", connectionProperties);
+//        //增加数据
+        User user = new User();
+        user.setId(1).setAge(23).setName("HaHa");
+//        // write 写入数据库
+        List<User> users = Arrays.asList(user);
+        // 此处不可以使用 spark.createDataset() 来插入数据，而是通过 spark.createDataFrame() 来创建 DataFrame
+//        Dataset<Row> myDF2 = spark.createDataFrame(users, User.class);
+//        myDF2.write()
+//                .mode(SaveMode.Append)
+//                .jdbc("jdbc:postgresql://10.10.32.6:5432/wingconn", "comm.user", connectionProperties);
+//
+//        System.out.println("Write Success!");
+//        //创建视图
+//        myDF2.createOrReplaceTempView("user2");
+//        spark.sql("select * from user2").show();
+
+
+//        // Saving data to a JDBC source
+//        jdbcDF.write()
+//                .format("jdbc")
+//                .option("url", "jdbc:postgresql://10.10.32.6:5432/wingconn")
+//                .option("dbtable", "comm.user")
+//                .option("user", "comm")
+//                .option("password", "123@abcd")
+//                .save();
+
+        // 在写入时指定创建表列数据类型
+//        StructType structType = new StructType();
+//        structType.add("id", DataTypes.LongType, false);
+//        structType.add("name", DataTypes.StringType, true);
+//        structType.add("age", DataTypes.LongType, true);
+//        spark.createDataFrame(users, User.class).write()
+//                .mode(SaveMode.ErrorIfExists)
+//                .option("createTableOptions", "CREATE TABLE comm.test123 (name CHAR(255), age INT, id INT)")
+//                .jdbc("jdbc:postgresql://10.10.32.6:5432/wingconn", "comm.test123", connectionProperties);
     }
 
 
