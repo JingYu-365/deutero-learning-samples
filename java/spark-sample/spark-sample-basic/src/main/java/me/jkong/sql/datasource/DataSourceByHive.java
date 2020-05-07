@@ -1,7 +1,7 @@
 package me.jkong.sql.datasource;
 
 /**
- * TODO
+ * 将Hive做为数据源
  *
  * @author JKong
  * @version v0.0.1
