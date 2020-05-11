@@ -111,7 +111,7 @@ class HBaseUtilsTest {
     }
 
     @Test
-    void listFamiliesByTableName() {
+    void listFamiliesByTableName() throws IOException {
         HBaseUtils.listFamilyNameByTableName("default", "user_table").forEach(System.out::println);
         // 如果命名空间为"default"，那么可以省略
         HBaseUtils.listFamilyNameByTableName("user_table").forEach(System.out::println);
@@ -143,6 +143,10 @@ class HBaseUtilsTest {
 
     @Test
     void listTableColumnNames() {
-        HBaseUtils.listTableColumnNames(TableName.valueOf("user_table"),"information","user-001");
+        try {
+            HBaseUtils.listTableColumnNames(TableName.valueOf("user_table"),"information","user-001");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

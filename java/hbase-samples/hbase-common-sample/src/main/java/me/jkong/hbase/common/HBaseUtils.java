@@ -6,10 +6,7 @@ import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -121,6 +118,75 @@ public class HBaseUtils {
     }
 
     /************************************ table operation for hbase *****************************************
+     * 创建表
+     *
+     * @param tableName    表名
+     * @param columnFamily 例族
+     */
+    public static void createTable(String tableName, String... columnFamily) throws IOException {
+        if (!isTableExist(TableName.valueOf(tableName))) {
+            HTableDescriptor descriptor = new HTableDescriptor(TableName.valueOf(tableName));
+            for (String cf : columnFamily) {
+                descriptor.addFamily(new HColumnDescriptor(cf));
+            }
+            admin().createTable(descriptor);
+        }
+    }
+
+    /**
+     * 删除表
+     *
+     * @param tableName 表名
+     * @return true：删除成功
+     */
+    public static boolean dropTable(TableName tableName) {
+        try {
+            if (isTableExist(tableName)) {
+                admin().disableTable(tableName);
+                admin().deleteTable(tableName);
+            }
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    /**
+     * 更新表名
+     *
+     * @param oldTableName 需要修改的表的表名
+     * @param newTableName 新表名
+     * @return true 修改成功
+     * @throws IOException e
+     */
+    public static boolean updateTableName(String oldTableName, String newTableName) throws IOException {
+        return updateTableName(TableName.valueOf(oldTableName), TableName.valueOf(newTableName));
+    }
+
+    public static boolean updateTableName(TableName oldTableName, TableName newTableName) throws IOException {
+
+        if (oldTableName == null || newTableName == null) {
+            throw new IllegalArgumentException("table name is null.");
+        }
+
+        if (!isTableExist(oldTableName)) {
+            throw new TableNotFoundException(String.format("table named %s not found.", oldTableName.getNameAsString()));
+        } else if (isTableExist(newTableName)) {
+            throw new TableExistsException(String.format("table named %s exist.", newTableName.getNameAsString()));
+        }
+
+        String snapshotName = UUID.randomUUID().toString();
+        Admin admin = admin();
+        if (disableTable(oldTableName)) {
+            admin.snapshot(snapshotName, oldTableName);
+            admin.cloneSnapshot(snapshotName, newTableName);
+            admin.deleteSnapshot(snapshotName);
+            admin.deleteTable(oldTableName);
+        }
+        return true;
+    }
+
+    /**
      * 获取指定命名空间下的所有表名
      *
      * @param namespace 命名空间
@@ -140,35 +206,6 @@ public class HBaseUtils {
     }
 
     /**
-     * 创建表
-     */
-    public static void createTable(String tableName, String... columnFamily) throws IOException {
-        if (!isTableExist(TableName.valueOf(tableName))) {
-            // 创建表属性对象,表名需要转字节
-            HTableDescriptor descriptor = new HTableDescriptor(TableName.valueOf(tableName));
-            // 创建多个列族
-            for (String cf : columnFamily) {
-                descriptor.addFamily(new HColumnDescriptor(cf));
-            }
-            // 根据对表的配置，创建表
-            admin().createTable(descriptor);
-        }
-    }
-
-
-    public static boolean dropTable(TableName tableName) {
-        try {
-            if (isTableExist(tableName)) {
-                admin().disableTable(tableName);
-                admin().deleteTable(tableName);
-            }
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
-    /**
      * 验证表是否存在
      *
      * @param tableName 表名
@@ -182,6 +219,45 @@ public class HBaseUtils {
         }
     }
 
+    /**
+     * 启用table
+     *
+     * @param tableName 表名
+     * @return true：启动成功
+     */
+    public static boolean enableTable(TableName tableName) {
+        Admin admin = admin();
+        try {
+            if (admin.isTableAvailable(tableName)) {
+                if (admin.isTableDisabled(tableName)) {
+                    admin.enableTable(tableName);
+                }
+            }
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    /**
+     * 禁用table
+     *
+     * @param tableName 表名
+     * @return true：禁用成功
+     */
+    public static boolean disableTable(TableName tableName) {
+        Admin admin = admin();
+        try {
+            if (admin.isTableAvailable(tableName)) {
+                if (admin.isTableEnabled(tableName)) {
+                    admin.disableTable(tableName);
+                }
+            }
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
 
     /************************************ family operation for hbase *****************************************
      * 根据表名获取表的列簇信息
@@ -189,19 +265,19 @@ public class HBaseUtils {
      * @param namespace 命名空间名称
      * @param tableName 表名称
      */
-    public static ColumnFamilyDescriptor[] listFamiliesByTableName(String namespace, String tableName) {
+    public static ColumnFamilyDescriptor[] listFamiliesByTableName(String namespace, String tableName) throws IOException {
         return listFamiliesByTableName(TableName.valueOf(namespace, tableName));
     }
 
-    public static ColumnFamilyDescriptor[] listFamiliesByTableName(String tableName) {
+    public static ColumnFamilyDescriptor[] listFamiliesByTableName(String tableName) throws IOException {
         return listFamiliesByTableName(TableName.valueOf(tableName));
     }
 
-    public static List<String> listFamilyNameByTableName(String namespace, String tableName) {
+    public static List<String> listFamilyNameByTableName(String namespace, String tableName) throws IOException {
         return listFamilyNamesByTableName(TableName.valueOf(namespace, tableName));
     }
 
-    public static List<String> listFamilyNameByTableName(String tableName) {
+    public static List<String> listFamilyNameByTableName(String tableName) throws IOException {
         return listFamilyNamesByTableName(TableName.valueOf(tableName));
     }
 
@@ -211,30 +287,18 @@ public class HBaseUtils {
      * @param tableName 表名称
      * @return family descriptors
      */
-    public static ColumnFamilyDescriptor[] listFamiliesByTableName(TableName tableName) {
+    public static ColumnFamilyDescriptor[] listFamiliesByTableName(TableName tableName) throws IOException {
         if (tableName == null) {
             return new ColumnFamilyDescriptor[0];
         }
 
-        Table table = null;
-        try {
-            table = connection().getTable(tableName);
+        try (Table table = connection().getTable(tableName)) {
             return table.getDescriptor().getColumnFamilies();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (table != null) {
-                    table.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
-        return new ColumnFamilyDescriptor[0];
+        // ignore
     }
 
-    public static List<String> listFamilyNamesByTableName(TableName tableName) {
+    public static List<String> listFamilyNamesByTableName(TableName tableName) throws IOException {
         ColumnFamilyDescriptor[] familyDescriptors = listFamiliesByTableName(tableName);
         if (familyDescriptors == null || familyDescriptors.length == 0) {
             return Collections.emptyList();
@@ -244,20 +308,128 @@ public class HBaseUtils {
 
 
     /**
-     * 虎丘表中指定family的字段信息
+     * 获取表中指定family的字段信息
      */
-    public static void listTableColumnNames(TableName tableName, String familyName, String rowKey) {
+    public static void listTableColumnNames(TableName tableName, String familyName, String rowKey) throws IOException {
+        ResultScanner scanner = null;
         try {
-            Get get = new Get(Bytes.toBytes(rowKey));
-            Result result = connection().getTable(tableName).get(get);
-            Map<byte[], byte[]> familyMap = result.getFamilyMap(Bytes.toBytes(familyName));
-            for(Map.Entry<byte[], byte[]> entry:familyMap.entrySet()){
-                System.out.println(Bytes.toString(entry.getKey()));
+            final Scan scan = new Scan();
+            scanner = connection().getTable(tableName).getScanner(scan);
+            if (scanner == null) {
+                return;
             }
-        } catch (IOException e) {
+            if (rowKey == null) {
+                rowKey = "";
+            }
+            for (Result res : scanner) {
+                List<Cell> cells = res.listCells();
+                if (cells != null && cells.size() > 0) {
+                    rowKey = CellUtil.toString(cells.get(0), false).split("/")[0];
+                }
+            }
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
+        }
 
+        final Get get = new Get(Bytes.toBytes(rowKey));
+        Result result = connection().getTable(tableName).get(get);
+        Map<byte[], byte[]> familyMap = result.getFamilyMap(Bytes.toBytes(familyName));
+        for (Map.Entry<byte[], byte[]> entry : familyMap.entrySet()) {
+            System.out.println(Bytes.toString(entry.getKey()));
         }
     }
+
+    /**
+     * 为指定表添加例族
+     *
+     * @param tableName  表名
+     * @param familyName 例族名
+     * @return true：添加成功
+     */
+    public static boolean addFamilyName(String tableName, String familyName) throws IOException {
+        if (tableName == null || tableName.trim().length() == 0 ||
+                familyName == null || familyName.trim().length() == 0) {
+            throw new IllegalArgumentException("table name or family name is null.");
+        }
+        return addFamilyName(TableName.valueOf(tableName), familyName);
+    }
+
+    public static boolean addFamilyName(TableName tableName, String familyName) throws IOException {
+        if (tableName == null || familyName == null || familyName.trim().length() == 0) {
+            throw new IllegalArgumentException("family name or table name is null.");
+        }
+
+        if (!isTableExist(tableName)) {
+            throw new TableNotFoundException(String.format("table named %s not found.", tableName.getNameAsString()));
+        }
+
+        if (disableTable(tableName)) {
+            // adding new ColumnFamily
+            HColumnDescriptor cf = new HColumnDescriptor(familyName);
+            admin().addColumn(tableName, cf);
+        }
+        return true;
+    }
+
+    /**
+     * 更新指定表的例族名称
+     *
+     * @param tableName     表名
+     * @param oldFamilyName 需要修改的例族名称
+     * @param newFamilyName 新的例族名称
+     * @return true：修改成功
+     * @throws IOException e
+     */
+    public static boolean updateFamilyName(String tableName, String oldFamilyName, String newFamilyName) throws IOException {
+        if (tableName == null || tableName.trim().length() == 0 ||
+                oldFamilyName == null || oldFamilyName.trim().length() == 0 ||
+                newFamilyName == null || newFamilyName.trim().length() == 0) {
+            throw new IllegalArgumentException("family name or table name is null.");
+        }
+        return updateFamilyName(TableName.valueOf(tableName), oldFamilyName, newFamilyName);
+    }
+
+    public static boolean updateFamilyName(TableName tableName, String oldFamilyName, String newFamilyName)
+            throws IOException {
+        if (tableName == null || oldFamilyName == null || oldFamilyName.trim().length() == 0
+                || newFamilyName == null || newFamilyName.trim().length() == 0) {
+            throw new IllegalArgumentException("family name or table name is null.");
+        }
+
+        if (!isTableExist(tableName)) {
+            throw new TableNotFoundException(String.format("table named %s not found.", tableName.getNameAsString()));
+        }
+
+        if (!isExistNamespace(oldFamilyName)) {
+            throw new NamespaceNotFoundException(oldFamilyName + " not exists. ");
+        } else if (isExistNamespace(newFamilyName)) {
+            throw new NamespaceExistException(newFamilyName + " exists.");
+        }
+
+        Admin admin = admin();
+        if (disableTable(tableName)) {
+            HTableDescriptor tableDesc = admin.getTableDescriptor(tableName);
+            HColumnDescriptor tempColumnDesc = tableDesc.getFamily(Bytes.toBytes(oldFamilyName));
+            if (tempColumnDesc == null) {
+                throw new NamespaceNotFoundException(oldFamilyName + " is null column ");
+            } else {
+                // modifying existing ColumnFamily
+                HColumnDescriptor cf2 = new HColumnDescriptor(newFamilyName);
+                admin.modifyColumn(tableName, cf2);
+            }
+        }
+        return true;
+    }
+
+
+    /************************************ grant operation for hbase *****************************************
+     * 对用户授权
+     */
+    public static void userPermission() {
+    }
+
 
     private static class HBaseConfig {
 
