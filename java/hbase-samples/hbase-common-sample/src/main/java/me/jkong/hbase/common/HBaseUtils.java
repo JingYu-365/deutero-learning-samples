@@ -3,6 +3,8 @@ package me.jkong.hbase.common;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.client.coprocessor.AggregationClient;
+import org.apache.hadoop.hbase.client.coprocessor.LongColumnInterpreter;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
@@ -33,6 +35,10 @@ public class HBaseUtils {
 
     private static Connection connection() {
         return HBaseConfig.getConnection();
+    }
+
+    private static Configuration configuration() {
+        return HBaseConfig.getConfiguration();
     }
 
     /*********************************** namespace operation for hbase ************************************
@@ -87,7 +93,10 @@ public class HBaseUtils {
     public static boolean deleteNamespace(String namespace) {
         try {
             if (isExistNamespace(namespace)) {
-                // TODO: 2020/5/9 需要验证此命名空间下是否存在表，如果存在表是不允许删除的
+                List<TableName> tableNames = listTableNamesByNamespace(namespace);
+                if (tableNames != null && tableNames.size() > 0) {
+                    return false;
+                }
                 admin().deleteNamespace(namespace);
             }
             return true;
@@ -308,40 +317,6 @@ public class HBaseUtils {
 
 
     /**
-     * 获取表中指定family的字段信息
-     */
-    public static void listTableColumnNames(TableName tableName, String familyName, String rowKey) throws IOException {
-        ResultScanner scanner = null;
-        try {
-            final Scan scan = new Scan();
-            scanner = connection().getTable(tableName).getScanner(scan);
-            if (scanner == null) {
-                return;
-            }
-            if (rowKey == null) {
-                rowKey = "";
-            }
-            for (Result res : scanner) {
-                List<Cell> cells = res.listCells();
-                if (cells != null && cells.size() > 0) {
-                    rowKey = CellUtil.toString(cells.get(0), false).split("/")[0];
-                }
-            }
-        } finally {
-            if (scanner != null) {
-                scanner.close();
-            }
-        }
-
-        final Get get = new Get(Bytes.toBytes(rowKey));
-        Result result = connection().getTable(tableName).get(get);
-        Map<byte[], byte[]> familyMap = result.getFamilyMap(Bytes.toBytes(familyName));
-        for (Map.Entry<byte[], byte[]> entry : familyMap.entrySet()) {
-            System.out.println(Bytes.toString(entry.getKey()));
-        }
-    }
-
-    /**
      * 为指定表添加例族
      *
      * @param tableName  表名
@@ -421,6 +396,54 @@ public class HBaseUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * 获取表中指定family的字段信息
+     */
+    public static void listTableColumnNames(TableName tableName, String familyName, String rowKey) throws IOException {
+        ResultScanner scanner = null;
+        try {
+            final Scan scan = new Scan();
+            scanner = connection().getTable(tableName).getScanner(scan);
+            if (scanner == null) {
+                return;
+            }
+            if (rowKey == null) {
+                rowKey = "";
+            }
+            for (Result res : scanner) {
+                List<Cell> cells = res.listCells();
+                if (cells != null && cells.size() > 0) {
+                    rowKey = CellUtil.toString(cells.get(0), false).split("/")[0];
+                }
+            }
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
+        }
+
+        final Get get = new Get(Bytes.toBytes(rowKey));
+        Result result = connection().getTable(tableName).get(get);
+        Map<byte[], byte[]> familyMap = result.getFamilyMap(Bytes.toBytes(familyName));
+        for (Map.Entry<byte[], byte[]> entry : familyMap.entrySet()) {
+            System.out.println(Bytes.toString(entry.getKey()));
+        }
+    }
+
+    /**
+     * 统计表中数据条数  todo: 待测试
+     *
+     * @param tableName 表名
+     * @return 行数
+     * @throws Throwable e
+     */
+    public static long countTableRow(TableName tableName) throws Throwable {
+        Scan scan = new Scan();
+        AggregationClient aggregationClient = new AggregationClient(configuration());
+        return aggregationClient.rowCount(tableName, new LongColumnInterpreter(), scan);
+
     }
 
 
