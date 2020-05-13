@@ -104,6 +104,7 @@ class HBaseUtilsTest {
 
     @Test
     void dropTable() {
+        HBaseUtils.dropTable(TableName.valueOf("user_table"));
     }
 
     @Test
@@ -144,9 +145,62 @@ class HBaseUtilsTest {
     @Test
     void listTableColumnNames() {
         try {
-            HBaseUtils.listTableColumnNames(TableName.valueOf("user_table"),"information","user-001");
+            HBaseUtils.listTableColumnNames(TableName.valueOf("user_table"), "information", "user-001");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Test
+    void updateTableName() {
+    }
+
+    @Test
+    void testUpdateTableName() {
+    }
+
+    @Test
+    void enableTable() {
+        HBaseUtils.enableTable(TableName.valueOf("user_table"));
+    }
+
+    @Test
+    void disableTable() {
+    }
+
+    @Test
+    void addFamilyName() {
+    }
+
+    @Test
+    void testAddFamilyName() {
+    }
+
+    @Test
+    void updateFamilyName() {
+    }
+
+    @Test
+    void testUpdateFamilyName() {
+    }
+
+    @Test
+    void countTableRow() throws Throwable {
+        HBaseUtils.countTableRow(TableName.valueOf("user_table"));
+    }
+
+    @Test
+    void userPermission() {
+    }
+
+    @Test
+    void truncateTable() throws IOException {
+        HBaseUtils.truncateTable(TableName.valueOf("user_table"), false);
+    }
+
+    @Test
+    void scanTableShow() throws IOException {
+        HBaseUtils.scanTableShow(TableName.valueOf("user_table"));
     }
 }

@@ -21,9 +21,9 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SQLContext;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executors;
 
 /**
  * 使用 sparksql 操作 Hbase [仅供测试]
@@ -42,10 +42,10 @@ public class HBaseDataSourceWriteDataBySpark {
         //各项配置初始化
         SparkConf sparkConf = new SparkConf()
                 .setAppName("SparkHBase")
-                .setMaster("local[*]")
+                .setMaster("local[*]");
                 //指定序列化格式，默认是java序列化
-                .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
-                .registerKryoClasses(new Class[]{HTable.class});
+//                .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+//                .registerKryoClasses(new Class[]{HTable.class});
         sparkConf.set("spark.sql.shuffle.partitions", "2");
         JavaSparkContext jsc = new JavaSparkContext(sparkConf);
         SQLContext sqlContext = new SQLContext(jsc);
@@ -59,33 +59,35 @@ public class HBaseDataSourceWriteDataBySpark {
             job.setOutputKeyClass(ImmutableBytesWritable.class);
             job.setOutputValueClass(Result.class);
 
+
+            HBaseConfigurationHolder confHolder = new HBaseConfigurationHolder(HBASE_ZOOKEEPER_QUORUM);
+            Admin admin = confHolder.getAdmin();
+            // Verify the existence of the table, create an HBase table if it does not exist
+            TableName tableName = TableName.valueOf("user_table");
+
+            if (!admin.tableExists(tableName)) {
+                HTableDescriptor desc = new HTableDescriptor(tableName);
+                HColumnDescriptor information = new HColumnDescriptor("information".getBytes());
+                HColumnDescriptor contact = new HColumnDescriptor("contact".getBytes());
+                desc.addFamily(information);
+                desc.addFamily(contact);
+                admin.createTable(desc);
+            } else {
+                // 如果表存在将表中数据清空
+                admin.clearBlockCache(tableName);
+                admin.disableTable(tableName);
+                // 使用truncate清空表之后，对table进行enable，所以不需要再进行enable table
+                admin.truncateTable(tableName, false);
+            }
+
             rdd.foreach(new VoidFunction<Row>() {
                 private static final long serialVersionUID = 1L;
-
                 @Override
                 public void call(Row row) throws Exception {
                     HBaseConfigurationHolder confHolder = new HBaseConfigurationHolder(HBASE_ZOOKEEPER_QUORUM);
-
+                    TableName tableName = TableName.valueOf("user_table");
                     Table userTable = null;
                     try {
-                        // Verify the existence of the table, create an HBase table if it does not exist
-                        TableName tableName = TableName.valueOf("user_table");
-                        Admin admin = confHolder.getAdmin();
-                        if (!admin.tableExists(tableName)) {
-                            HTableDescriptor desc = new HTableDescriptor(tableName);
-                            HColumnDescriptor information = new HColumnDescriptor("information".getBytes());
-                            HColumnDescriptor contact = new HColumnDescriptor("contact".getBytes());
-                            desc.addFamily(information);
-                            desc.addFamily(contact);
-                            admin.createTable(desc);
-                        } else {
-                            // 如果表存在将表中数据清空
-                            admin.disableTable(tableName);
-                            admin.truncateTable(tableName, false);
-                            // 处于disable状态的数据无法进行数据操作，所以此处需要对table进行enable
-                            admin.enableTable(tableName);
-                        }
-
                         Put put = new Put(Bytes.toBytes(String.valueOf(row.get(0))));
                         put.addColumn("information".getBytes(), "username".getBytes(), Bytes.toBytes(String.valueOf(row.get(1))));
                         put.addColumn("information".getBytes(), "age".getBytes(), Bytes.toBytes(String.valueOf(row.get(2))));
@@ -101,12 +103,17 @@ public class HBaseDataSourceWriteDataBySpark {
                         if (userTable != null) {
                             userTable.close();
                         }
+                        confHolder.getConnection().close();
+                        confHolder.getAdmin().close();
                     }
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            jsc.close();
         }
+        System.out.println("ending");
     }
 
     /**
@@ -129,18 +136,19 @@ public class HBaseDataSourceWriteDataBySpark {
         return result;
     }
 
-    private static class HBaseConfigurationHolder {
+    private static class HBaseConfigurationHolder implements Serializable {
+        private static final long serialVersionUID = 2L;
 
         private static final String DEFAULT_PORT = "2181";
         private static final String HBASE_ZOOKEEPER_QUORUM = "hbase.zookeeper.quorum";
         private static final String HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT = "hbase.zookeeper.property.clientPort";
 
         @Getter
-        private Configuration configuration;
+        private transient Configuration configuration;
         @Getter
-        private Connection connection;
+        private transient Connection connection;
         @Getter
-        private Admin admin;
+        private transient Admin admin;
 
         public HBaseConfigurationHolder(String zkQuorum) {
             this(zkQuorum, DEFAULT_PORT);
@@ -158,7 +166,7 @@ public class HBaseDataSourceWriteDataBySpark {
 
             try {
                 this.connection =
-                        ConnectionFactory.createConnection(this.configuration, Executors.newFixedThreadPool(64));
+                        ConnectionFactory.createConnection(this.configuration);
                 this.admin = this.connection.getAdmin();
             } catch (IOException e) {
                 throw new BadConfigurationException("create Hbase connection error.");

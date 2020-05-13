@@ -42,6 +42,13 @@
             <artifactId>hbase-protocol</artifactId>
             <version>${hbase.version}</version>
         </dependency>
+        <!-- 使用HBase AggregationClient -->
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-endpoint</artifactId>
+            <version>${hbase.version}</version>
+        </dependency>
+
 
         <!-- junit for test -->
         <dependency>

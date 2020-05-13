@@ -229,6 +229,21 @@ public class HBaseUtils {
     }
 
     /**
+     * 清空数据表
+     *
+     * @param tableName      表名
+     * @param preserveSplits <code>true</code> 是否应保留拆分
+     * @throws IOException e
+     */
+    public static void truncateTable(TableName tableName, boolean preserveSplits) throws IOException {
+        Admin admin = admin();
+        if (disableTable(tableName)) {
+            admin.truncateTable(tableName, preserveSplits);
+        }
+    }
+
+
+    /**
      * 启用table
      *
      * @param tableName 表名
@@ -444,6 +459,14 @@ public class HBaseUtils {
         AggregationClient aggregationClient = new AggregationClient(configuration());
         return aggregationClient.rowCount(tableName, new LongColumnInterpreter(), scan);
 
+    }
+
+    public static void scanTableShow(TableName tableName) throws IOException {
+        Scan scan = new Scan();
+        ResultScanner scanner = connection().getTable(tableName).getScanner(scan);
+        for (Result result : scanner) {
+            System.out.println(result);
+        }
     }
 
 
