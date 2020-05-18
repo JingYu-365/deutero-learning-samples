@@ -8,9 +8,7 @@ import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
-import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.hadoop.mapreduce.Job;
 import org.apache.parquet.hadoop.BadConfigurationException;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
@@ -32,7 +30,7 @@ import java.util.Map;
  * @version v0.0.1
  * @date 2020/5/6 14:30.
  */
-public class HBaseDataSourceWriteDataBySpark {
+public class WriteDataToHBaseByPutSingle {
 
     private static final String HBASE_ZOOKEEPER_QUORUM = "10.10.27.47,10.10.27.48,10.10.27.49";
 
@@ -55,11 +53,6 @@ public class HBaseDataSourceWriteDataBySpark {
         JavaRDD<Row> rdd = dataset.toJavaRDD();
 
         try {
-            Job job = new Job(jsc.hadoopConfiguration());
-            job.setOutputKeyClass(ImmutableBytesWritable.class);
-            job.setOutputValueClass(Result.class);
-
-
             HBaseConfigurationHolder confHolder = new HBaseConfigurationHolder(HBASE_ZOOKEEPER_QUORUM);
             Admin admin = confHolder.getAdmin();
             // Verify the existence of the table, create an HBase table if it does not exist
@@ -94,7 +87,6 @@ public class HBaseDataSourceWriteDataBySpark {
                         put.addColumn("information".getBytes(), "gender".getBytes(), Bytes.toBytes(String.valueOf(row.get(3))));
                         put.addColumn("contact".getBytes(), "email".getBytes(), Bytes.toBytes(String.valueOf(row.get(4))));
                         put.addColumn("contact".getBytes(), "phone".getBytes(), Bytes.toBytes(String.valueOf(row.get(5))));
-
                         userTable = confHolder.getConnection().getTable(tableName);
                         userTable.put(put);
                     } catch (Exception e) {

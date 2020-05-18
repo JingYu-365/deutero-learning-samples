@@ -34,7 +34,7 @@ import java.util.List;
  * @version v0.0.1
  * @date 2020/5/6 15:30.
  */
-public class HBaseDataSourceReadDataBySpark {
+public class ReadDataFromHBaseBySpark {
     public static void main(String[] args) {
         //初始化SparkContext
         SparkConf sparkConf = new SparkConf().setAppName("HBaseDataSourceReadDataBySpark").setMaster("local");
