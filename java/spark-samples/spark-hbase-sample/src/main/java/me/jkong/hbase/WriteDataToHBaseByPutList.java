@@ -8,17 +8,15 @@ import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
-import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.hadoop.mapreduce.Job;
 import org.apache.parquet.hadoop.BadConfigurationException;
 import org.apache.spark.SparkConf;
-import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.api.java.function.VoidFunction;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SQLContext;
+import org.apache.spark.sql.types.StructField;
+import org.apache.spark.sql.types.StructType;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -38,21 +36,26 @@ public class WriteDataToHBaseByPutList {
     private static final String HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT = "2181";
 
     public static void main(String[] args) {
-        //各项配置初始化
+        // 1. Spark相关各项配置初始化
         SparkConf sparkConf = new SparkConf()
-                .setAppName("SparkHBase")
+                .setAppName("WriteDataToHBaseByPutList")
                 .setMaster("local[*]");
         sparkConf.set("spark.sql.shuffle.partitions", "2");
         JavaSparkContext jsc = new JavaSparkContext(sparkConf);
         SQLContext sqlContext = new SQLContext(jsc);
 
-        //加载 数据 -> df
+        // 2. 加载测试数据 -> df
         Dataset<Row> dataset = loadDataFrameFromJson(sqlContext);
+
+        // 3. 将数据转为 iterator 或者 集合对象
         Iterator<Row> rowIterator = dataset.toLocalIterator();
 
         try {
+            // 4. 创建 HBase 配置管理对象，并获取HBase连接对象
             HBaseConfigurationHolder confHolder = new HBaseConfigurationHolder(HBASE_ZOOKEEPER_QUORUM);
             Admin admin = confHolder.getAdmin();
+
+            // 5. 验证需要导入的表是否存在，如果不存在将创建表，及表结构
             // Verify the existence of the table, create an HBase table if it does not exist
             TableName tableName = TableName.valueOf("user_table");
 
@@ -64,7 +67,7 @@ public class WriteDataToHBaseByPutList {
                 desc.addFamily(contact);
                 admin.createTable(desc);
             } else {
-                // 如果表存在将表中数据清空
+                // 6. 根据设置如果表存在将表中数据清空
                 admin.clearBlockCache(tableName);
                 admin.disableTable(tableName);
                 // 使用truncate清空表之后，对table进行enable，所以不需要再进行enable table
@@ -75,6 +78,8 @@ public class WriteDataToHBaseByPutList {
             Row row;
             while (rowIterator.hasNext()) {
                 row = rowIterator.next();
+                // 测试行schema输出，以及根据字段名获取数
+                printRowSchema(row);
                 Put put = new Put(Bytes.toBytes(String.valueOf(row.get(0))));
                 put.addColumn("information".getBytes(), "username".getBytes(), Bytes.toBytes(String.valueOf(row.get(1))));
                 put.addColumn("information".getBytes(), "age".getBytes(), Bytes.toBytes(String.valueOf(row.get(2))));
@@ -92,6 +97,20 @@ public class WriteDataToHBaseByPutList {
             jsc.close();
         }
         System.out.println("ending");
+    }
+
+    /**
+     * 测试行schema输出，以及根据字段名获取数
+     *
+     * @param row 行数据
+     */
+    private static void printRowSchema(Row row) {
+        StructType schema = row.schema();
+        StructField[] fields = schema.fields();
+        for (StructField field : fields) {
+            System.out.println(field.name() + " " + field.dataType() + " " + field.toString());
+        }
+        System.out.println(row.getAs("name").toString() + "\n");
     }
 
     /**
