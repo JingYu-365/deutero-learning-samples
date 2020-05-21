@@ -7,8 +7,52 @@
     <groupId>me.jkong</groupId>
     <artifactId>zookeeper-samples</artifactId>
     <version>0.0.1</version>
+    <modules>
+        <module>zk-master-election-sample</module>
+        <module>zk-curator-basic-sample</module>
+    </modules>
     <packaging>pom</packaging>
 
+    <properties>
+        <curator.version>4.3.0</curator.version>
+        <zookeeper.version>3.5.7</zookeeper.version>
+    </properties>
 
-
+    <dependencies>
+        <!-- curator -->
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-framework</artifactId>
+            <version>${curator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+            <version>${curator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-test</artifactId>
+            <version>${curator.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-client</artifactId>
+            <version>${curator.version}</version>
+            <!--  [由于curator中使用的就是3.5.7版本，所以此处Zookeeper版本不冲突] -->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.apache.zookeeper</groupId>-->
+<!--                    <artifactId>zookeeper</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+        </dependency>
+        <!-- Zookeeper -->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>${zookeeper.version}</version>
+        </dependency>
+    </dependencies>
 </project>
