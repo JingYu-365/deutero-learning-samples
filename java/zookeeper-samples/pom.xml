@@ -41,12 +41,12 @@
             <artifactId>curator-client</artifactId>
             <version>${curator.version}</version>
             <!--  [由于curator中使用的就是3.5.7版本，所以此处Zookeeper版本不冲突] -->
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.apache.zookeeper</groupId>-->
-<!--                    <artifactId>zookeeper</artifactId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
+            <!-- <exclusions>-->
+            <!--     <exclusion>-->
+            <!--         <groupId>org.apache.zookeeper</groupId>-->
+            <!--         <artifactId>zookeeper</artifactId>-->
+            <!--     </exclusion>-->
+            <!-- </exclusions>-->
         </dependency>
         <!-- Zookeeper -->
         <dependency>
@@ -55,4 +55,16 @@
             <version>${zookeeper.version}</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
