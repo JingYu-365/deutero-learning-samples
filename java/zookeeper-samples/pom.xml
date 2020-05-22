@@ -10,6 +10,8 @@
     <modules>
         <module>zk-master-election-sample</module>
         <module>zk-curator-basic-sample</module>
+        <module>zk-distributed-lock-sample</module>
+        <module>zk-distributed-count-sample</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -19,22 +21,24 @@
     </properties>
 
     <dependencies>
-        <!-- curator -->
+        <!-- Curator 对 Zookeeper 基础操作支持 -->
         <dependency>
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-framework</artifactId>
             <version>${curator.version}</version>
         </dependency>
+        <!-- Curator 对 Zookeeper 高级特性支持 -->
         <dependency>
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-recipes</artifactId>
             <version>${curator.version}</version>
         </dependency>
+        <!-- 方便进行测试，不需要启动真实的zookeeper服务端 -->
         <dependency>
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-test</artifactId>
             <version>${curator.version}</version>
-            <scope>test</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.curator</groupId>
