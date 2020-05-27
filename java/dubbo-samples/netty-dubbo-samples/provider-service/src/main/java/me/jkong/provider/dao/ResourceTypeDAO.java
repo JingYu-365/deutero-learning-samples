@@ -1,13 +1,10 @@
 package me.jkong.provider.dao;
 
 import me.jkong.entity.ResourceType;
-import me.jkong.provider.util.mongo.MongoTemplateSingleton;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 
-import java.net.UnknownHostException;
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author JKong
@@ -17,20 +14,20 @@ import java.util.List;
  */
 public class ResourceTypeDAO {
 
-    private static MongoTemplate MONGO_TEMPLATE;
-
-    static {
-        try {
-            MONGO_TEMPLATE = MongoTemplateSingleton.getMongoTemplate();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-    }
-
     public List<ResourceType> listResourceType() {
-        Query mongoQuery = new Query();
-        mongoQuery.addCriteria(Criteria.where("creator_group_id").is("1"));
-        mongoQuery.addCriteria(Criteria.where("creator_id").is("1"));
-        return MONGO_TEMPLATE.find(mongoQuery, ResourceType.class);
+        ResourceType resourceType = new ResourceType();
+        resourceType.setId(UUID.randomUUID().toString())
+                .setTypeName("typeName")
+                .setBizType("bizType")
+                .setOrderNo(1)
+                .setTypeDesc("description")
+                .setTypeStatus(ResourceType.TypeStatus.CREATED)
+                .setCreatorGroupId("creatorGroupId")
+                .setCreatorId("creatorId")
+                .setCreatorName("creatorName")
+                .setCreateTime(System.currentTimeMillis())
+                .setModifiedTime(System.currentTimeMillis());
+
+        return Collections.singletonList(resourceType);
     }
 }

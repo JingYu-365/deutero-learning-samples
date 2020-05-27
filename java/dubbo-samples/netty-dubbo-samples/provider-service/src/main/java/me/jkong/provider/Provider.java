@@ -1,4 +1,4 @@
-package me.jkong.consumer;
+package me.jkong.provider;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -9,7 +9,7 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
-import me.jkong.consumer.handler.RequestHandler;
+import me.jkong.provider.handler.RequestHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -18,9 +18,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author jkong
  * @date 2018/8/15
  */
-public class Server {
-    private static Logger logger = LoggerFactory.getLogger(Server.class);
-    public static ClassPathXmlApplicationContext CONTEXT;
+public class Provider {
+    private static Logger logger = LoggerFactory.getLogger(Provider.class);
 
     private void startServer(int port) {
         EventLoopGroup managerGroup = new NioEventLoopGroup(2);
@@ -62,15 +61,16 @@ public class Server {
     }
 
     private void initDubboConfig() {
-        CONTEXT = new ClassPathXmlApplicationContext("classpath:consumer.xml");
-        CONTEXT.start();
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("classpath:provider.xml");
+        context.start();
     }
 
-    private static Server getInstance() {
-        return new Server();
+    private static Provider getInstance() {
+        return new Provider();
     }
 
     public static void main(String[] args) {
-        Server.getInstance().startServer(4321);
+        Provider.getInstance().startServer(1234);
     }
 }

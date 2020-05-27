@@ -1,6 +1,7 @@
 package me.jkong.entity;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -13,7 +14,7 @@ import java.io.Serializable;
  * @date 2019/9/2 17:29
  */
 @Data
-@Document(collection = "resource_type")
+@Accessors(chain = true)
 public class ResourceType implements Serializable {
     private static final long serialVersionUID = -5156936616242572815L;
     /**
@@ -23,58 +24,64 @@ public class ResourceType implements Serializable {
     /**
      * 创建者ID
      */
-    @Field("creator_id")
     private String creatorId;
     /**
      * 创建者名称
      */
-    @Field("creator_name")
     private String creatorName;
     /**
      * 创建组名称
      */
-    @Field("creator_group_id")
     private String creatorGroupId;
     /**
      * 创建时间
      */
-    @Field("create_time")
     private Long createTime;
     /**
      * 修改时间
      */
-    @Field("modified_time")
     private Long modifiedTime;
     /**
      * 序号
      */
-    @Field("order_no")
     private Integer orderNo;
     /**
      * 类型描述
      */
-    @Field("type_desc")
     private String typeDesc;
     /**
      * 类型名称
      */
-    @Field("type_name")
     private String typeName;
 
     /**
      * 类型状态
      */
-    @Field("type_status")
     public TypeStatus typeStatus;
+    /**
+     * 业务类型
+     */
+    private String bizType;
 
     /**
      * 类型状态枚举
-     * 已创建：created; 已启用：enabled; 已停用：disabled；已删除：deleted
      */
     public enum TypeStatus {
+        /**
+         * 已创建
+         */
         CREATED("CREATED"),
+        /**
+         * 已启用
+         */
         ENABLED("ENABLED"),
+        /**
+         * 已停用
+         */
         DISABLED("DISABLED"),
+        /**
+         * 已删除
+         */
         DELETED("DELETED");
 
         private String key;
@@ -86,15 +93,9 @@ public class ResourceType implements Serializable {
         public void setKey(String key) {
             this.key = key;
         }
-
         public String getKey() {
             return key;
         }
-    }
 
-    /**
-     * 业务类型
-     */
-    @Field("biz_type")
-    private String bizType;
+    }
 }

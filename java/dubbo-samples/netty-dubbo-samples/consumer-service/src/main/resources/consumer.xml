@@ -8,7 +8,11 @@
        http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
     <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
-    <dubbo:application name="consumer-service"/>
+    <dubbo:application name="consumer-service">
+        <dubbo:parameter key="qos.enable" value="true"/>
+        <dubbo:parameter key="qos.accept.foreign.ip" value="false"/>
+        <dubbo:parameter key="qos.port" value="33333"/>
+    </dubbo:application>
 
     <!-- 使用zookeeper注册中心暴露发现服务地址 -->
     <dubbo:registry address="10.10.40.136:2181" protocol="zookeeper"/>

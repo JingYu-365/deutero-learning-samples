@@ -1,6 +1,6 @@
 package me.jkong.consumer.controller;
 
-import me.jkong.consumer.Server;
+import me.jkong.consumer.Consumer;
 import me.jkong.entity.ResourceType;
 import me.jkong.service.IResourceTypeService;
 
@@ -15,7 +15,7 @@ import java.util.List;
 public class ResourceTypeController {
 
     public List<ResourceType> listResourceType() {
-        IResourceTypeService service = (IResourceTypeService) Server.CONTEXT.getBean("resourceTypeService");
+        IResourceTypeService service = (IResourceTypeService) Consumer.CONTEXT.getBean("resourceTypeService");
         long start = System.currentTimeMillis();
         List<ResourceType> resourceTypes = service.listResourceType();
         System.out.println(System.currentTimeMillis() - start);

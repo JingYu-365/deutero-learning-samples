@@ -7,10 +7,9 @@
     <groupId>me.jkong.dubbo</groupId>
     <artifactId>dubbo-samples</artifactId>
     <version>0.0.1</version>
+    <packaging>pom</packaging>
 
     <modules>
-        <module>springboot1.x-dubbo-samples</module>
-        <module>springboot2.x-dubbo-samples</module>
         <module>netty-dubbo-samples</module>
     </modules>
 
