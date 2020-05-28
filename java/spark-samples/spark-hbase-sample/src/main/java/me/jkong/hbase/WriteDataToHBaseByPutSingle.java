@@ -20,8 +20,7 @@ import org.apache.spark.sql.SQLContext;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 使用 sparksql 操作 Hbase [仅供测试]
@@ -40,11 +39,11 @@ public class WriteDataToHBaseByPutSingle {
         //各项配置初始化
         SparkConf sparkConf = new SparkConf()
                 .setAppName("SparkHBase")
-                .setMaster("local[*]");
+                .setMaster("local[*]")
                 //指定序列化格式，默认是java序列化
-//                .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
-//                .registerKryoClasses(new Class[]{HTable.class});
-        sparkConf.set("spark.sql.shuffle.partitions", "2");
+                .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+                .registerKryoClasses(new Class[]{HTable.class});
+        sparkConf.set("spark.sql.shuffle.partitions", "1");
         JavaSparkContext jsc = new JavaSparkContext(sparkConf);
         SQLContext sqlContext = new SQLContext(jsc);
 
@@ -73,30 +72,67 @@ public class WriteDataToHBaseByPutSingle {
                 admin.truncateTable(tableName, false);
             }
 
-            rdd.foreach(new VoidFunction<Row>() {
-                private static final long serialVersionUID = 1L;
+//            rdd.foreach(new VoidFunction<Row>() {
+//                private static final long serialVersionUID = 1L;
+//
+//                @Override
+//                public void call(Row row) throws Exception {
+//                    HBaseConfigurationHolder confHolder = new HBaseConfigurationHolder(HBASE_ZOOKEEPER_QUORUM);
+//                    TableName tableName = TableName.valueOf("user_table");
+//                    Table userTable = null;
+//                    try {
+//                        Put put = new Put(Bytes.toBytes(String.valueOf(row.get(0))));
+//                        put.addColumn("information".getBytes(), "username".getBytes(), Bytes.toBytes(String.valueOf(row.get(1))));
+//                        put.addColumn("information".getBytes(), "age".getBytes(), Bytes.toBytes(String.valueOf(row.get(2))));
+//                        put.addColumn("information".getBytes(), "gender".getBytes(), Bytes.toBytes(String.valueOf(row.get(3))));
+//                        put.addColumn("contact".getBytes(), "email".getBytes(), Bytes.toBytes(String.valueOf(row.get(4))));
+//                        put.addColumn("contact".getBytes(), "phone".getBytes(), Bytes.toBytes(String.valueOf(row.get(5))));
+//                        userTable = confHolder.getConnection().getTable(tableName);
+//                        userTable.put(put);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    } finally {
+//                        if (userTable != null) {
+//                            userTable.close();
+//                        }
+//                        confHolder.getConnection().close();
+//                        confHolder.getAdmin().close();
+//                    }
+//                }
+//            });
+
+            // 批量装载数据
+            rdd.foreachPartition(new VoidFunction<Iterator<Row>>() {
                 @Override
-                public void call(Row row) throws Exception {
-                    HBaseConfigurationHolder confHolder = new HBaseConfigurationHolder(HBASE_ZOOKEEPER_QUORUM);
-                    TableName tableName = TableName.valueOf("user_table");
+                public void call(Iterator<Row> rowIterator) throws Exception {
+                    Connection connection = new HBaseConfigurationHolder(HBASE_ZOOKEEPER_QUORUM).getConnection();
+                    List<Put> putList = new ArrayList<>();
                     Table userTable = null;
                     try {
-                        Put put = new Put(Bytes.toBytes(String.valueOf(row.get(0))));
-                        put.addColumn("information".getBytes(), "username".getBytes(), Bytes.toBytes(String.valueOf(row.get(1))));
-                        put.addColumn("information".getBytes(), "age".getBytes(), Bytes.toBytes(String.valueOf(row.get(2))));
-                        put.addColumn("information".getBytes(), "gender".getBytes(), Bytes.toBytes(String.valueOf(row.get(3))));
-                        put.addColumn("contact".getBytes(), "email".getBytes(), Bytes.toBytes(String.valueOf(row.get(4))));
-                        put.addColumn("contact".getBytes(), "phone".getBytes(), Bytes.toBytes(String.valueOf(row.get(5))));
-                        userTable = confHolder.getConnection().getTable(tableName);
-                        userTable.put(put);
+                        Row row;
+                        while (rowIterator.hasNext()) {
+                            // 此row中包含所需要的所有的column数据
+                            row = rowIterator.next();
+                            // 一个row对象对应一个put对象
+                            Put put = new Put(Bytes.toBytes(String.valueOf(row.get(0))));
+                            put.addColumn("information".getBytes(), "username".getBytes(), Bytes.toBytes(String.valueOf(row.get(1))));
+                            put.addColumn("information".getBytes(), "age".getBytes(), Bytes.toBytes(String.valueOf(row.get(2))));
+                            put.addColumn("information".getBytes(), "gender".getBytes(), Bytes.toBytes(String.valueOf(row.get(3))));
+                            put.addColumn("contact".getBytes(), "email".getBytes(), Bytes.toBytes(String.valueOf(row.get(4))));
+                            put.addColumn("contact".getBytes(), "phone".getBytes(), Bytes.toBytes(String.valueOf(row.get(5))));
+                            putList.add(put);
+                        }
+                        userTable = connection.getTable(TableName.valueOf("user_table"));
+                        userTable.put(putList);
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
                         if (userTable != null) {
                             userTable.close();
                         }
-                        confHolder.getConnection().close();
-                        confHolder.getAdmin().close();
+                        if (connection != null) {
+                            connection.close();
+                        }
                     }
                 }
             });

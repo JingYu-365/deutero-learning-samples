@@ -39,3 +39,4 @@ INSERT INTO `user` VALUES ('user-012', 'jkong012', 12, 'man', '112@126.com', '18
 INSERT INTO `user` VALUES ('user-013', 'jkong013', 13, 'man', '113@126.com', '18566660013');
 
 SET FOREIGN_KEY_CHECKS = 1;
+

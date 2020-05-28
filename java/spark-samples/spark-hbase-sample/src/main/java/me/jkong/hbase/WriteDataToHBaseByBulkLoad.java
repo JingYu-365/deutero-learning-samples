@@ -18,7 +18,6 @@ import org.apache.hadoop.hbase.tool.BulkLoadHFilesTool;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.spark.SparkConf;
@@ -87,17 +86,15 @@ public class WriteDataToHBaseByBulkLoad extends Configured implements Tool, Seri
             configuration.set("hbase.bulkload.retries.number", "10");
             configuration.set("fs.defaultFS", HDFS_ADDR);
             configuration.set("dfs.socket.timeout", "180000");
-
-            configuration.set(TableOutputFormat.OUTPUT_TABLE, tableName.toString());
-
+            configuration.set(TableOutputFormat.OUTPUT_TABLE, TABLE_NAME);
 
             // 2. 设置Job信息
             String jobName = "Spark Bulk Loading HBase Table:" + tableName.getNameAsString();
             Job job = Job.getInstance(configuration, jobName);
-            job.setInputFormatClass(TextInputFormat.class);
             job.setMapOutputKeyClass(ImmutableBytesWritable.class);
             job.setMapOutputValueClass(KeyValue.class);
-            job.setOutputFormatClass(HFileOutputFormat2.class);
+//            job.setInputFormatClass(TextInputFormat.class);
+//            job.setOutputFormatClass(HFileOutputFormat2.class);
 
 
             // 3. HDFS 操作配置
@@ -157,11 +154,6 @@ public class WriteDataToHBaseByBulkLoad extends Configured implements Tool, Seri
             hfileRdd.saveAsNewAPIHadoopFile(outputPath, ImmutableBytesWritable.class, KeyValue.class, HFileOutputFormat2.class, job.getConfiguration());
 
             // bulk load start
-//            Table table = connection.getTable(tableName);
-//            Admin admin = connection.getAdmin();
-//            LoadIncrementalHFiles load = new LoadIncrementalHFiles(configuration);
-//            load.doBulkLoad(new Path(outputPath), admin, table, connection.getRegionLocator(tableName));
-
             BulkLoadHFiles loadFiles = new BulkLoadHFilesTool(configuration);
             loadFiles.bulkLoad(tableName, output);
 
