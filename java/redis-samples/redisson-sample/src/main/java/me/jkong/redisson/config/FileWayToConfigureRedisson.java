@@ -11,22 +11,20 @@ import java.io.IOException;
 /**
  * @author JKong
  * @version v1.0
- * @description TODO
+ * @description 文件方式进行实例化Redisson
  * @date 2019/11/25 15:48.
  */
 public class FileWayToConfigureRedisson {
 
     private static String REDISSON_JSON_CONFIG = "redisson-config.json";
-    private static String REDISSON_YMAL_CONFIG = "redisson-config.json";
+    private static String REDISSON_YMAL_CONFIG = "redisson-config.yaml";
 
-    public static RedissonReactiveClient instatnceAsync() throws IOException {
-
+    public static RedissonReactiveClient instanceAsync() throws IOException {
         Config config = getConfig();
         return Redisson.createReactive(config);
     }
 
-    public static RedissonClient instatnce() throws IOException {
-
+    public static RedissonClient instance() throws IOException {
         Config config = getConfig();
         return Redisson.create(config);
     }
@@ -34,22 +32,32 @@ public class FileWayToConfigureRedisson {
     private static Config getConfig() throws IOException {
         Config config = initFromJson();
         if (config == null) {
-            config = initFromYmal();
+            config = initFromYaml();
         }
-
         if (config == null) {
             throw new NullPointerException("field to init redisson configuration from file.");
         }
         return config;
     }
 
-
+    /**
+     * 使用 json 进行 Redisson 实例化
+     *
+     * @return Redisson Config
+     * @throws IOException e
+     */
     private static Config initFromJson() throws IOException {
         return Config.fromJSON(new File(REDISSON_JSON_CONFIG));
     }
 
 
-    private static Config initFromYmal() throws IOException {
+    /**
+     * 使用 yaml 进行 Redisson 实例化
+     *
+     * @return Redisson Config
+     * @throws IOException e
+     */
+    private static Config initFromYaml() throws IOException {
         return Config.fromYAML(new File(REDISSON_YMAL_CONFIG));
     }
 
