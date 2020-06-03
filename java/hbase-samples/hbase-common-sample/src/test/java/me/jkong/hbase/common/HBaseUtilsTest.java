@@ -34,7 +34,7 @@ class HBaseUtilsTest {
     @Test
     @Order(1)
     void isExistNamespace() {
-        Assertions.assertFalse(HBaseUtils.isExistNamespace(namespace));
+        Assertions.assertTrue(HBaseUtils.isExistNamespace(namespace));
     }
 
     @Test
@@ -63,7 +63,6 @@ class HBaseUtilsTest {
 
     @Test
     @Order(5)
-    @Disabled
     void listAllNamespaceNames() throws IOException {
         HBaseUtils.listAllNamespaceNames().forEach(System.out::println);
     }
@@ -109,6 +108,7 @@ class HBaseUtilsTest {
 
     @Test
     void isTableExist() {
+        System.out.println(HBaseUtils.isTableExist(TableName.valueOf("default:user_table")));
     }
 
     @Test
@@ -145,7 +145,7 @@ class HBaseUtilsTest {
     @Test
     void listTableColumnNames() {
         try {
-            HBaseUtils.listTableColumnNames(TableName.valueOf("user_table"), "information", "user-001");
+            HBaseUtils.listTableColumnNames(TableName.valueOf("user_table"), "information", "");
         } catch (IOException e) {
             e.printStackTrace();
         }

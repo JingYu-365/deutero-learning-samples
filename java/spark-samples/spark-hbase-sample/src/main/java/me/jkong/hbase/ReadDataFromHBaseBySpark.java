@@ -43,8 +43,7 @@ public class ReadDataFromHBaseBySpark {
         Configuration conf = HBaseConfiguration.create();
 
         Scan scan = new Scan();
-        scan.setStartRow(Bytes.toBytes("user-003"));
-
+        scan.setStartRow(Bytes.toBytes("user-013"));
 
         try {
             //将scan编码
@@ -56,11 +55,12 @@ public class ReadDataFromHBaseBySpark {
             conf.set(TableInputFormat.SCAN, scanToString);
             //ZooKeeper集群
             conf.set("hbase.zookeeper.quorum", "10.10.27.47,10.10.27.48,10.10.27.49");
+//            conf.set("hbase.zookeeper.quorum", "10.10.34.41,10.10.34.42,10.10.34.43");
             conf.set("hbase.zookeeper.property.clientPort", "2181");
 
             //将HBase数据转成RDD
             JavaPairRDD<ImmutableBytesWritable, Result> hBaseRdd =
-                    jsc.newAPIHadoopRDD(conf, TableInputFormat.class, ImmutableBytesWritable.class, Result.class);
+                    jsc.newAPIHadoopRDD(conf, TableInputFormatSelf.class, ImmutableBytesWritable.class, Result.class);
             //再将以上结果转成Row类型RDD
             JavaRDD<Row> hBaseRow = hBaseRdd.map(new Function<Tuple2<ImmutableBytesWritable, Result>, Row>() {
                 private static final long serialVersionUID = 1L;

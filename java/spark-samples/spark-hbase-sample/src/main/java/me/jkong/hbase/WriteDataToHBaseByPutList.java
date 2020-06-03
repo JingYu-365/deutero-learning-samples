@@ -8,7 +8,10 @@ import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.security.User;
+import org.apache.hadoop.hbase.security.UserProvider;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.parquet.hadoop.BadConfigurationException;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -32,6 +35,7 @@ import java.util.*;
 public class WriteDataToHBaseByPutList {
 
     private static final String HBASE_ZOOKEEPER_QUORUM = "10.10.27.47,10.10.27.48,10.10.27.49";
+//    private static final String HBASE_ZOOKEEPER_QUORUM = "10.10.34.41,10.10.34.42,10.10.34.43";
 
     private static final String HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT = "2181";
 
@@ -162,8 +166,10 @@ public class WriteDataToHBaseByPutList {
                     port == null || port.trim().length() == 0 ? DEFAULT_PORT : port);
 
             try {
+                User user = UserProvider.instantiate(configuration)
+                        .create(UserGroupInformation.createRemoteUser("hbase"));
                 this.connection =
-                        ConnectionFactory.createConnection(this.configuration);
+                        ConnectionFactory.createConnection(this.configuration,user);
                 this.admin = this.connection.getAdmin();
             } catch (IOException e) {
                 throw new BadConfigurationException("create Hbase connection error.");

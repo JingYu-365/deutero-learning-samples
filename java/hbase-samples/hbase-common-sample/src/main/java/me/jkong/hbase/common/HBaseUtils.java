@@ -5,6 +5,8 @@ import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.client.coprocessor.AggregationClient;
 import org.apache.hadoop.hbase.client.coprocessor.LongColumnInterpreter;
+import org.apache.hadoop.hbase.filter.Filter;
+import org.apache.hadoop.hbase.filter.PageFilter;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
@@ -438,10 +440,12 @@ public class HBaseUtils {
                 scanner.close();
             }
         }
+        // TODO: 2020/5/19  
 
         final Get get = new Get(Bytes.toBytes(rowKey));
         Result result = connection().getTable(tableName).get(get);
         Map<byte[], byte[]> familyMap = result.getFamilyMap(Bytes.toBytes(familyName));
+        System.out.println(rowKey);
         for (Map.Entry<byte[], byte[]> entry : familyMap.entrySet()) {
             System.out.println(Bytes.toString(entry.getKey()));
         }
@@ -481,7 +485,8 @@ public class HBaseUtils {
 
         private static final String HBASE_ROOT_DIR = "hdfs://10.10.27.47:9000/hbase";
 
-        private static final String HBASE_ZOOKEEPER_QUORUM = "10.10.27.47,10.10.27.48,10.10.27.49";
+        private static final String HBASE_ZOOKEEPER_QUORUM = "10.10.27.47:2181,10.10.27.48:2181,10.10.27.49:2181";
+//        private static final String HBASE_ZOOKEEPER_QUORUM = "10.10.27.47,10.10.27.48,10.10.27.49";
 
         private static final String HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT = "2181";
 
@@ -509,9 +514,9 @@ public class HBaseUtils {
         public static void init() {
             try {
                 configuration = HBaseConfiguration.create();
-                configuration.set("hbase.zookeeper.property.clientPort", HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT);
+//                configuration.set("hbase.zookeeper.property.clientPort", HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT);
                 configuration.set("hbase.zookeeper.quorum", HBASE_ZOOKEEPER_QUORUM);
-                configuration.set("hbase.rootdir", HBASE_ROOT_DIR);
+//                configuration.set("hbase.rootdir", HBASE_ROOT_DIR);
                 connection = ConnectionFactory.createConnection(configuration);
                 admin = connection.getAdmin();
             } catch (IOException e) {
@@ -537,6 +542,17 @@ public class HBaseUtils {
             }
         }
 
+    }
+
+    public static void main(String[] args) throws IOException {
+        Scan scan = new Scan();
+        scan.withStartRow(Bytes.toBytes("user-012"),false);
+        Filter filter = new PageFilter(1);
+        scan.setFilter(filter);
+        ResultScanner scanner = connection().getTable(TableName.valueOf("user_table")).getScanner(scan);
+        for (Result result : scanner) {
+            System.out.println(result);
+        }
     }
 
 }
