@@ -13,7 +13,9 @@
         <module>cloud-common-entities</module>
         <module>cloud-provider-pay-8001</module>
         <module>cloud-provider-pay-8002</module>
+        <module>cloud-provider-pay-zookeeper-8003</module>
         <module>cloud-consumer-order-80</module>
+        <module>cloud-consumer-order-zookeeper-80</module>
     </modules>
 
     <!--统一管理jar包版本-->
