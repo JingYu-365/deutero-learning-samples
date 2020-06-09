@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Param;
  * @date 2020-06-08 23:14.
  */
 @Mapper
-public interface PayDao {
+public interface PaymentDao {
 
     /**
      * 创建订单

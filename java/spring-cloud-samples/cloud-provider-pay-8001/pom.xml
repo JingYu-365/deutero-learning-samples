@@ -14,7 +14,7 @@
         <!-- 引用自己定义的api通用包，可以使用Payment支付Entity -->
         <dependency>
             <groupId>me.jkong</groupId>
-            <artifactId>cloud-common-entity</artifactId>
+            <artifactId>cloud-common-entities</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!-- 包含了sleuth zipkin 数据链路追踪-->
@@ -61,17 +61,6 @@
         </dependency>
 
         <!--热部署-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
