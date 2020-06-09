@@ -8,7 +8,7 @@
         <version>0.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>cloud-provider-pay-8001</artifactId>
+    <artifactId>cloud-provider-pay-8002</artifactId>
 
     <dependencies>
         <!-- 引用自己定义的api通用包，可以使用Payment支付Entity -->

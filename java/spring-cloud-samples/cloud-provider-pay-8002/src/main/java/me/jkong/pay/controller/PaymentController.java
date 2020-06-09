@@ -28,9 +28,6 @@ public class PaymentController {
     @Resource
     private PaymentService paymentService;
 
-    /**
-     * 服务发现信息
-     */
     @Resource
     private DiscoveryClient discoveryClient;
 
@@ -66,8 +63,6 @@ public class PaymentController {
 
         List<ServiceInstance> instances = discoveryClient.getInstances("cloud-provider-pay".toUpperCase());
         for (ServiceInstance instance : instances) {
-            // CLOUD-PROVIDER-PAY	192.168.2.194	8001	http://192.168.2.194:8001
-            // CLOUD-PROVIDER-PAY	192.168.2.194	8002	http://192.168.2.194:8002
             log.info(instance.getServiceId() + "\t" + instance.getHost() + "\t" + instance.getPort() + "\t" + instance.getUri());
         }
 

@@ -8,9 +8,12 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>cloud-provider-pay-8001</module>
-        <module>cloud-common-entities</module>
         <module>cloud-eureka-server-7001</module>
+        <module>cloud-eureka-server-7002</module>
+        <module>cloud-common-entities</module>
+        <module>cloud-provider-pay-8001</module>
+        <module>cloud-provider-pay-8002</module>
+        <module>cloud-consumer-order-80</module>
     </modules>
 
     <!--统一管理jar包版本-->
@@ -123,10 +126,15 @@
     </dependencies>
 
     <build>
+        <finalName>spring-cloud-samples</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                    <addResources>true</addResources>
+                </configuration>
             </plugin>
         </plugins>
     </build>

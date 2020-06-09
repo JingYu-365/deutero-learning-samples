@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cloud-eureka-server-7001</artifactId>
+    <artifactId>cloud-eureka-server-7002</artifactId>
 
     <dependencies>
         <!--eureka-server-->
