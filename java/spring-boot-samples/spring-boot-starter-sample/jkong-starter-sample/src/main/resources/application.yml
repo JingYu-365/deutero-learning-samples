@@ -1,0 +1,9 @@
+server:
+  port: 2365
+
+me:
+  jkong:
+    mysql:
+      user:
+      url:
+      password:
