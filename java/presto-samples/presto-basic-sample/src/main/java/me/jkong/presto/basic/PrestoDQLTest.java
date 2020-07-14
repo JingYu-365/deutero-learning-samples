@@ -17,10 +17,41 @@ public class PrestoDQLTest {
 //        prestoOperatePostGreSql();
 
         // 通过 Presto 查询 MySQL
-        prestoOperateMySQL();
+//        prestoOperateMySQL();
 
         // 通过 Presto 查询 Hive
-        prestoOperateHive();
+//        prestoOperateHive();
+
+        // 通过 Presto 实现 MySQL join PostgreSQL
+        prestoOperateMySQLJoinPostGreSql();
+    }
+
+    private static void prestoOperateMySQLJoinPostGreSql() throws SQLException, ClassNotFoundException {
+        // 1. 加载驱动
+        Class.forName("io.prestosql.jdbc.PrestoDriver");
+        // 2. 建立连接
+        Connection connection = DriverManager.getConnection("jdbc:presto://10.10.32.17:8081", "root", null);
+        // 3. 创建 Statement
+        Statement statement = connection.createStatement();
+        // 4. 定义执行SQL
+        String sql = "select user.id, user.age, review.name  " +
+                "from mysql.mysql_db.user_table user left join postgresql.test_hhh.review_db review " +
+                "on user.id = review.id " +
+                "where user.id = 1";
+        // 5. 执行SQL
+        ResultSet resultSet = statement.executeQuery(sql);
+        // 6. 获取结果
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int age = resultSet.getInt("age");
+            String name = resultSet.getString("name");
+            System.out.println("id: " + id + "\t" + "name: " + name + "\t" + "age: " + age);
+        }
+
+        // 7. 释放资源
+        resultSet.close();
+        statement.close();
+        connection.close();
     }
 
     private static void prestoOperateMySQL() throws SQLException, ClassNotFoundException {
