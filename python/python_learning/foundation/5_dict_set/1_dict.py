@@ -5,7 +5,7 @@ print(d)
 # 根据key取值
 print(d["Michael"])
 
-#
+# 修改指定值的value
 d['Adam'] = 67
 print(d)
 
