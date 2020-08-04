@@ -1,0 +1,23 @@
+{
+  "id": "",
+  "name": "HBase输入",
+  "type": "INPUT_HBASE",
+  "connId": "5e815f64dbd65b00013b37f1",
+  "namespace": "user_repo",
+  "tableName": "",
+  "charset": "UTF-8|GBK",
+  "selectedFields": [
+    {
+      "order": 1,
+      "fieldName": "info:username",
+      "outputFieldName": "username1",
+      "dataType": "",
+      "dataFormat": "只有date|timestamp类型时起作用"
+    }
+  ],
+  "mode": {
+    "modeType": "ALL|CUSTOM",
+    "startRow": "",
+    "endRow": ""
+  }
+}

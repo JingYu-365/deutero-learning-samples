@@ -1,0 +1,6 @@
+{
+  "id": "",
+  "name": "HBase Test",
+  "type": "HBASE",
+  "zkAddr": ""
+}

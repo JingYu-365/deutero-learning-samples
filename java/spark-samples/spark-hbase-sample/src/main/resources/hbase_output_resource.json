@@ -1,0 +1,18 @@
+{
+  "id": "",
+  "name": "HBase表输出",
+  "type": "OUTPUT_HBASE",
+  "connId": "5e815f64dbd65b00013b37f1",
+  "namespace": "user_info",
+  "tableName": "dept_user",
+  "charset": "UTF-8|GBK",
+  "outputMode": "APPEND|CLEAR",
+  "rowKey": "",
+  "mappingFields": [
+    {
+      "order": 1,
+      "sourceField": "username",
+      "targetField": "info:username"
+    }
+  ]
+}
