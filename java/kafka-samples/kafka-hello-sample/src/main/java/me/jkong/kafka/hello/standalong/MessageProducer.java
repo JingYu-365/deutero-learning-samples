@@ -1,4 +1,4 @@
-package me.jkong.kafka.hello;
+package me.jkong.kafka.hello.standalong;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
