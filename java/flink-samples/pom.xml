@@ -9,6 +9,7 @@
     <version>0.0.1</version>
     <modules>
         <module>flink-word-count-sample</module>
+        <module>flink-data-types-sample</module>
     </modules>
     <packaging>pom</packaging>
 

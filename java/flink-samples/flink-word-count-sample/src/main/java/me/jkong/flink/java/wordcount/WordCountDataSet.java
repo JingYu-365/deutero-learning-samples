@@ -13,7 +13,7 @@ import org.apache.flink.util.Collector;
  * @version v0.0.1
  * @date 2020/8/5 14:55.
  */
-public class WordCount {
+public class WordCountDataSet {
     public static void main(String[] args) throws Exception {
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
         DataSource<String> source = env.readTextFile("H:\\JKong\\github\\personal-samples\\java\\flink-samples\\flink-word-count-sample\\src\\main\\resources\\data\\wordcount.txt");
