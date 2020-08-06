@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>flink-data-types-sample</artifactId>
+    <artifactId>flink-key-type-sample</artifactId>
 
 
     <properties>
@@ -74,7 +74,6 @@
 
     <build>
         <plugins>
-
             <!-- Java Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

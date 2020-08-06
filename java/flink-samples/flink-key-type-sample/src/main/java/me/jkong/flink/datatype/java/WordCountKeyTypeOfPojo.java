@@ -6,7 +6,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.util.Collector;
 
-public class WordCountDataTypeOfPojo {
+public class WordCountKeyTypeOfPojo {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         DataStreamSource<String> stream = env.socketTextStream("localhost", 9999, "\n");
@@ -24,7 +24,7 @@ public class WordCountDataTypeOfPojo {
                 .print()
                 .setParallelism(1);
 
-        env.execute();
+        env.execute("WordCountDataTypeOfPojo");
     }
 
 
