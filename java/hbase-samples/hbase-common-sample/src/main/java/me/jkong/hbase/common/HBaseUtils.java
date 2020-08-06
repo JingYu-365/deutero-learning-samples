@@ -359,8 +359,8 @@ public class HBaseUtils {
 
         if (disableTable(tableName)) {
             // adding new ColumnFamily
-            HColumnDescriptor cf = new HColumnDescriptor(familyName);
-            admin().addColumn(tableName, cf);
+            ColumnFamilyDescriptor cf = ColumnFamilyDescriptorBuilder.of(familyName);
+            admin().addColumnFamily(tableName, cf);
         }
         return true;
     }
@@ -402,14 +402,14 @@ public class HBaseUtils {
 
         Admin admin = admin();
         if (disableTable(tableName)) {
-            HTableDescriptor tableDesc = admin.getTableDescriptor(tableName);
-            HColumnDescriptor tempColumnDesc = tableDesc.getFamily(Bytes.toBytes(oldFamilyName));
+            TableDescriptor tableDesc = admin.getDescriptor(tableName);
+            ColumnFamilyDescriptor tempColumnDesc = tableDesc.getColumnFamily(Bytes.toBytes(oldFamilyName));
             if (tempColumnDesc == null) {
                 throw new NamespaceNotFoundException(oldFamilyName + " is null column ");
             } else {
                 // modifying existing ColumnFamily
-                HColumnDescriptor cf2 = new HColumnDescriptor(newFamilyName);
-                admin.modifyColumn(tableName, cf2);
+                ColumnFamilyDescriptor cf2 = ColumnFamilyDescriptorBuilder.of(newFamilyName);
+                admin.modifyColumnFamily(tableName, cf2);
             }
         }
         return true;
