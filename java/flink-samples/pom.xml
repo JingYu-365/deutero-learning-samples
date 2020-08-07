@@ -11,6 +11,7 @@
         <module>flink-word-count-sample</module>
         <module>flink-key-type-sample</module>
         <module>flink-conversion-function-sample</module>
+        <module>flink-dataset-api-sample</module>
     </modules>
     <packaging>pom</packaging>
 
