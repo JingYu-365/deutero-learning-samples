@@ -12,6 +12,9 @@
         <module>flink-key-type-sample</module>
         <module>flink-conversion-function-sample</module>
         <module>flink-dataset-api-sample</module>
+        <module>flink-table-api-sql-sample</module>
+        <module>flink-data-sink-sample</module>
+        <module>flink-data-source-sample</module>
     </modules>
     <packaging>pom</packaging>
 
