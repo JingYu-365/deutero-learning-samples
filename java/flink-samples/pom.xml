@@ -15,6 +15,7 @@
         <module>flink-table-api-sql-sample</module>
         <module>flink-data-sink-sample</module>
         <module>flink-data-source-sample</module>
+        <module>flink-kafka-log-process-sample</module>
     </modules>
     <packaging>pom</packaging>
 
