@@ -7,41 +7,75 @@
     <groupId>me.jkong</groupId>
     <artifactId>flink-samples</artifactId>
     <version>0.0.1</version>
-    <modules>
-        <module>flink-word-count-sample</module>
-        <module>flink-key-type-sample</module>
-        <module>flink-conversion-function-sample</module>
-        <module>flink-dataset-api-sample</module>
-        <module>flink-table-api-sql-sample</module>
-        <module>flink-data-sink-sample</module>
-        <module>flink-data-source-sample</module>
-        <module>flink-kafka-log-process-sample</module>
-    </modules>
     <packaging>pom</packaging>
+
+    <modules>
+        <module>flink-connectors-samples</module>
+        <module>flink-data-sink-samples</module>
+        <module>flink-data-source-samples</module>
+        <module>flink-project-samples</module>
+        <module>flink-common-sample</module>
+        <module>flink-operators-samples</module>
+    </modules>
 
     <properties>
         <flink.version>1.11.1</flink.version>
+        <java.version>1.8</java.version>
         <scala.binary.version>2.12</scala.binary.version>
+
+        <compiler.version>1.8</compiler.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.flink</groupId>
-                <artifactId>flink-java</artifactId>
-                <version>${flink.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.flink</groupId>
-                <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
-                <version>${flink.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.flink</groupId>
-                <artifactId>flink-clients_${scala.binary.version}</artifactId>
-                <version>${flink.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <dependencies>
+        <!-- Flink -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
+        <!-- Log -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+    </dependencies>
+
+    <!-- This profile helps to make things run out of the box in IntelliJ -->
+    <!-- Its adds Flink's core classes to the runtime class path. -->
+    <!-- Otherwise they are missing in IntelliJ, because the dependency is 'provided' -->
+    <profiles>
+        <profile>
+            <id>add-dependencies-for-IDEA</id>
+            <activation>
+                <property>
+                    <name>idea.version</name>
+                </property>
+            </activation>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.flink</groupId>
+                    <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
+                    <version>${flink.version}</version>
+                    <scope>compile</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 </project>
