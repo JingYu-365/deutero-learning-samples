@@ -13,6 +13,7 @@
         <module>hbase-metadata-sample</module>
         <module>hbase-basic-sample</module>
         <module>hbase-common-sample</module>
+        <module>hbase-project-samples</module>
     </modules>
 
     <properties>
