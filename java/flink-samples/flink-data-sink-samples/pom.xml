@@ -13,7 +13,7 @@
     <artifactId>flink-data-sink-samples</artifactId>
 
     <modules>
-        <module>flink-custom-data-sink-sampple</module>
+        <module>flink-custom-data-sink-sample</module>
     </modules>
 
     <dependencies>
