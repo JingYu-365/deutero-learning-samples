@@ -6,15 +6,15 @@
         <artifactId>flink-samples</artifactId>
         <groupId>me.jkong</groupId>
         <version>0.0.1</version>
+        <relativePath>../</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <artifactId>flink-data-stream-samples</artifactId>
     <packaging>pom</packaging>
-    <modules>
-        <module>flink-stream-connector-samples</module>
-        <module>flink-table-sql-connector-samples</module>
-    </modules>
 
-    <artifactId>flink-connectors-samples</artifactId>
+    <modules>
+        <module>flink-data-stream-basic-sample</module>
+    </modules>
 
 
 </project>
