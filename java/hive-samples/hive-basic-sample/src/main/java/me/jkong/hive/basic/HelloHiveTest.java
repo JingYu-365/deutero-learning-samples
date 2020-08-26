@@ -1,8 +1,5 @@
 package me.jkong.hive.basic;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 import java.sql.*;
 

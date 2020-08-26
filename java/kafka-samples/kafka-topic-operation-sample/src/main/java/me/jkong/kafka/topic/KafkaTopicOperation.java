@@ -4,10 +4,7 @@ import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.common.KafkaFuture;
 import org.junit.jupiter.api.*;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -22,11 +19,12 @@ public class KafkaTopicOperation {
 
     private static AdminClient adminClient = null;
     private static final String TOPIC = "test-topic";
+    private static final String BOOTSTRAP_SERVERS = "10.10.32.17:9092,10.10.32.18:9092,10.10.32.19:9092";
 
     @BeforeAll
     public static void init() {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "10.10.32.17:9092");
+        props.put("bootstrap.servers", BOOTSTRAP_SERVERS);
         adminClient = AdminClient.create(props);
     }
 
@@ -37,6 +35,7 @@ public class KafkaTopicOperation {
 
 
     @BeforeEach
+    @Test
     public void listTopicTest() throws ExecutionException, InterruptedException {
         ListTopicsResult topics = adminClient.listTopics();
         KafkaFuture<Set<String>> nameFuture = topics.names();
@@ -44,12 +43,13 @@ public class KafkaTopicOperation {
         for (String name : names) {
             System.out.println(name);
         }
+
     }
 
     @Test
     @Order(1)
     public void deleteTopicTest() {
-        adminClient.deleteTopics(Collections.singletonList("test_topic"));
+        adminClient.deleteTopics(Collections.singletonList(TOPIC));
     }
 
     @Test

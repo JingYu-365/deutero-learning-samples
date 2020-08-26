@@ -12,6 +12,7 @@
 
     <modules>
         <module>hive-basic-sample</module>
+        <module>hive-udf-sample</module>
     </modules>
 
     <properties>

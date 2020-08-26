@@ -60,7 +60,7 @@
                 <scope>import</scope>
             </dependency>
 
-            <!--spring cloud 阿里巴巴-->
+            <!--spring cloud alibaba-->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>

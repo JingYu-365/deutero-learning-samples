@@ -9,8 +9,19 @@
         <relativePath>../</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <artifactId>flink-transformations-samples</artifactId>
 
-    <artifactId>flink-common-sample</artifactId>
+    <modules>
+        <module>flink-transformations-filter-sample</module>
+    </modules>
 
 
+    <dependencies>
+        <dependency>
+            <artifactId>flink-common-sample</artifactId>
+            <groupId>me.jkong</groupId>
+            <version>0.0.1</version>
+        </dependency>
+    </dependencies>
 </project>

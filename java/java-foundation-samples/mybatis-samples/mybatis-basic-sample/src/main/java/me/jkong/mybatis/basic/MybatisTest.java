@@ -88,7 +88,8 @@ public class MybatisTest {
         //5. 打印结果
         // 刚保存用户，此时用户ID需要返回。执行完上面insert程序后，此时就能知道用户的ID是多少
         // 需要在User.xml文件中配置
-        System.out.println("插入id:" + user.getId());//插入id:30
+        //插入id:30
+        System.out.println("插入id:" + user.getId());
 
         //6.释放资源
         sqlSession.close();

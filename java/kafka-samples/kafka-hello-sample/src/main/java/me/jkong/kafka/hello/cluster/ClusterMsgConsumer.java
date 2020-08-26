@@ -35,7 +35,7 @@ public class ClusterMsgConsumer {
     private static void init() {
         props = new Properties();
         props.put("bootstrap.servers", "10.10.32.17:9092,10.10.32.18:9092,10.10.32.19:9092");
-        props.put("group.id", "test");
+        props.put("group.id", "test123");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");

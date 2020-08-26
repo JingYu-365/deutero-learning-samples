@@ -12,7 +12,8 @@ import java.sql.*;
  */
 public class DDLTest {
     private static String driverName = "org.apache.hive.jdbc.HiveDriver";
-    private static String url = "jdbc:hive2://10.10.32.17:10001/default";
+    private static String url = "jdbc:hive2://10.10.32.17:10001,10.10.32.18:10001,10.10.32.19:10001";
+//    private static String url = "jdbc:hive2://10.10.32.17:2181/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2";
     private static String user = "hdfs";
     private static String password = "";
 
@@ -30,14 +31,14 @@ public class DDLTest {
 //            // 2. 创建数据库
 //            createDatabase();
 //            // 3. 查询数据库列表
-//            listDatabases();
+            listDatabases();
 //            // 4. 查询数据库描述信息
 //            descDatabase();
 
             // 1. 删除表
-            dropTable();
+//            dropTable();
             // 2. 创建表
-            createTable();
+//            createTable();
             // 3. 修改表名
 //            renameTable();
             // 4. 表添加字段
@@ -47,7 +48,7 @@ public class DDLTest {
             // 6. 表移除字段
 //            removeField();
             // 7. 查询表结构
-//            descTable();
+            descTable();
 
             close();
         } catch (ClassNotFoundException | SQLException e) {
@@ -57,7 +58,7 @@ public class DDLTest {
 
     private static void descTable() throws SQLException {
         stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("desc db_test.users");
+        ResultSet rs = stmt.executeQuery("desc db_test.users2");
         while (rs.next()) {
             System.out.println(rs.getString(1) + " : " + rs.getString(2));
             // userid : string
@@ -113,7 +114,7 @@ public class DDLTest {
 
     private static void dropTable() throws SQLException {
         stmt = conn.createStatement();
-        stmt.execute("drop table if exists db_test.users");
+        stmt.execute("drop table if exists db_test.users2");
     }
 
     /**
@@ -138,7 +139,7 @@ public class DDLTest {
      * @throws SQLException
      */
     public static void createTable() throws SQLException {
-        ps = conn.prepareStatement("create table if not exists db_test.users(" +
+        ps = conn.prepareStatement("create table if not exists db_test.users2(" +
                 "id int,name string,age int) " +
                 "row format delimited fields terminated by ',' " +
                 "stored as textfile");
@@ -152,16 +153,23 @@ public class DDLTest {
         while (rs.next()) {
             System.out.println(rs.getString(1));
             System.out.println(rs.getString(2));
-            // db_hive
-            // db_test
-            // default
         }
     }
 
     private static void listDatabases() throws SQLException {
         System.out.println("=== 数据库名称 ===");
         Statement statement = conn.createStatement();
+        ResultSet catalogs = conn.getMetaData().getCatalogs();
+        while (catalogs.next()) {
+            System.out.println(catalogs.getString(1));
+        }
+
         ResultSet rs = statement.executeQuery("show databases");
+        ResultSetMetaData metaData = (ResultSetMetaData) rs.getMetaData();
+        for (int i = 0; i < metaData.getColumnCount(); i++) {
+            System.out.println(metaData.getColumnName(i + 1));
+        }
+        System.out.println();
         while (rs.next()) {
             System.out.println(rs.getString(1));
             // db_hive

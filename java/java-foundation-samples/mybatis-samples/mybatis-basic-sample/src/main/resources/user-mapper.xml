@@ -5,7 +5,7 @@
 <!--namespace：用来区别不同的类的名字 -->
 <mapper namespace="test">
 
-    <!-- 通过Id查询一个用户   -->
+    <!-- 通过Id查询一个用户-->
     <select id="findUserById" parameterType="Integer" resultType="me.jkong.mybatis.basic.User">
         select * from user where id = #{v}
     </select>

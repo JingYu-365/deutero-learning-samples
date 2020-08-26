@@ -6,7 +6,7 @@
         <artifactId>flink-project-samples</artifactId>
         <groupId>me.jkong</groupId>
         <version>0.0.1</version>
-        <relativePath/>
+        <relativePath>../</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

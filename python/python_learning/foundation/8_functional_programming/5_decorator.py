@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# @Author: JKong
-# @Time: 2020/7/23 2:13 下午
-# @Desc: 装饰器
+# _*_ coding: utf-8 _*_
+
+"""
+    装饰器
+"""
+
+__author__ = 'JKong'
+
 
 # 使用 装饰器进行函数增强 （面向切面编程）
 def log(func):
