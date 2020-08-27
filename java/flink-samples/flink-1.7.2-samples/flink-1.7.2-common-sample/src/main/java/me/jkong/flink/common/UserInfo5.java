@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+
 /**
  * 用户实体
  *
@@ -15,13 +17,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserInfo {
+public class UserInfo5 {
 
-    private Long id;
+    private Double id;
     private String name;
     private Integer age;
     private Boolean gender;
-    private String birth;
+    private Date birth;
     private String desc;
 
 }

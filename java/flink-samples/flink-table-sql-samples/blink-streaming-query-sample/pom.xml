@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>flink-blink-stream-sample</artifactId>
+    <artifactId>blink-streaming-query-sample</artifactId>
 
 
 </project>

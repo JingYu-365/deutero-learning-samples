@@ -13,7 +13,6 @@
         <module>flink-connectors-samples</module>
         <module>flink-project-samples</module>
         <module>flink-common-sample</module>
-        <module>flink-operators-samples</module>
         <module>flink-table-sql-samples</module>
         <module>flink-data-stream-samples</module>
         <module>flink-data-set-samples</module>

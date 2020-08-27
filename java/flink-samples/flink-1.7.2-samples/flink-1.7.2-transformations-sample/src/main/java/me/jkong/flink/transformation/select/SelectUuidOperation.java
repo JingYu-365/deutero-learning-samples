@@ -4,7 +4,7 @@ import me.jkong.flink.transformation.BaseFlinkOperation;
 import org.apache.flink.table.api.Table;
 
 /**
- * TODO
+ * 使用内置函数
  *
  * @author JKong
  * @version v0.0.1

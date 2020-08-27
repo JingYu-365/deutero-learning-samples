@@ -1,6 +1,6 @@
 package me.jkong.flink.transformation;
 
-import me.jkong.flink.common.UserInfo;
+import me.jkong.flink.common.*;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.operators.DataSource;
@@ -25,10 +25,14 @@ public abstract class BaseFlinkOperation {
         // 初始化环境
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
         BatchTableEnvironment tEnv = TableEnvironment.getTableEnvironment(env);
+
+        // 添加自定义函数
+        registerFunction(tEnv);
+
         DataSource<UserInfo> dataSource = env.fromCollection(getData());
 
         // 注册表 及 schema (id, name, age, gender, desc)
-        tEnv.registerDataSet("userinfo", dataSource, "id, name, age, gender, desc");
+        tEnv.registerDataSet("userinfo", dataSource, "id, name, age, gender, birth, desc");
         Table table = tEnv.scan("userinfo");
         // 打印表的Schema
         table.printSchema();
@@ -36,8 +40,11 @@ public abstract class BaseFlinkOperation {
         // 对数据进行转换
         table = initTableOperation(table);
 
+        // 打印表的Schema
+        table.printSchema();
+
         // 为了打印结果而进行的此步转换
-        DataSet<UserInfo> data = tEnv.toDataSet(table, UserInfo.class);
+        DataSet<UserInfo5> data = tEnv.toDataSet(table, UserInfo5.class);
         data.print();
     }
 
@@ -49,6 +56,13 @@ public abstract class BaseFlinkOperation {
      */
     protected abstract Table initTableOperation(Table table);
 
+    /**
+     * 注册自定义函数
+     *
+     * @param tEnv t
+     */
+    protected void registerFunction(BatchTableEnvironment tEnv) {
+    }
 
     /**
      * 获取初始化数据
@@ -57,11 +71,11 @@ public abstract class BaseFlinkOperation {
      */
     protected static List<UserInfo> getData() {
         List<UserInfo> list = new ArrayList<UserInfo>();
-        UserInfo userInfo1 = new UserInfo(11L, "xiao ming", 121, true, "备注1");
-        UserInfo userInfo2 = new UserInfo(12L, "xiao hong", 122, false, "备注2");
-        UserInfo userInfo3 = new UserInfo(13L, "hua hua", 123, true, "备注3");
-        UserInfo userInfo4 = new UserInfo(14L, "xiao li zi", 124, false, "备注4");
-        UserInfo userInfo5 = new UserInfo(15L, "da gou zi", 125, true, "备注5");
+        UserInfo userInfo1 = new UserInfo(11L, "xiao ming", 121, true, "1999-09-12 12:13:14", "备注1");
+        UserInfo userInfo2 = new UserInfo(12L, "xiao hong", 122, false, "1999-09-13 12:13:14", "备注2");
+        UserInfo userInfo3 = new UserInfo(13L, "hua hua", 123, true, "1999-09-14 12:13:14", "备注3");
+        UserInfo userInfo4 = new UserInfo(14L, "xiao li zi", 124, false, "1999-09-15 12:13:14", "备注4");
+        UserInfo userInfo5 = new UserInfo(15L, "da gou zi", 125, true, "1999-09-16 12:13:14", "备注5");
 
         list.add(userInfo1);
         list.add(userInfo2);

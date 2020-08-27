@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserInfo {
+public class UserInfo2 {
 
-    private Long id;
+    private String id;
     private String name;
     private Integer age;
     private Boolean gender;
