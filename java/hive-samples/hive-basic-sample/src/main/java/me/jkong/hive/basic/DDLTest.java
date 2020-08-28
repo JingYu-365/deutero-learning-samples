@@ -12,8 +12,8 @@ import java.sql.*;
  */
 public class DDLTest {
     private static String driverName = "org.apache.hive.jdbc.HiveDriver";
-    private static String url = "jdbc:hive2://10.10.32.17:10001,10.10.32.18:10001,10.10.32.19:10001";
-//    private static String url = "jdbc:hive2://10.10.32.17:2181/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2";
+//    private static String url = "jdbc:hive2://10.10.32.17:10001,10.10.32.18:10001,10.10.32.19:10001";
+    private static String url = "jdbc:hive2://10.10.32.17:2181,10.10.32.18:2181,10.10.32.19:2181/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2";
     private static String user = "hdfs";
     private static String password = "";
 

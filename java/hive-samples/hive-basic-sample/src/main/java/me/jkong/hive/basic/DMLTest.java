@@ -11,7 +11,7 @@ import java.sql.*;
  */
 public class DMLTest {
     private static String driverName = "org.apache.hive.jdbc.HiveDriver";
-    private static String url = "jdbc:hive2://10.10.32.17:10001/default";
+    private static String url = "jdbc:hive2://10.10.32.17:10001,10.10.32.18:10001,10.10.32.19:10001";
     private static String user = "hdfs";
     private static String password = "";
 
@@ -30,7 +30,7 @@ public class DMLTest {
             // 3. 装载本地数据到Hive中
 //            loadDataFromLocalToTable();
             // 4. 装载HDFS数据到Hive中
-            loadDataFromHdfsToTable();
+//            loadDataFromHdfsToTable();
             // Hive 不支持 delete 操作
             // Hive 不支持 update 操作
 
@@ -63,7 +63,7 @@ public class DMLTest {
 
     private static void queryDataFromTable() throws SQLException {
         System.out.println("== query ==");
-        String sql = "select * from db_test.users";
+        String sql = "SELECT  *  FROM jkong_big_data.user_info LIMIT 10 OFFSET 0";
         stmt = conn.createStatement();
         rs = stmt.executeQuery(sql);
         while (rs.next()) {

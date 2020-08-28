@@ -178,3 +178,8 @@ def is_even(val):
 
 list_1 = list(filter(is_even, list_1))
 print(list_1)
+
+# 17. 从字典中读取子集
+dic_7 = {"key1": 1, "key2": 2, "key3": 3}
+dic_new = {key: value for key, value in dic_7.items() if value > 2}
+print(dic_new)
