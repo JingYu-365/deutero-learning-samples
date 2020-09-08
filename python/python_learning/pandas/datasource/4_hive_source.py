@@ -2,7 +2,7 @@
 # _*_ coding: utf-8 _*_
 
 """
-    TODO
+    pandas 操作 Hive 获取数据
 """
 
 __author__ = 'JKong'
