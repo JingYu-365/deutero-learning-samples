@@ -15,7 +15,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 
-def linearmodel():
+def linear_model():
     """
     线性回归对波士顿数据集处理
     :return: None
@@ -32,8 +32,8 @@ def linearmodel():
     x_test = std_x.transform(x_test)
     # 目标值进行处理
     std_y = StandardScaler()
-    # y_train = std_y.fit_transform(y_train)
-    # y_test = std_y.transform(y_test)
+    y_train = std_y.fit_transform(y_train.reshape(-1, 1))
+    y_test = std_y.transform(y_test.reshape(-1, 1))
 
     # 3、估计器流程
     # LinearRegression
@@ -47,7 +47,7 @@ def linearmodel():
     # SGDRegressor
     sgd = SGDRegressor()
     sgd.fit(x_train, y_train)
-    # print(sgd.coef_)
+    print(sgd.coef_)
     y_sgd_predict = sgd.predict(x_test)
     y_sgd_predict = std_y.inverse_transform(y_sgd_predict)
     print("SGD预测值：", y_sgd_predict)
@@ -66,4 +66,4 @@ def linearmodel():
     return None
 
 
-linearmodel()
+linear_model()
