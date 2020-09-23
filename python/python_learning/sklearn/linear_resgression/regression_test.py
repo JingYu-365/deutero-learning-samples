@@ -25,6 +25,8 @@ def linear_model():
     ld = load_boston()
     x_train, x_test, y_train, y_test = train_test_split(ld.data, ld.target, test_size=0.25)
 
+    print(type(x_train))
+    print(type(y_train))
     # 2、标准化处理
     # 特征值处理
     std_x = StandardScaler()
@@ -47,10 +49,10 @@ def linear_model():
     # SGDRegressor
     sgd = SGDRegressor()
     sgd.fit(x_train, y_train)
-    print(sgd.coef_)
+    print("=====\n", sgd.coef_)
     y_sgd_predict = sgd.predict(x_test)
     y_sgd_predict = std_y.inverse_transform(y_sgd_predict)
-    print("SGD预测值：", y_sgd_predict)
+    print("SGD预测值：\n", y_sgd_predict)
 
     # 带有正则化的岭回归
     rd = Ridge(alpha=0.01)

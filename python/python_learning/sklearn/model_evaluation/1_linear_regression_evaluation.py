@@ -36,8 +36,8 @@ print('MSE为(直接计算)：', np.mean((y_test - y_pred) ** 2))
 print('RMSE为：', np.sqrt(mean_squared_error(y_test, y_pred)))
 
 # median_absolute_error (平均绝对误差（Mean Absolute Error，MAE），用于评估预测结果和真实数据集的接近程度的程度，其值越小说明拟合效果越好。)
-print(np.median(np.abs(y_test - y_pred)))
-print(median_absolute_error(y_test, y_pred))
+print("MAE: ", median_absolute_error(y_test, y_pred))
+print("MAE: ", np.median(np.abs(y_test - y_pred)))
 
 # r2_score (判定系数，其含义是也是解释回归模型的方差得分，其值取值范围是[0,1]，越接近于1说明自变量越能解释因变量的方差变化，值越小则说明效果越差。)
 print(r2_score(y_test, y_pred))

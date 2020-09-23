@@ -28,6 +28,8 @@ ret = engine.execute(sql)
 # print(ret.fetchone())
 print(ret.fetchall())
 
+print(engine.execute("desc hive.jkong_big_data.user_1000").fetchall())
+
 # 执行原生sql 方式二：
 # conn = engine.connect()
 # res = conn.execute(sql)

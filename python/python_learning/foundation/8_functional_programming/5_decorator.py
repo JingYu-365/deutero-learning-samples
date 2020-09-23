@@ -11,8 +11,11 @@ __author__ = 'JKong'
 # 使用 装饰器进行函数增强 （面向切面编程）
 def log(func):
     def wrapper(*args, **kw):
+        print("前置")
         print('call %s():' % func.__name__)
-        return func(*args, **kw)
+        ret = func(*args, **kw)
+        print("后置")
+        return ret
 
     return wrapper
 
@@ -27,6 +30,8 @@ def now():
 
 # 调用函数
 now()
+
+print("==================")
 
 
 # 如果decorator本身需要传入参数，那就需要编写一个返回decorator的高阶函数，写出来会更复杂。
@@ -48,6 +53,8 @@ def now1():
 
 
 now1()
+
+print("=================")
 
 # 获取函数的名称
 print(log1.__name__)  # log1
