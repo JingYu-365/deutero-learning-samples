@@ -1,33 +1,44 @@
+// @Description: for 循环
+// @Author: JKong
+// @Update: 2020/9/27 9:04 下午
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
 
 func main() {
-	flag := false
-	for i := 0; i < 10; i++ {
-		for j := 0; j < 10; j++ {
-			if i == 5 && j == 6 {
-				// 跳出当前层循环
-				flag = true
-				break
-			}
-			fmt.Println(i, j)
-		}
-		if flag {
-			break
-		}
-	}
+	readFile()
 
-	fmt.Println("++++++++++++++")
+	forover()
+}
 
-jkong:
-	for i := 0; i < 10; i++ {
-		for j := 0; j < 10; j++ {
-			if i == 5 && j == 6 {
-				// 跳出当前标签
-				break jkong
-			}
-			fmt.Println(i, j)
-		}
+// 死循环
+func forover() {
+	for {
+		fmt.Println("asd")
 	}
 }
+
+func readFile() {
+	filename := "src/me.jkong/go/hello-go-sample/02_foundation/5_for/asd.txt"
+	file, err := os.Open(filename)
+	if err != nil {
+		panic(err)
+	}
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+	}
+}
+
+/*
+for 循环总结
+- for & if 后面没有括号
+- if 条件里也可以定义变量
+- 没有 while
+- switch 不需要 break，也可以直接switch多个条件
+*/
