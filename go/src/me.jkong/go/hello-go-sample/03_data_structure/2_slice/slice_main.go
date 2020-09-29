@@ -27,6 +27,15 @@ func main() {
 
 	// 切片还可以继续呗切片
 	fmt.Println(arr[:][2:])
+
+	// 切片添加数据
+	// 向slice中append元素时，如果超出了 capacity，那么系统会创建更大的数组
+	// append 添加元素时，会导致底层数组的 length 和 capacity的改变
+	s1 = arr[:]
+	s2 := append(s1, 1)
+	s3 := append(s2, 2)
+	fmt.Println("s1,s2,s3 = ", s1, s2, s3)
+	fmt.Println(arr)
 }
 
 func updateSlice(slice []int) {
