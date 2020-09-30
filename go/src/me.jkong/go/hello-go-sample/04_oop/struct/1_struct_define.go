@@ -2,9 +2,22 @@ package main
 
 import "fmt"
 
+// 定义结构体
 type Person struct {
 	age  int
 	name string
+}
+
+// 同类型属性，可以一同定义
+type Person1 struct {
+	name, bobby string
+	age         string
+}
+
+// 匿名属性
+type Person2 struct {
+	string
+	int
 }
 
 func (person Person) getName() string {
