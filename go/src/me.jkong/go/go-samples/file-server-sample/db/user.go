@@ -2,7 +2,6 @@ package db
 
 import (
 	"fmt"
-	"jkong.me/jkong/filestore_server/db/mysql"
 )
 
 // 用户注册

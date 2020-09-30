@@ -3,7 +3,6 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"jkong.me/jkong/filestore_server/db/mysql"
 )
 
 // 文件上传完成，保存meta

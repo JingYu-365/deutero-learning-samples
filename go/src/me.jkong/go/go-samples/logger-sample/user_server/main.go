@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/jkong/study_go_demo/lesson05/logger"
+	"me.jkong/go/go-samples/logger-sample/logger"
 )
 
 // 面向接口编程
