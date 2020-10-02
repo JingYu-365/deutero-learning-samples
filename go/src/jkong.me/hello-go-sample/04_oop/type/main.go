@@ -5,7 +5,7 @@ package main
 
 import (
 	"fmt"
-	queue "me.jkong/go/hello-go-sample/04_oop/type/queue"
+	queue "jkong.me/hello-go-sample/04_oop/type/queue"
 )
 
 func main() {

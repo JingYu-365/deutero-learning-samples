@@ -4,7 +4,7 @@
 package main
 
 import (
-	"me.jkong/go/hello-go-sample/04_oop/package/tree"
+	"jkong.me/hello-go-sample/04_oop/package/tree"
 )
 
 // 1. 在go语言中，一般使用CamelCase类型定义

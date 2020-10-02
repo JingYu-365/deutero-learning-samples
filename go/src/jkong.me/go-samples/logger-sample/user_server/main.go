@@ -1,7 +1,7 @@
 package main
 
 import (
-	"me.jkong/go/go-samples/logger-sample/logger"
+	"jkong.me/go-samples/logger-sample/logger"
 )
 
 // 面向接口编程
