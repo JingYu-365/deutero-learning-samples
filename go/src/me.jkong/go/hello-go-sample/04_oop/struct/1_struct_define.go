@@ -20,6 +20,7 @@ type Person2 struct {
 	int
 }
 
+// 在结构中统一使用点来访问属性
 func (person Person) getName() string {
 	return person.name
 }
