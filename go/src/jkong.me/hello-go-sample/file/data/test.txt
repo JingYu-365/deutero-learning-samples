@@ -1,0 +1,30 @@
+this is test file.
+
+file api:
+
+type File
+    func Create(name string) (*File, error)
+    func NewFile(fd uintptr, name string) *File
+    func Open(name string) (*File, error)
+    func OpenFile(name string, flag int, perm FileMode) (*File, error)
+    func (f *File) Chdir() error
+    func (f *File) Chmod(mode FileMode) error
+    func (f *File) Chown(uid, gid int) error
+    func (file *File) Close() error
+    func (file *File) Fd() uintptr
+    func (f *File) Name() string
+    func (f *File) Read(b []byte) (n int, err error)
+    func (f *File) ReadAt(b []byte, off int64) (n int, err error)
+    func (f *File) Readdir(n int) ([]FileInfo, error)
+    func (f *File) Readdirnames(n int) (names []string, err error)
+    func (f *File) Seek(offset int64, whence int) (ret int64, err error)
+    func (f *File) SetDeadline(t time.Time) error
+    func (f *File) SetReadDeadline(t time.Time) error
+    func (f *File) SetWriteDeadline(t time.Time) error
+    func (file *File) Stat() (FileInfo, error)
+    func (f *File) Sync() error
+    func (f *File) SyscallConn() (syscall.RawConn, error)
+    func (f *File) Truncate(size int64) error
+    func (f *File) Write(b []byte) (n int, err error)
+    func (f *File) WriteAt(b []byte, off int64) (n int, err error)
+    func (f *File) WriteString(s string) (n int, err error)
