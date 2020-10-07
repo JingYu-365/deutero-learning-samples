@@ -2,16 +2,28 @@ package main
 
 import "jkong.me/old-boy-sample/file/operation"
 
-const filename = "src/jkong.me/old-boy-sample/file/data/test.txt"
+const readFilename = "src/jkong.me/old-boy-sample/file/data/test.txt"
+const writeFilename = "src/jkong.me/old-boy-sample/file/data/write.txt"
+const writeFileWithIOUtil = "src/jkong.me/old-boy-sample/file/data/write_ioutil.txt"
+const copyFileName = "src/jkong.me/old-boy-sample/file/data/copy_file.txt"
 
 func main() {
-	// operation.FileOpenAndClose(filename)
+	// openandclosefile.go
+	// operation.FileOpenAndClose(readFilename)
 
-	// operation.ReadFileWithSlice(filename)z
+	// readfile.go
+	// operation.ReadFileWithSlice(readFilename)z
 
-	// operation.ReadFileWithForeach(filename)
+	// operation.ReadFileWithForeach(readFilename)
 
-	// operation.ReadFileWithBufIO(filename)
+	// operation.ReadFileWithBufIO(readFilename)
 
-	operation.ReadAllFileWithIoUtil(filename)
+	// operation.ReadAllFileWithIoUtil(readFilename)
+
+	// writefile.go
+	// operation.OpenAndWriteFile(writeFilename)
+
+	// operation.WriteFileWithIoUtil(writeFileWithIOUtil)
+
+	operation.CopyFile(readFilename, copyFileName)
 }
