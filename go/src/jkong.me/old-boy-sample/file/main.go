@@ -9,7 +9,7 @@ const copyFileName = "src/jkong.me/old-boy-sample/file/data/copy_file.txt"
 
 func main() {
 	// openandclosefile.go
-	// operation.FileOpenAndClose(readFilename)
+	operation.FileOpenAndClose(readFilename)
 
 	// readfile.go
 	// operation.ReadFileWithSlice(readFilename)z
@@ -25,5 +25,5 @@ func main() {
 
 	// operation.WriteFileWithIoUtil(writeFileWithIOUtil)
 
-	operation.CopyFile(readFilename, copyFileName)
+	// operation.CopyFile(readFilename, copyFileName)
 }

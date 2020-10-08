@@ -13,5 +13,7 @@ func FileOpenAndClose(fileName string) {
 		return
 	}
 
+	fmt.Println(file.Name())
+
 	defer file.Close()
 }
