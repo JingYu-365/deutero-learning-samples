@@ -51,6 +51,15 @@ func (log *Logger) Fatal(msg string) {
 
 func (log *Logger) log(level LogLevel, msg string) {
 	if level >= log.Level {
-		fmt.Printf("[%s] [%s] %s \n", time.Now().Format("2006-01-02 15:04:05"), parseLogLevelForString(level), msg)
+		filename, funcName, lineNo := GetfuncRunTimeInfo(3)
+		fmt.Printf("[%s] [%s:%s:%d] [%s] %s \n",
+			// 时间
+			time.Now().Format("2006-01-02 15:04:05"),
+			// 文件名：函数名：行号
+			filename, funcName, lineNo,
+			// loglevel
+			parseLogLevelForString(level),
+			// 日志信息
+			msg)
 	}
 }
