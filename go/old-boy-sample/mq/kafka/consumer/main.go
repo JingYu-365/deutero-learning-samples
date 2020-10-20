@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// 创建消费者对象
-	consumer, err := sarama.NewConsumer([]string{"localhost:9092"}, nil)
+	consumer, err := sarama.NewConsumer([]string{"127.0.0.1:9092"}, nil)
 	if err != nil {
 		panic(err)
 	}
@@ -22,7 +22,7 @@ func main() {
 		}
 	}()
 	// 创建消费者对象管理的分区消费者对象
-	partitionConsumer, err := consumer.ConsumePartition("topic1", 0, sarama.OffsetNewest)
+	partitionConsumer, err := consumer.ConsumePartition("server-log", 0, sarama.OffsetNewest)
 	if err != nil {
 		panic(err)
 	}
