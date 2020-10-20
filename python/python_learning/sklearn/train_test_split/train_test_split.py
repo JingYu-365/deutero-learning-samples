@@ -14,7 +14,6 @@ data_x = [['this is class 1 ']] * 10 + [['this is class 2']] * 5
 data_y = [[1]] * 10 + [[2]] * 5
 print(data_y)
 
-
 X_train, X_test, y_train, y_test = \
     sklearn.model_selection.train_test_split(data_x, data_y, test_size=0.3, random_state=2)
 
