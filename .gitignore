@@ -6,3 +6,4 @@
 **/src/gopkg.in
 **/*.iml
 **/target
+**/*.exe
