@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"old-boy-sample/log_sample/config"
-	"old-boy-sample/log_sample/kafka"
-	"old-boy-sample/log_sample/tail"
+	"log_sample/config"
+	"log_sample/kafka"
+	"log_sample/tail"
+
 	"time"
 
 	"gopkg.in/ini.v1"

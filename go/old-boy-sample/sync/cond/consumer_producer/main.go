@@ -5,6 +5,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"sync"
 	"time"
 )
@@ -24,7 +25,7 @@ var data = 0
 
 func produce() {
 	for {
-		time.Sleep(time.Millisecond * 50)
+		time.Sleep(time.Millisecond * time.Duration(rand.Intn(80)))
 		rwLock.Lock()
 		if data == 10 {
 			proCond.Wait()
@@ -37,7 +38,7 @@ func produce() {
 
 func consume() {
 	for true {
-		time.Sleep(time.Millisecond * 150)
+		time.Sleep(time.Millisecond * time.Duration(rand.Intn(150)))
 		rwLock.RLock()
 		if data == 0 {
 			conCond.Wait()
