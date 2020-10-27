@@ -21,8 +21,8 @@
     </modules>
 
     <properties>
-        <netty-all.version>4.1.39.Final</netty-all.version>
-        <junit.version>4.12</junit.version>
+        <netty-all.version>4.1.42.Final</netty-all.version>
+        <junit.version>4.13.1</junit.version>
     </properties>
 
     <dependencyManagement>
