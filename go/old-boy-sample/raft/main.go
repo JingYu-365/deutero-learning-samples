@@ -18,7 +18,7 @@ func main() {
 	// 1. 初始化节点，身份都为 follower
 	// 初始化 Raft 实例
 	for i := 0; i <= config.RaftCount; i++ {
-
+		Make(i)
 	}
 
 	// 若为 candidate 身份，则进行拉票
@@ -28,7 +28,7 @@ func main() {
 }
 
 func Make(me int) *entity.Raft {
-	r := entity.Raft{
+	rf := entity.Raft{
 		Me:            me,                   // 当前节点编号
 		VotedFor:      -1,                   // 初始化投票状态
 		State:         0,                    // 初始化自己的状态 0：follower
@@ -45,8 +45,9 @@ func Make(me int) *entity.Raft {
 	rand.Seed(time.Now().UnixNano())
 
 	// 选举的协程
-
+	go rf.Election()
 	// 心跳的协程
+	go rf.SendHeartBeat()
 
-	return &r
+	return &rf
 }
