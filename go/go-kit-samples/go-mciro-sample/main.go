@@ -19,7 +19,9 @@ func main() {
 
 	// 使用 路有插件进行路由
 	router := mux.NewRouter()
-	router.Handle("/users/{uid:\\d+}", userHandler)
+	//router.Handle("/users/{uid:\\d+}", userHandler)
+	// 定义一个只允许Get请求的路由
+	router.Methods("GET", "DELETE").Path("/users/{uid:\\d+}").Handler(userHandler)
 
 	log.Printf("server start at %d \n", 2365)
 	err := http.ListenAndServe(":2365", router)

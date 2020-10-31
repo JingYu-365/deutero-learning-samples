@@ -18,7 +18,7 @@ func DecodeUserRequest(ctx context.Context, req *http.Request) (interface{}, err
 	fmt.Println(vars)
 	if uid, ok := vars["uid"]; ok {
 		uid, _ := strconv.Atoi(uid)
-		return UserRequest{Uid: uid}, nil
+		return UserRequest{Uid: uid, Method: req.Method}, nil
 	}
 	return nil, errors.New("invalid parameter uid")
 }
