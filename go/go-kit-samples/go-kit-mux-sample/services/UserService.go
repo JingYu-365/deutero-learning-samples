@@ -1,7 +1,7 @@
 // @Description: 用户服务接口
-// @Author: JKong
+// @Author: la ba zhang
 // @Update: 2020/10/31 10:17 上午
-package service
+package services
 
 type IUserService interface {
 	GetName(uid int) string
