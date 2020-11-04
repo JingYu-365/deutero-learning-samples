@@ -1,4 +1,4 @@
-// TODO
+// constant data
 // @author: Laba Zhang
 package config
 
