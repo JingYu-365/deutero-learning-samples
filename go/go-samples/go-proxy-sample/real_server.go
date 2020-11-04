@@ -4,6 +4,8 @@ package main
 
 import (
 	"encoding/base64"
+	"fmt"
+	"go-proxy-sample/util"
 	"log"
 	"net/http"
 	"os"
@@ -39,6 +41,7 @@ func main() {
 
 // 返回体处理
 func writeRep(w http.ResponseWriter, req *http.Request, content string) {
+	fmt.Println(util.GetRealRemoteIp(req))
 	if authVerify(req) {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(content))

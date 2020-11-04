@@ -4,10 +4,11 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"go-proxy-sample/config"
+	"go-proxy-sample/util"
 	"log"
 	"net/http"
-	"strings"
+	"regexp"
 )
 
 type ProxyHandler struct {
@@ -22,31 +23,27 @@ func (*ProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}()
 
-	path := r.URL.Path
-	log.Println(path)
-
-	var request *http.Request
-	if strings.HasPrefix(path, "/a") {
-		request, _ = http.NewRequest(r.Method, "http://localhost:8080"+r.URL.Path, r.Body)
-	} else if strings.HasPrefix(path, "/b") {
-		request, _ = http.NewRequest(r.Method, "http://localhost:8080"+r.URL.Path, r.Body)
-	} else {
+	var reqSuccess bool
+	for path, pass := range config.ProxyConfig {
+		if matched, _ := regexp.MatchString(path, r.URL.Path); matched {
+			reqSuccess = true
+			request, _ := http.NewRequest(r.Method, pass+r.URL.Path, r.Body)
+			util.CopyHeader(r.Header, &request.Header)
+			// 设置真实代理地址
+			util.SettingXForwardedFor(*r, request)
+			fmt.Println("123")
+			err := util.DoRequest(request, w)
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				w.Write([]byte("internal server error!"))
+			}
+		}
+	}
+	if reqSuccess {
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte("illegal url"))
 		return
 	}
-	response, _ := http.DefaultClient.Do(request)
-	defer response.Body.Close()
-
-	// 将实际返回的 Header 及 StatusCode 返回
-	w.WriteHeader(response.StatusCode)
-	for key, value := range response.Header {
-		fmt.Println(key, value[0])
-		w.Header().Add(key, value[0])
-	}
-	fmt.Println(w.Header())
-	result, _ := ioutil.ReadAll(response.Body)
-	w.Write(result)
 }
 
 func main() {
