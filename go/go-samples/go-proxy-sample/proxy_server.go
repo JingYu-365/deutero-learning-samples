@@ -1,8 +1,9 @@
-// TODO
+// proxy server
 // @author: Laba Zhang
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -36,8 +37,15 @@ func (*ProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	response, _ := http.DefaultClient.Do(request)
 	defer response.Body.Close()
+
+	// 将实际返回的 Header 及 StatusCode 返回
+	w.WriteHeader(response.StatusCode)
+	for key, value := range response.Header {
+		fmt.Println(key, value[0])
+		w.Header().Add(key, value[0])
+	}
+	fmt.Println(w.Header())
 	result, _ := ioutil.ReadAll(response.Body)
-	w.WriteHeader(http.StatusOK)
 	w.Write(result)
 }
 
