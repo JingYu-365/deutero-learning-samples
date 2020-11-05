@@ -4,6 +4,7 @@ package config
 
 import (
 	"fmt"
+	"go-proxy-sample/util"
 	"gopkg.in/ini.v1"
 	"log"
 	"os"
@@ -32,6 +33,8 @@ func init() {
 		pass, _ := sec.GetKey(PASS)
 		if path != nil && pass != nil {
 			ProxyConfig[path.Value()] = pass.Value()
+			// 将从配置文件中读取出来的URL映射关系添加到负载中
+			util.LB.AddHttpServer(util.NewHttpServer(path.Value(), pass.Value()))
 		}
 	}
 	log.Println("init proxy config complete.")

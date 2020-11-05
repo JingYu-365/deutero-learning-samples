@@ -3,11 +3,14 @@
 package util
 
 import (
-	"go-proxy-sample/config"
 	"io/ioutil"
 	"net"
 	"net/http"
 	"strings"
+)
+
+const (
+	X_FORWARADED_FOR = "X-Forwarded-For"
 )
 
 func DoRequest(req *http.Request, resp http.ResponseWriter) error {
@@ -41,15 +44,15 @@ func CopyHeader(src http.Header, des *http.Header) {
 // SettingXForwardedFor 设置真实请求地址
 func SettingXForwardedFor(src http.Request, des *http.Request) {
 	if clientIP, _, err := net.SplitHostPort(src.RemoteAddr); err == nil {
-		if prior, ok := des.Header[config.X_FORWARADED_FOR]; ok {
+		if prior, ok := des.Header[X_FORWARADED_FOR]; ok {
 			clientIP = strings.Join(prior, ", ") + ", " + clientIP
 		}
-		des.Header.Set(config.X_FORWARADED_FOR, clientIP)
+		des.Header.Set(X_FORWARADED_FOR, clientIP)
 	}
 }
 
 func GetRealRemoteIp(req *http.Request) string {
-	ips := req.Header.Get(config.X_FORWARADED_FOR)
+	ips := req.Header.Get(X_FORWARADED_FOR)
 	if ips == "" {
 		ips = req.RemoteAddr
 	}
