@@ -17,6 +17,7 @@ const (
 	PROXY     = "proxy"
 	PATH      = "path"
 	PASS      = "pass"
+	WEIGHT    = "weight"
 )
 
 func init() {
@@ -31,10 +32,15 @@ func init() {
 	for _, sec := range section.ChildSections() {
 		path, _ := sec.GetKey(PATH)
 		pass, _ := sec.GetKey(PASS)
+		weightKey, err := sec.GetKey(WEIGHT)
+		var weight = 1 // 默认为1
+		if err == nil {
+			weight = weightKey.MustInt(1)
+		}
 		if path != nil && pass != nil {
 			ProxyConfig[path.Value()] = pass.Value()
 			// 将从配置文件中读取出来的URL映射关系添加到负载中
-			util.LB.AddHttpServer(util.NewHttpServer(path.Value(), pass.Value()))
+			util.LB.AddHttpServer(util.NewHttpServer(path.Value(), pass.Value(), weight))
 		}
 	}
 	log.Println("init proxy config complete.")

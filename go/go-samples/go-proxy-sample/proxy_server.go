@@ -23,7 +23,8 @@ func (*ProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}()
 
-	httpServer, err := util.LB.SelectForRandom(r.URL.Path)
+	// 选择负载策略
+	httpServer, err := util.LB.SelectForWeightRoundRobin(r.URL.Path)
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte(err.Error()))
