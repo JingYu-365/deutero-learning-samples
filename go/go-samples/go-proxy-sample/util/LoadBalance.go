@@ -13,14 +13,13 @@ import (
 var LB = NewLoadBalance()
 
 type HttpServer struct {
-	// 请求路径
-	Path string
-	// 被代理地址
-	Proxy string
-	// 实际权重
-	Weight int
-	// 当前权重
-	CurWeight int
+	Path         string // 请求路径
+	Proxy        string // 被代理地址
+	Weight       int    // 实际权重
+	CurWeight    int    // 当前权重
+	Status       string // 当前server状态，上线：UP，下线：DOWN
+	FailCount    int    // 健康检测：失败次数
+	SuccessCount int    // 健康监测：成功次数
 }
 
 func NewHttpServer(path, proxy string, weight int) *HttpServer {
@@ -29,11 +28,10 @@ func NewHttpServer(path, proxy string, weight int) *HttpServer {
 		weight = 1
 	}
 	return &HttpServer{
-		Path:   path,
-		Proxy:  proxy,
-		Weight: weight,
-		// 每次在轮训之前会将 CurWeight + Weight，所以此处将CurWeight初始化为0
-		CurWeight: 0,
+		Path:      path,
+		Proxy:     proxy,
+		Weight:    weight,
+		CurWeight: 0, // 每次在轮训之前会将 CurWeight + Weight，所以此处将CurWeight初始化为0
 	}
 }
 
@@ -44,18 +42,33 @@ func (p HttpServerSlice) Less(i, j int) bool { return p[i].CurWeight > p[j].CurW
 func (p HttpServerSlice) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
 
 type LoadBalance struct {
-	Servers map[string]HttpServerSlice
-	// 轮训的下标
-	CurrentIndex map[string]int
-	// 当前路由的proxy的总权重值
-	SumWeight map[string]int
+	Servers      map[string]HttpServerSlice
+	CurrentIndex map[string]int // 轮训的下标
+	SumWeight    map[string]int // 当前路由的proxy的总权重值
+	Checker      *HttpChecker
 }
 
 func NewLoadBalance() *LoadBalance {
-	return &LoadBalance{
+	lb := &LoadBalance{
 		Servers:      make(map[string]HttpServerSlice, 0),
 		CurrentIndex: make(map[string]int, 0),
 		SumWeight:    make(map[string]int, 0),
+		Checker:      NewHttpChecker(make(map[string]HttpServerSlice, 0)),
+	}
+	// 使用一个单独的协程进行监控健康状态
+	go lb.checkServers()
+	return lb
+}
+
+func (lb *LoadBalance) checkServers() {
+	// 设置定时器执行周期
+	t := time.NewTicker(time.Second * 3)
+	for true {
+		select {
+		case <-t.C:
+			// 设置请求超时时间
+			lb.Checker.Check(time.Second * 2)
+		}
 	}
 }
 
@@ -72,6 +85,8 @@ func (lb *LoadBalance) AddHttpServer(server *HttpServer) {
 	} else {
 		lb.SumWeight[server.Path] = lb.SumWeight[server.Path] + server.Weight
 	}
+	// 将新添加进来的HTTPServer添加到健康监测中
+	lb.Checker.AddHttpServer(server)
 }
 
 // 随机负载
@@ -129,6 +144,9 @@ func (lb *LoadBalance) SelectForRoundRobin(path string) (*HttpServer, error) {
 		if matched, _ := regexp.MatchString(pathTmp, path); matched {
 			server := proxies[lb.CurrentIndex[pathTmp]]
 			lb.CurrentIndex[pathTmp] = (lb.CurrentIndex[pathTmp] + 1) % len(proxies)
+			if server.Status == "DOWN" {
+				return lb.SelectForRoundRobin(path)
+			}
 			return server, nil
 		}
 	}
