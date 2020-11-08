@@ -24,7 +24,7 @@ func (*ProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}()
 
 	// 选择负载策略
-	httpServer, err := util.LB.SelectForWeightRoundRobin(r.URL.Path)
+	httpServer, err := util.LB.SelectForSoftWeightRoundRobin(r.URL.Path)
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte(err.Error()))

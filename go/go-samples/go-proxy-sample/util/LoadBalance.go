@@ -6,6 +6,7 @@ import (
 	"errors"
 	"math/rand"
 	"regexp"
+	"sort"
 	"time"
 )
 
@@ -16,8 +17,10 @@ type HttpServer struct {
 	Path string
 	// 被代理地址
 	Proxy string
-	// 权重
+	// 实际权重
 	Weight int
+	// 当前权重
+	CurWeight int
 }
 
 func NewHttpServer(path, proxy string, weight int) *HttpServer {
@@ -29,18 +32,30 @@ func NewHttpServer(path, proxy string, weight int) *HttpServer {
 		Path:   path,
 		Proxy:  proxy,
 		Weight: weight,
+		// 每次在轮训之前会将 CurWeight + Weight，所以此处将CurWeight初始化为0
+		CurWeight: 0,
 	}
 }
 
+type HttpServerSlice []*HttpServer
+
+func (p HttpServerSlice) Len() int           { return len(p) }
+func (p HttpServerSlice) Less(i, j int) bool { return p[i].CurWeight > p[j].CurWeight }
+func (p HttpServerSlice) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
+
 type LoadBalance struct {
-	Servers      map[string][]*HttpServer
+	Servers map[string]HttpServerSlice
+	// 轮训的下标
 	CurrentIndex map[string]int
+	// 当前路由的proxy的总权重值
+	SumWeight map[string]int
 }
 
 func NewLoadBalance() *LoadBalance {
 	return &LoadBalance{
-		Servers:      make(map[string][]*HttpServer, 0),
+		Servers:      make(map[string]HttpServerSlice, 0),
 		CurrentIndex: make(map[string]int, 0),
+		SumWeight:    make(map[string]int, 0),
 	}
 }
 
@@ -50,6 +65,12 @@ func (lb *LoadBalance) AddHttpServer(server *HttpServer) {
 	// 初始LB中的轮训下标
 	if _, ok := lb.CurrentIndex[server.Path]; !ok {
 		lb.CurrentIndex[server.Path] = 0
+	}
+	// 累计LB中的SumWeight
+	if _, ok := lb.CurrentIndex[server.Path]; !ok {
+		lb.CurrentIndex[server.Path] = server.Weight
+	} else {
+		lb.SumWeight[server.Path] = lb.SumWeight[server.Path] + server.Weight
 	}
 }
 
@@ -133,6 +154,31 @@ func (lb *LoadBalance) SelectForWeightRoundRobin(path string) (*HttpServer, erro
 					return server, nil
 				}
 			}
+		}
+	}
+	return nil, errors.New("not found matched url")
+}
+
+// 平滑加权轮训策略
+// 带权重的随机负载
+// proxy-1：weight：5
+// proxy-2：weight：2
+// proxy-3：weight：2
+// 那么，执行的顺序为：[1,1,1,1,1,2,2,3,3]
+// 那么也可以是：[1,2,1,3,1,2,1,3,1] 的执行顺序，
+// 那么相比第一种，第二种的执行顺序能减轻对副武器的压力
+func (lb *LoadBalance) SelectForSoftWeightRoundRobin(path string) (*HttpServer, error) {
+	for pathTmp, proxies := range lb.Servers {
+		// 根据路径前缀进行匹配
+		if matched, _ := regexp.MatchString(pathTmp, path); matched {
+			// 计算权重
+			weightSum := lb.SumWeight[pathTmp]
+			for _, proxy := range proxies {
+				proxy.CurWeight = proxy.CurWeight + proxy.Weight
+			}
+			sort.Sort(proxies)
+			proxies[0].CurWeight = proxies[0].CurWeight - weightSum
+			return proxies[0], nil
 		}
 	}
 	return nil, errors.New("not found matched url")
