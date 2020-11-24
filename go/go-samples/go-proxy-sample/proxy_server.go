@@ -3,11 +3,12 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
+	_ "go-proxy-sample/config"
+	"go-proxy-sample/util"
 	"log"
 	"net/http"
-	"strings"
+	"net/http/httputil"
+	"net/url"
 )
 
 type ProxyHandler struct {
@@ -22,34 +23,41 @@ func (*ProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}()
 
-	path := r.URL.Path
-	log.Println(path)
-
-	var request *http.Request
-	if strings.HasPrefix(path, "/a") {
-		request, _ = http.NewRequest(r.Method, "http://127.0.0.1:8080"+r.URL.Path, r.Body)
-	} else if strings.HasPrefix(path, "/b") {
-		request, _ = http.NewRequest(r.Method, "http://127.0.0.1:8080"+r.URL.Path, r.Body)
-	} else {
+	// 选择负载策略
+	httpServer, err := util.LB.SelectForSoftWeightRoundRobin(r.URL.Path)
+	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
-		w.Write([]byte("illegal url"))
+		w.Write([]byte(err.Error()))
 		return
 	}
-	response, _ := http.DefaultClient.Do(request)
-	defer response.Body.Close()
+	parsedUrl, _ := url.Parse(httpServer.Proxy)
+	proxy := httputil.NewSingleHostReverseProxy(parsedUrl)
+	proxy.ServeHTTP(w, r)
 
-	// 将实际返回的 Header 及 StatusCode 返回
-	for key, value := range response.Header {
-		for _, v := range value {
-			w.Header().Add(key, v)
-		}
-	}
-	w.WriteHeader(response.StatusCode)
-	result, _ := ioutil.ReadAll(response.Body)
-	_, err := w.Write(result)
-	if err != nil {
-		fmt.Println(err)
-	}
+	// 未支持负载均衡时
+	//var reqSuccess bool
+	//for path, pass := range config.ProxyConfig {
+	//	if matched, _ := regexp.MatchString(path, r.URL.Path); matched {
+	//		reqSuccess = true
+	//		// 使用 go http client 实现
+	//		//request, _ := http.NewRequest(r.Method, pass+r.URL.Path, r.Body)
+	//		//util.CopyHeader(r.Header, &request.Header)
+	//		//// 设置真实代理地址
+	//		//util.SettingXForwardedFor(*r, request)
+	//		//err := util.DoRequest(request, w)
+	//
+	//		// 使用 go 内置反向代理，保留原URL，并替换掉host:port
+	//		parsedUrl, _ := url.Parse(pass)
+	//		proxy := httputil.NewSingleHostReverseProxy(parsedUrl)
+	//		proxy.ServeHTTP(w, r)
+	//		return
+	//	}
+	//}
+	//if !reqSuccess {
+	//	w.WriteHeader(http.StatusNotFound)
+	//	w.Write([]byte("illegal url"))
+	//	return
+	//}
 }
 
 func main() {

@@ -11,26 +11,23 @@ import (
 	"strings"
 )
 
+type WebHandler struct {
+	Content string
+}
+
+func (h *WebHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	// 返回内容
+	writeRep(w, req, h.Content)
+}
+
 func main() {
 	signalChan := make(chan os.Signal)
 	go (func() {
-		helloHandler := func(w http.ResponseWriter, req *http.Request) {
-			content := "Hello, world-1!\n"
-			// 返回内容
-			writeRep(w, req, content)
-		}
-		http.HandleFunc("/a/hello", helloHandler)
-		log.Fatal(http.ListenAndServe(":8080", nil))
+		log.Fatal(http.ListenAndServe(":8080", &WebHandler{Content: "Hello, world-8080!\n"}))
 	})()
 
 	go (func() {
-		helloHandler2 := func(w http.ResponseWriter, req *http.Request) {
-			content := "Hello, world-2!\n"
-			// 返回内容
-			writeRep(w, req, content)
-		}
-		http.HandleFunc("/b/hello", helloHandler2)
-		log.Fatal(http.ListenAndServe(":8081", nil))
+		log.Fatal(http.ListenAndServe(":8081", &WebHandler{Content: "Hello, world-8081!\n"}))
 	})()
 
 	signal.Notify(signalChan, os.Interrupt)
