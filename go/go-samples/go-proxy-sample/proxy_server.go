@@ -27,9 +27,9 @@ func (*ProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	var request *http.Request
 	if strings.HasPrefix(path, "/a") {
-		request, _ = http.NewRequest(r.Method, "http://localhost:8080"+r.URL.Path, r.Body)
+		request, _ = http.NewRequest(r.Method, "http://127.0.0.1:8080"+r.URL.Path, r.Body)
 	} else if strings.HasPrefix(path, "/b") {
-		request, _ = http.NewRequest(r.Method, "http://localhost:8080"+r.URL.Path, r.Body)
+		request, _ = http.NewRequest(r.Method, "http://127.0.0.1:8080"+r.URL.Path, r.Body)
 	} else {
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte("illegal url"))
@@ -39,14 +39,17 @@ func (*ProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	defer response.Body.Close()
 
 	// 将实际返回的 Header 及 StatusCode 返回
-	w.WriteHeader(response.StatusCode)
 	for key, value := range response.Header {
-		fmt.Println(key, value[0])
-		w.Header().Add(key, value[0])
+		for _, v := range value {
+			w.Header().Add(key, v)
+		}
 	}
-	fmt.Println(w.Header())
+	w.WriteHeader(response.StatusCode)
 	result, _ := ioutil.ReadAll(response.Body)
-	w.Write(result)
+	_, err := w.Write(result)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
 
 func main() {
