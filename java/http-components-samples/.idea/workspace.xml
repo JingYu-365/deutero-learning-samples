@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="76921618-c0df-4dc5-9ceb-5de1abe1757b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../dynamic-sql-sample/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dynamic-sql-sample/src/main/java/me/jkong/sql/FilePathTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dynamic-sql-sample/src/main/java/me/jkong/sql/SqlScriptProcessTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dynamic-sql-sample/src/main/java/me/jkong/sql/script/DynamicSqlProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dynamic-sql-sample/src/main/java/me/jkong/sql/script/ongl/BuilderException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dynamic-sql-sample/src/main/java/me/jkong/sql/script/ongl/ExpressionEvaluator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dynamic-sql-sample/src/main/java/me/jkong/sql/script/ongl/OgnlCache.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dynamic-sql-sample/src/main/resources/hdfs/test.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/http-components-samples.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_cli_commons_cli_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_fluent_hc_4_5_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_cache_4_5_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_ab_4_4_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_nio_4_4_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpmime_4_5_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/thriftCompiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http-async-client-sample/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http-async-client-sample/src/main/java/com/github/http/async/client/HttpAsyncClientUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http-async-client-sample/src/main/java/com/github/http/async/client/HttpCallbackHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http-client-sample/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http-client-sample/src/main/java/com/github/http/client/HttpClientUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http-client-sample/src/main/java/com/github/http/client/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http-core-sample/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http-core-sample/src/main/java/com/github/http/core/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="markdown" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:/Java/apache-maven-3.6.3" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="1.7" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1lH18lc38V9ENfE35zdCpYIldL5" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="add_unversioned_files" value="$PROJECT_DIR$/http-async-client-sample/src/main/java/com/github/http/async/client/HttpCallbackHandler.java&#10;H:/JKong/github/deutero-learning-samples/java/http-components-samples/.ignore&#10;H:/JKong/github/deutero-learning-samples/java/http-components-samples/.gitignore&#10;H:/JKong/github/deutero-learning-samples/java/http-components-samples/http-async-client-sample/src/main/java/com/github/http/async/client/HttpAsyncClientUtil.java" />
+    <property name="android.sdk.path" value="D:/Android/android-sdk" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/http-async-client-sample/src/main/java/com/github/http/async/client" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.github.http.async.client" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.github.http.client" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="H:\JKong\github\deutero-learning-samples\java\http-components-samples\http-async-client-sample\src\main\java\com\github\http\async\client" />
+      <recent name="H:\http-components-samples\http-core-sample\src\main\java\com\github\http\core" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="76921618-c0df-4dc5-9ceb-5de1abe1757b" name="Default Changelist" comment="" />
+      <created>1607239045831</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607239045831</updated>
+      <workItem from="1607239047294" duration="2428000" />
+      <workItem from="1607582565078" duration="52000" />
+      <workItem from="1607599783590" duration="2060000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="183" key="#Project_Structure" timestamp="1607240547023">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="552" y="183" key="#Project_Structure/0.0.1920.1050@0.0.1920.1050" timestamp="1607240547023" />
+    <state x="765" y="234" key="#com.intellij.ide.util.MemberChooser" timestamp="1607601674628">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="765" y="234" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1607601674628" />
+    <state x="580" y="203" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1607599949379">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="580" y="203" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1607599949379" />
+    <state x="362" y="118" key="CommitChangelistDialog2" timestamp="1607599889315">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="362" y="118" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1607599889315" />
+    <state x="740" y="280" key="FileChooserDialogImpl" timestamp="1607240002558">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="740" y="280" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1607240002558" />
+    <state x="513" y="235" key="RollbackChangesDialog" timestamp="1607599996064">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="513" y="235" key="RollbackChangesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1607599996064" />
+    <state x="461" y="167" key="SettingsEditor" timestamp="1607241350669">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="461" y="167" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1607241350669" />
+    <state x="334" y="220" key="new project wizard" timestamp="1607599810564">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="334" y="220" key="new project wizard/0.0.1920.1050@0.0.1920.1050" timestamp="1607599810564" />
+  </component>
+</project>
