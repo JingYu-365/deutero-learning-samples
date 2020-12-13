@@ -15,6 +15,7 @@
         <module>java-thread-sample</module>
         <module>java-dynamic-proxy-sample</module>
         <module>java-reflect-sample</module>
+        <module>java-annotation-sample</module>
     </modules>
 
     <properties>

@@ -7,3 +7,4 @@
 **/*.iml
 **/target
 **/*.exe
+go/go-concurrency/mutex/counter.o
