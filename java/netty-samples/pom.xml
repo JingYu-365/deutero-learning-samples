@@ -15,14 +15,14 @@
         <module>netty-heart-beat-sample</module>
         <module>netty-websocket-sample</module>
         <module>netty-nio-samples</module>
-        <module>nettyt-uml</module>
+        <module>netty-uml</module>
         <module>netty-reactor-sample</module>
         <module>netty-resteasy-sample</module>
     </modules>
 
     <properties>
         <netty-all.version>4.1.42.Final</netty-all.version>
-        <junit.version>4.13.1</junit.version>
+        <junit.version>4.13</junit.version>
     </properties>
 
     <dependencyManagement>
