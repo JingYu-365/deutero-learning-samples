@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
+ * 启动类
+ *
  * @author JKong
- * @version v1.0
- * @description 启动类
  * @date 2019/11/11 14:12.
  */
 public class Application {

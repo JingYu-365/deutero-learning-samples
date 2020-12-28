@@ -8,10 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Controller
+ *
  * @author JKong
- * @version v1.0
- * @description Controller
- * @date 2019/11/11 14:45.
  */
 @Path("/")
 public class HelloController {
