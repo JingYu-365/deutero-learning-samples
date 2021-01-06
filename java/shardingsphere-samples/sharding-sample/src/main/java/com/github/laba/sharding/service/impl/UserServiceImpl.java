@@ -15,8 +15,11 @@ import com.github.laba.sharding.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
+
+	public UserServiceImpl(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 
 	@Override
 	public void processUsers() throws SQLException {
@@ -25,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
 	private List<Long> insertUsers() throws SQLException {
 		List<Long> result = new ArrayList<>(10);
-		for (Long i = 1L; i <= 10; i++) {
+		for (long i = 1L; i <= 10; i++) {
 			User user = new User();
 			user.setUserId(i);
 			user.setUserName("user_" + i);

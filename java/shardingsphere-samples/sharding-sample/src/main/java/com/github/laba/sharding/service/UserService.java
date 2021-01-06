@@ -7,8 +7,8 @@ import com.github.laba.sharding.entity.User;
 
 public interface UserService {
 	
-	public void processUsers() throws SQLException;
+	void processUsers() throws SQLException;
 	
-	public List<User> getUsers() throws SQLException;
+	List<User> getUsers() throws SQLException;
 
 }
