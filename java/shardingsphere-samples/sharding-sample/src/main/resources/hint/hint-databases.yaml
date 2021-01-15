@@ -1,18 +1,18 @@
 dataSources:
   ds0: !!com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://119.3.52.175:3306/ds0
+    url: jdbc:mysql://127.0.0.1:3306/ds0
     username: root
-    password: 1qazxsw2#edc
+    password: 123456
   ds1: !!com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://119.3.52.175:3306/ds1
+    url: jdbc:mysql://127.0.0.1:3306/ds1
     username: root
-    password: 1qazxsw2#edc
+    password: 123456
 
 shardingRule:
   tables:
-    health_record: 
+    health_record:
       actualDataNodes: ds$->{0..1}.health_record
     health_task:
       actualDataNodes: ds$->{0..1}.health_task
@@ -20,7 +20,7 @@ shardingRule:
     - health_record,health_task
   broadcastTables:
     - health_level
-  
+
   defaultDatabaseStrategy:
     hint:
       algorithmClassName: com.tianyilan.shardingsphere.demo.hint.MatchHintShardingAlgorithm
