@@ -2,7 +2,7 @@ package com.github.labazhang.controller.center;
 
 import com.github.labazhang.pojo.Users;
 import com.github.labazhang.service.center.CenterUserService;
-import com.github.labazhang.utils.IMOOCJSONResult;
+import com.github.labazhang.utils.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -22,12 +22,12 @@ public class CenterController {
 
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息", httpMethod = "GET")
     @GetMapping("userInfo")
-    public IMOOCJSONResult userInfo(
+    public JsonResult userInfo(
             @ApiParam(name = "userId", value = "用户id", required = true)
             @RequestParam String userId) {
 
         Users user = centerUserService.queryUserInfo(userId);
-        return IMOOCJSONResult.ok(user);
+        return JsonResult.ok(user);
     }
 
 

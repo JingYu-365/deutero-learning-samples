@@ -7,7 +7,7 @@ import com.github.labazhang.pojo.bo.SubmitOrderBO;
 import com.github.labazhang.pojo.vo.MerchantOrdersVO;
 import com.github.labazhang.pojo.vo.OrderVO;
 import com.github.labazhang.service.OrderService;
-import com.github.labazhang.utils.IMOOCJSONResult;
+import com.github.labazhang.utils.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -30,22 +30,25 @@ public class OrdersController extends BaseController {
 
     final static Logger logger = LoggerFactory.getLogger(OrdersController.class);
 
-    @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+
+    public OrdersController(OrderService orderService, RestTemplate restTemplate) {
+        this.orderService = orderService;
+        this.restTemplate = restTemplate;
+    }
 
     @ApiOperation(value = "用户下单", notes = "用户下单", httpMethod = "POST")
     @PostMapping("/create")
-    public IMOOCJSONResult create(
+    public JsonResult create(
             @RequestBody SubmitOrderBO submitOrderBO,
             HttpServletRequest request,
             HttpServletResponse response) {
 
         if (submitOrderBO.getPayMethod() != PayMethod.WEIXIN.type
             && submitOrderBO.getPayMethod() != PayMethod.ALIPAY.type ) {
-            return IMOOCJSONResult.errorMsg("支付方式不支持！");
+            return JsonResult.errorMsg("支付方式不支持！");
         }
 
 //        System.out.println(submitOrderBO.toString());
@@ -79,17 +82,17 @@ public class OrdersController extends BaseController {
         HttpEntity<MerchantOrdersVO> entity =
                 new HttpEntity<>(merchantOrdersVO, headers);
 
-        ResponseEntity<IMOOCJSONResult> responseEntity =
+        ResponseEntity<JsonResult> responseEntity =
                 restTemplate.postForEntity(paymentUrl,
                                             entity,
-                                            IMOOCJSONResult.class);
-        IMOOCJSONResult paymentResult = responseEntity.getBody();
+                                            JsonResult.class);
+        JsonResult paymentResult = responseEntity.getBody();
         if (paymentResult.getStatus() != 200) {
             logger.error("发送错误：{}", paymentResult.getMsg());
-            return IMOOCJSONResult.errorMsg("支付中心订单创建失败，请联系管理员！");
+            return JsonResult.errorMsg("支付中心订单创建失败，请联系管理员！");
         }
 
-        return IMOOCJSONResult.ok(orderId);
+        return JsonResult.ok(orderId);
     }
 
     @PostMapping("notifyMerchantOrderPaid")
@@ -99,9 +102,9 @@ public class OrdersController extends BaseController {
     }
 
     @PostMapping("getPaidOrderInfo")
-    public IMOOCJSONResult getPaidOrderInfo(String orderId) {
+    public JsonResult getPaidOrderInfo(String orderId) {
 
         OrderStatus orderStatus = orderService.queryOrderStatusInfo(orderId);
-        return IMOOCJSONResult.ok(orderStatus);
+        return JsonResult.ok(orderStatus);
     }
 }

@@ -7,7 +7,7 @@ import com.github.labazhang.pojo.vo.CategoryVO;
 import com.github.labazhang.pojo.vo.NewItemsVO;
 import com.github.labazhang.service.CarouselService;
 import com.github.labazhang.service.CategoryService;
-import com.github.labazhang.utils.IMOOCJSONResult;
+import com.github.labazhang.utils.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -24,17 +24,20 @@ import java.util.List;
 @RequestMapping("index")
 public class IndexController {
 
-    @Autowired
-    private CarouselService carouselService;
+    private final CarouselService carouselService;
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
+
+    public IndexController(CarouselService carouselService, CategoryService categoryService) {
+        this.carouselService = carouselService;
+        this.categoryService = categoryService;
+    }
 
     @ApiOperation(value = "获取首页轮播图列表", notes = "获取首页轮播图列表", httpMethod = "GET")
     @GetMapping("/carousel")
-    public IMOOCJSONResult carousel() {
+    public JsonResult carousel() {
         List<Carousel> list = carouselService.queryAll(YesOrNo.YES.type);
-        return IMOOCJSONResult.ok(list);
+        return JsonResult.ok(list);
     }
 
     /**
@@ -44,37 +47,37 @@ public class IndexController {
      */
     @ApiOperation(value = "获取商品分类(一级分类)", notes = "获取商品分类(一级分类)", httpMethod = "GET")
     @GetMapping("/cats")
-    public IMOOCJSONResult cats() {
+    public JsonResult cats() {
         List<Category> list = categoryService.queryAllRootLevelCat();
-        return IMOOCJSONResult.ok(list);
+        return JsonResult.ok(list);
     }
 
     @ApiOperation(value = "获取商品子分类", notes = "获取商品子分类", httpMethod = "GET")
     @GetMapping("/subCat/{rootCatId}")
-    public IMOOCJSONResult subCat(
+    public JsonResult subCat(
             @ApiParam(name = "rootCatId", value = "一级分类id", required = true)
             @PathVariable Integer rootCatId) {
 
         if (rootCatId == null) {
-            return IMOOCJSONResult.errorMsg("分类不存在");
+            return JsonResult.errorMsg("分类不存在");
         }
 
         List<CategoryVO> list = categoryService.getSubCatList(rootCatId);
-        return IMOOCJSONResult.ok(list);
+        return JsonResult.ok(list);
     }
 
     @ApiOperation(value = "查询每个一级分类下的最新6条商品数据", notes = "查询每个一级分类下的最新6条商品数据", httpMethod = "GET")
     @GetMapping("/sixNewItems/{rootCatId}")
-    public IMOOCJSONResult sixNewItems(
+    public JsonResult sixNewItems(
             @ApiParam(name = "rootCatId", value = "一级分类id", required = true)
             @PathVariable Integer rootCatId) {
 
         if (rootCatId == null) {
-            return IMOOCJSONResult.errorMsg("分类不存在");
+            return JsonResult.errorMsg("分类不存在");
         }
 
         List<NewItemsVO> list = categoryService.getSixNewItemsLazy(rootCatId);
-        return IMOOCJSONResult.ok(list);
+        return JsonResult.ok(list);
     }
 
 }

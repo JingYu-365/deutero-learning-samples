@@ -7,7 +7,7 @@ import com.github.labazhang.resource.FileUpload;
 import com.github.labazhang.service.center.CenterUserService;
 import com.github.labazhang.utils.CookieUtils;
 import com.github.labazhang.utils.DateUtil;
-import com.github.labazhang.utils.IMOOCJSONResult;
+import com.github.labazhang.utils.JsonResult;
 import com.github.labazhang.utils.JsonUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,7 +44,7 @@ public class CenterUserController extends BaseController {
 
     @ApiOperation(value = "用户头像修改", notes = "用户头像修改", httpMethod = "POST")
     @PostMapping("uploadFace")
-    public IMOOCJSONResult uploadFace(
+    public JsonResult uploadFace(
             @ApiParam(name = "userId", value = "用户id", required = true)
             @RequestParam String userId,
             @ApiParam(name = "file", value = "用户头像", required = true)
@@ -77,7 +77,7 @@ public class CenterUserController extends BaseController {
                     if (!suffix.equalsIgnoreCase("png") &&
                             !suffix.equalsIgnoreCase("jpg") &&
                             !suffix.equalsIgnoreCase("jpeg") ) {
-                        return IMOOCJSONResult.errorMsg("图片格式不正确！");
+                        return JsonResult.errorMsg("图片格式不正确！");
                     }
 
                     // face-{userid}.png
@@ -114,7 +114,7 @@ public class CenterUserController extends BaseController {
             }
 
         } else {
-            return IMOOCJSONResult.errorMsg("文件不能为空！");
+            return JsonResult.errorMsg("文件不能为空！");
         }
 
         // 获取图片服务地址
@@ -133,14 +133,14 @@ public class CenterUserController extends BaseController {
 
         // TODO 后续要改，增加令牌token，会整合进redis，分布式会话
 
-        return IMOOCJSONResult.ok();
+        return JsonResult.ok();
     }
 
 
 
     @ApiOperation(value = "修改用户信息", notes = "修改用户信息", httpMethod = "POST")
     @PostMapping("update")
-    public IMOOCJSONResult update(
+    public JsonResult update(
             @ApiParam(name = "userId", value = "用户id", required = true)
             @RequestParam String userId,
             @RequestBody @Valid CenterUserBO centerUserBO,
@@ -152,7 +152,7 @@ public class CenterUserController extends BaseController {
         // 判断BindingResult是否保存错误的验证信息，如果有，则直接return
         if (result.hasErrors()) {
             Map<String, String> errorMap = getErrors(result);
-            return IMOOCJSONResult.errorMap(errorMap);
+            return JsonResult.errorMap(errorMap);
         }
 
         Users userResult = centerUserService.updateUserInfo(userId, centerUserBO);
@@ -163,7 +163,7 @@ public class CenterUserController extends BaseController {
 
         // TODO 后续要改，增加令牌token，会整合进redis，分布式会话
 
-        return IMOOCJSONResult.ok();
+        return JsonResult.ok();
     }
 
     private Map<String, String> getErrors(BindingResult result) {

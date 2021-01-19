@@ -7,13 +7,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
-//@Controller
 @ApiIgnore
 @RestController
 public class StuFooController {
 
-    @Autowired
-    private StuService stuService;
+    private final StuService stuService;
+
+    public StuFooController(StuService stuService) {
+        this.stuService = stuService;
+    }
 
     @GetMapping("/getStu")
     public Object getStu(int id) {

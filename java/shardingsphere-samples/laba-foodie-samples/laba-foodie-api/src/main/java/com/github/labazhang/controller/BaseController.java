@@ -2,7 +2,7 @@ package com.github.labazhang.controller;
 
 import com.github.labazhang.pojo.Orders;
 import com.github.labazhang.service.center.MyOrdersService;
-import com.github.labazhang.utils.IMOOCJSONResult;
+import com.github.labazhang.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -38,11 +38,11 @@ public class BaseController {
      * 用于验证用户和订单是否有关联关系，避免非法用户调用
      * @return
      */
-    public IMOOCJSONResult checkUserOrder(String userId, String orderId) {
+    public JsonResult checkUserOrder(String userId, String orderId) {
         Orders order = myOrdersService.queryMyOrder(userId, orderId);
         if (order == null) {
-            return IMOOCJSONResult.errorMsg("订单不存在！");
+            return JsonResult.errorMsg("订单不存在！");
         }
-        return IMOOCJSONResult.ok(order);
+        return JsonResult.ok(order);
     }
 }
