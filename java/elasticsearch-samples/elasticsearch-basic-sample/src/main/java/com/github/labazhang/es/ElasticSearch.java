@@ -18,8 +18,7 @@ public class ElasticSearch {
     static {
         client = new RestHighLevelClient(
                 RestClient.builder(
-                        new HttpHost("localhost", 9200, "http"),
-                        new HttpHost("localhost", 9201, "http")));
+                        new HttpHost("10.10.32.6", 19200, "http")));
     }
 
     public static RestHighLevelClient getInstance() {
