@@ -14,9 +14,13 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,17 +84,24 @@ public class GridfsMainController {
         }
 
         // 2. 设置文件响应头
-        response.setContentType("application/octet-stream");
-        response.setContentLength(gridFile.getChunkSize());
-        String headerValue = String.format("attachment; filename=\"%s\"", gridFile.getFilename());
-        response.setHeader("Content-Disposition", headerValue);
+        response.setContentType("application/octet-stream;charset=utf-8");
+        response.setContentLength((int) gridFile.getLength());
+        String fileName = null;
+        try {
+            fileName = URLEncoder.encode(gridFile.getFilename(), StandardCharsets.UTF_8.toString()).replaceAll("\\+", "%20");
+        } catch (UnsupportedEncodingException ignore) {
+        }
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
 
         // 3. 输出文件
+        GridFsResource resource;
         try {
-            GridFsResource resource = gridFsTemplate.getResource(gridFile);
+            resource = gridFsTemplate.getResource(gridFile);
             // 获取流中的数据
-            IOUtils.copy(resource.getInputStream(), response.getOutputStream());
-            response.flushBuffer();
+            try (ServletOutputStream outputStream = response.getOutputStream()) {
+                IOUtils.copy(resource.getInputStream(), outputStream);
+                outputStream.flush();
+            }
         } catch (IOException e) {
             log.error(e.getMessage());
         }
