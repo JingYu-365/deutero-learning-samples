@@ -1,0 +1,20 @@
+# 配置 MongoDB 数据源
+spring:
+  data:
+    mongodb:
+      database: gridfs
+      authentication-database: admin
+      username: admin
+      password: 123@abcd
+      host: 10.10.27.1
+      port: 37017
+  servlet:
+    # 配置文件上传最大值
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+# 服务配置
+server:
+  port: 8080
+
+
