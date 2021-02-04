@@ -46,8 +46,8 @@ public class OrdersController extends BaseController {
             HttpServletRequest request,
             HttpServletResponse response) {
 
-        if (submitOrderBO.getPayMethod() != PayMethod.WEIXIN.type
-            && submitOrderBO.getPayMethod() != PayMethod.ALIPAY.type ) {
+        if (!submitOrderBO.getPayMethod().equals(PayMethod.WEIXIN.type)
+            && !submitOrderBO.getPayMethod().equals(PayMethod.ALIPAY.type)) {
             return JsonResult.errorMsg("支付方式不支持！");
         }
 
