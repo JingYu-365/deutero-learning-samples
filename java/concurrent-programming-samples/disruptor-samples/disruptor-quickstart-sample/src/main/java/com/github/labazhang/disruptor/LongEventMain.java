@@ -8,6 +8,9 @@ import java.nio.ByteBuffer;
 
 /**
  * @author laba zhang
+ *                    |--------------|
+ * Producer -> msg -> |  RingBuffer  | -> msg -> Consumer
+ *                    |-=------------|
  */
 public class LongEventMain {
     public static void main(String[] args) throws Exception {
