@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>springboot-auto-configuration</module>
+        <module>springboot-annotation-sample</module>
     </modules>
 
     <dependencyManagement>

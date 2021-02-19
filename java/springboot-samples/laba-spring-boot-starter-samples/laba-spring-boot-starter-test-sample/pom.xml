@@ -3,21 +3,27 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.github.labazhang</groupId>
-		<artifactId>springboot-samples</artifactId>
-		<version>0.1.0</version>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.3</version>
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<artifactId>springboot-auto-configuration</artifactId>
-	<name>springboot-annotation-sample</name>
+	<groupId>com.github.labazhang</groupId>
+	<artifactId>laba-spring-boot-starter-test-sample</artifactId>
+	<version>0.1.0</version>
 
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
-
 	<dependencies>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-data-redis</artifactId>-->
+<!--		</dependency>-->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<groupId>com.github.labazhang</groupId>
+			<artifactId>laba-spring-boot-redis-starter</artifactId>
+			<version>0.1.0</version>
 		</dependency>
 
 		<dependency>
@@ -35,4 +41,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>
