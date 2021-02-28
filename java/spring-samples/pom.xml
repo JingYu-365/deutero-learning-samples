@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.jkong</groupId>
+    <groupId>com.github.labazhang</groupId>
     <artifactId>spring-samples</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
@@ -13,11 +13,11 @@
         <module>spring-ioc-container-overview-sample</module>
         <module>spring-bean-sample</module>
         <module>spring-dependency-lookup-sample</module>
+        <module>spring-mvc-samples</module>
     </modules>
 
-
     <properties>
-        <spring.version>5.2.4.RELEASE</spring.version>
+        <spring.version>5.2.13.RELEASE</spring.version>
     </properties>
 
     <!-- Spring 依赖管理 -->
@@ -25,28 +25,11 @@
         <dependencies>
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
+                <artifactId>spring-framework-bom</artifactId>
                 <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-jdbc</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-webflux</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-webmvc</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 

@@ -9,15 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-bean-sample</artifactId>
-    <description>spring bean 基础</description>
+    <artifactId>spring-mvc-samples</artifactId>
+    <packaging>pom</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>${groupId}</groupId>
-            <artifactId>spring-ioc-container-overview-sample</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>spring-mvc-basic</module>
+    </modules>
+
 
 </project>

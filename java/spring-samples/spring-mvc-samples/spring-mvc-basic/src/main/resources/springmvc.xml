@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+">
+
+    <!-- 包扫描-->
+    <context:component-scan base-package="com.github.labazhang.mvc"/>
+
+    <!-- 视图解析器，指定视图的位置，根据controller返回的视图名称找到对应的视图进行渲染 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 配置文件前缀-->
+        <property name="prefix" value="/pages/"/>
+        <!-- 配置文件后缀-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--
+        自动注册最合适的处理器映射器 & 处理器适配器
+    -->
+    <mvc:annotation-driven/>
+
+    <!-- 静态资源配置方案 -->
+    <!--
+        方案一：
+        原理：添加该标签配置之后，会在springMVC 上下文中定义一个DefaultServletHttpRequestHandler对象。
+        这个对象如同一个检查员一样，对进入DispatchServlet的url请求进行多虑筛选，如果发现是一个静态资源请求，
+        那么会把请求转由web应用服务器（Tomcat）默认的DefaultServlet来处理，如果不是静态资源请求，则继续由SpringMVC框架处理。
+        此时，要求静态文件资源需要放到 /webapp目录下，不可以放到其他目录下。
+    -->
+    <mvc:default-servlet-handler/>
+
+    <!--
+        方案二：
+        SpringMVC框架自己处理静态资源
+        mapping：约定的静态资源的url规则
+        location：指定的静态资源的存放位置
+    -->
+    <mvc:resources mapping="/resources/**" location="classpath:/,/"/>
+</beans>

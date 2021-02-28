@@ -8,7 +8,7 @@
     <!-- 通过导入复用 dependency-lookup-context.xml -->
     <import resource="dependency-lookup-context.xml"/>
 
-    <bean id="userRepository" class="me.jkong.spring.ioc.overview.repository.UserRepository"
+    <bean id="userRepository" class="com.github.labazhang.spring.ioc.overview.repository.UserRepository"
     autowire="byType"> <!-- 自动注入-->
 
         <!-- 属性注入 -->
