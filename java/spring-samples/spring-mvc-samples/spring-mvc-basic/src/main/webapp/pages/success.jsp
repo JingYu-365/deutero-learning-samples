@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Success</title>
 </head>
-<body>
-    Login Success, UserId: [${userId}]
+<% System.out.println("跳转页面");%>
+Login Success, UserId: [${userId}]
 </body>
 </html>
