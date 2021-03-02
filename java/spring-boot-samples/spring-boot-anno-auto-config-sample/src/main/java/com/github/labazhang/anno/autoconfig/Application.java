@@ -1,8 +1,8 @@
-package com.github.labazhang.autoconfig;
+package com.github.labazhang.anno.autoconfig;
 
-import com.github.labazhang.autoconfig.service.ServiceOne;
-import com.github.labazhang.autoconfig.service.ServiceThree;
-import com.github.labazhang.autoconfig.service.ServiceTwo;
+import com.github.labazhang.anno.autoconfig.service.ServiceOne;
+import com.github.labazhang.anno.autoconfig.service.ServiceThree;
+import com.github.labazhang.anno.autoconfig.service.ServiceTwo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;

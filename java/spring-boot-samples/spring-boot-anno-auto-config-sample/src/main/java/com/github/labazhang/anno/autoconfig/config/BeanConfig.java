@@ -1,9 +1,9 @@
-package com.github.labazhang.autoconfig.config;
+package com.github.labazhang.anno.autoconfig.config;
 
-import com.github.labazhang.autoconfig.condition.ServiceThreeCondition;
-import com.github.labazhang.autoconfig.service.ServiceOne;
-import com.github.labazhang.autoconfig.service.ServiceThree;
-import com.github.labazhang.autoconfig.service.ServiceTwo;
+import com.github.labazhang.anno.autoconfig.condition.ServiceThreeCondition;
+import com.github.labazhang.anno.autoconfig.service.ServiceOne;
+import com.github.labazhang.anno.autoconfig.service.ServiceThree;
+import com.github.labazhang.anno.autoconfig.service.ServiceTwo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.github.labazhang.autoconfig.service;
+package com.github.labazhang.anno.autoconfig.service;
 
 /**
  * ServiceOne

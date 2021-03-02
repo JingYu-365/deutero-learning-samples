@@ -1,4 +1,4 @@
-package com.github.labazhang.autoconfig;
+package com.github.labazhang.anno.autoconfig;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -7,8 +7,8 @@
 		<artifactId>spring-boot-samples</artifactId>
 		<version>0.1.0</version>
 	</parent>
-	<artifactId>springboot-auto-configuration</artifactId>
-	<name>spring-boot-annotation-sample</name>
+	<artifactId>spring-boot-anno-auto-config-sample</artifactId>
+	<name>spring-boot-anno-auto-config-sample</name>
 
 	<properties>
 		<java.version>1.8</java.version>

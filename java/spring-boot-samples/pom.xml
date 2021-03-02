@@ -10,7 +10,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-boot-annotation-sample</module>
+        <module>spring-boot-anno-auto-config-sample</module>
+        <module>laba-spring-boot-starter-samples</module>
     </modules>
 
     <dependencyManagement>

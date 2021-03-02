@@ -1,11 +1,12 @@
-package com.github.labazhang.autoconfig.condition;
+package com.github.labazhang.anno.autoconfig.condition;
 
+import com.github.labazhang.anno.autoconfig.service.ServiceThree;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
- * Bean {@link com.github.labazhang.autoconfig.service.ServiceThree} condition
+ * Bean {@link ServiceThree} condition
  *
  * @author laba zhang
  */
