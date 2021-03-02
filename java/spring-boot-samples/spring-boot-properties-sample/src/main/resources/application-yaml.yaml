@@ -1,0 +1,10 @@
+server:
+  port: 8082
+
+person:
+  id: 1
+  name: lucy
+  hobby: [ eat,sleep,play ]
+  family: [ father,mother ]
+  map: { k1: v1,k2: v2 }
+  pet: { type: dog,name: luck }
