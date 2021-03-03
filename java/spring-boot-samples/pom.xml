@@ -13,6 +13,10 @@
         <module>spring-boot-anno-auto-config-sample</module>
         <module>laba-spring-boot-starter-samples</module>
         <module>spring-boot-properties-sample</module>
+
+        <module>spring-boot-mybatis-sample</module>
+        <module>spring-boot-jpa-sample</module>
+        <module>spring-boot-redis-sample</module>
     </modules>
 
     <dependencyManagement>
@@ -20,10 +24,8 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-parent</artifactId>
-                <version>2.2.2.RELEASE</version>
-                <!--                <groupId>org.springframework.boot</groupId>-->
-                <!--                <artifactId>spring-boot-starter-parent</artifactId>-->
-                <!--                <version>2.4.3</version>-->
+                <!--<version>2.2.2.RELEASE</version>-->
+                <version>2.4.3</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
