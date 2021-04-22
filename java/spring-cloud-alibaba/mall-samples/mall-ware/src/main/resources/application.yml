@@ -1,0 +1,18 @@
+
+server:
+  port: 5000
+
+# mysql
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    #MySQL配置
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mall_wms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: xinfago
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+  application:
+    name: mall-ware
