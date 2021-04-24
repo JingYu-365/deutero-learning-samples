@@ -24,7 +24,7 @@
     <el-dialog
       title='提示'
       :visible.sync='dialogVisible'
-      :close-on-click-modal = "false"
+      :close-on-click-modal="false"
       width='30%'>
       <el-form :model="category">
         <el-form-item label="分类名称">

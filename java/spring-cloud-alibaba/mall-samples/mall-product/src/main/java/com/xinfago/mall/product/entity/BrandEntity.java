@@ -6,6 +6,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import org.hibernate.validator.constraints.Range;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * 品牌
@@ -27,6 +30,7 @@ public class BrandEntity implements Serializable {
 	/**
 	 * 品牌名
 	 */
+	@NotBlank(message = "品牌名不允许为空")
 	private String name;
 	/**
 	 * 品牌logo地址
@@ -39,6 +43,7 @@ public class BrandEntity implements Serializable {
 	/**
 	 * 显示状态[0-不显示；1-显示]
 	 */
+	@Range(max = 1,min = 0,message = "显示状态格式有误 [0-不显示；1-显示]")
 	private Integer showStatus;
 	/**
 	 * 检索首字母
