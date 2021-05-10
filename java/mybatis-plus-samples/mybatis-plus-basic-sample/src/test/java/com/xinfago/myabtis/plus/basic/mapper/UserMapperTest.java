@@ -2,12 +2,12 @@ package com.xinfago.myabtis.plus.basic.mapper;
 
 import com.xinfago.myabtis.plus.basic.entity.User;
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -19,7 +19,7 @@ import java.util.List;
 @SpringBootTest
 public class UserMapperTest {
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     @Test
