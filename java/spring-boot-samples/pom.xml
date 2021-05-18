@@ -17,6 +17,8 @@
         <module>spring-boot-mybatis-sample</module>
         <module>spring-boot-jpa-sample</module>
         <module>spring-boot-redis-sample</module>
+
+        <module>spring-boot-rabbitmq-sample</module>
     </modules>
 
     <dependencyManagement>
