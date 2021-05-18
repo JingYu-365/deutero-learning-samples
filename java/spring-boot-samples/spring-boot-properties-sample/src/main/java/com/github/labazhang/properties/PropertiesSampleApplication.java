@@ -1,4 +1,4 @@
-package com.github.labazhang.properties;
+package com.xinfago.properties;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

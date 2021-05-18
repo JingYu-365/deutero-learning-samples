@@ -1,4 +1,4 @@
-package com.github.labazhang.mybatis;
+package com.xinfago.mybatis;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author laba zhang
  */
-@MapperScan("com.github.labazhang.mybatis.mapper")
+@MapperScan("com.xinfago.mybatis.mapper")
 @SpringBootApplication
 public class Application {
 

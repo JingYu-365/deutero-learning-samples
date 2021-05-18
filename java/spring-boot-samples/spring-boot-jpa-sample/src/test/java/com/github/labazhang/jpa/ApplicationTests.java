@@ -1,6 +1,6 @@
-package com.github.labazhang.jpa;
+package com.xinfago.jpa;
 
-import com.github.labazhang.jpa.repository.CommentRepository;
+import com.xinfago.jpa.repository.CommentRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

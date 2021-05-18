@@ -1,4 +1,4 @@
-package com.github.labazhang.starter;
+package com.xinfago.starter;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;

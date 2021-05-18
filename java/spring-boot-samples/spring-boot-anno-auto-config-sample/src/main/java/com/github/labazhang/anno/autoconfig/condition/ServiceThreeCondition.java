@@ -1,6 +1,6 @@
-package com.github.labazhang.anno.autoconfig.condition;
+package com.xinfago.anno.autoconfig.condition;
 
-import com.github.labazhang.anno.autoconfig.service.ServiceThree;
+import com.xinfago.anno.autoconfig.service.ServiceThree;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;

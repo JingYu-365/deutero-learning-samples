@@ -1,6 +1,6 @@
-package com.github.labazhang.jpa.repository;
+package com.xinfago.jpa.repository;
 
-import com.github.labazhang.jpa.pojo.Comment;
+import com.xinfago.jpa.pojo.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

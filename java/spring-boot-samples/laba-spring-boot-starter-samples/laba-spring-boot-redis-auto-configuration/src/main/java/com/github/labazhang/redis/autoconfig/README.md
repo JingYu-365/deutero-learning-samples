@@ -22,5 +22,5 @@
 - 自动配置发现
 ```properties
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.github.labazhang.redis.autoconfig.LabaRedisAutoConfiguration
+  com.xinfago.redis.autoconfig.LabaRedisAutoConfiguration
 ```

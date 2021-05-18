@@ -1,4 +1,4 @@
-package com.github.labazhang.mybatis.pojo;
+package com.xinfago.mybatis.pojo;
 
 import lombok.Data;
 

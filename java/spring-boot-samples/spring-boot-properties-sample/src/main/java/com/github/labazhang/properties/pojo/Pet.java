@@ -1,4 +1,4 @@
-package com.github.labazhang.properties.pojo;
+package com.xinfago.properties.pojo;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.github.labazhang.jpa.pojo;
+package com.xinfago.jpa.pojo;
 
 import lombok.Data;
 

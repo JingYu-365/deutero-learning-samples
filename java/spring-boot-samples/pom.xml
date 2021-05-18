@@ -4,10 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.labazhang</groupId>
+    <groupId>com.xinfago</groupId>
     <artifactId>spring-boot-samples</artifactId>
     <version>0.1.0</version>
     <packaging>pom</packaging>
+
+
+    <properties>
+        <java.vesion>1.8</java.vesion>
+    </properties>
 
     <modules>
         <module>spring-boot-anno-auto-config-sample</module>
@@ -19,6 +24,7 @@
         <module>spring-boot-redis-sample</module>
 
         <module>spring-boot-rabbitmq-sample</module>
+        <module>spring-boot-common</module>
     </modules>
 
     <dependencyManagement>
@@ -33,4 +39,12 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+        </dependency>
+    </dependencies>
 </project>

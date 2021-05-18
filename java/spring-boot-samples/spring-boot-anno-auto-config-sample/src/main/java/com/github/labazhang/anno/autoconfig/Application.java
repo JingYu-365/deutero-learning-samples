@@ -1,8 +1,8 @@
-package com.github.labazhang.anno.autoconfig;
+package com.xinfago.anno.autoconfig;
 
-import com.github.labazhang.anno.autoconfig.service.ServiceOne;
-import com.github.labazhang.anno.autoconfig.service.ServiceThree;
-import com.github.labazhang.anno.autoconfig.service.ServiceTwo;
+import com.xinfago.anno.autoconfig.service.ServiceOne;
+import com.xinfago.anno.autoconfig.service.ServiceThree;
+import com.xinfago.anno.autoconfig.service.ServiceTwo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;

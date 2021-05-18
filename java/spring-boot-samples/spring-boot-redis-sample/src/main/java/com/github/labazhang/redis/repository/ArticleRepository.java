@@ -1,7 +1,7 @@
-package com.github.labazhang.redis.repository;
+package com.xinfago.redis.repository;
 
 
-import com.github.labazhang.redis.pojo.Article;
+import com.xinfago.redis.pojo.Article;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

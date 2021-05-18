@@ -1,7 +1,7 @@
-package com.github.labazhang.mybatis.mapper;
+package com.xinfago.mybatis.mapper;
 
 
-import com.github.labazhang.mybatis.pojo.Article;
+import com.xinfago.mybatis.pojo.Article;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

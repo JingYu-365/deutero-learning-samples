@@ -1,7 +1,7 @@
-package com.github.labazhang.properties;
+package com.xinfago.properties;
 
-import com.github.labazhang.properties.pojo.Person;
-import com.github.labazhang.properties.properties.PropertiesSourcePojo;
+import com.xinfago.properties.pojo.Person;
+import com.xinfago.properties.properties.PropertiesSourcePojo;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

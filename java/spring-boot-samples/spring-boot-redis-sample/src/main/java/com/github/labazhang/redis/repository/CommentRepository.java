@@ -1,6 +1,6 @@
-package com.github.labazhang.redis.repository;
+package com.xinfago.redis.repository;
 
-import com.github.labazhang.redis.pojo.Comment;
+import com.xinfago.redis.pojo.Comment;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

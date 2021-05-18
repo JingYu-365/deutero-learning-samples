@@ -1,6 +1,6 @@
-package com.github.labazhang.mybatis.mapper;
+package com.xinfago.mybatis.mapper;
 
-import com.github.labazhang.jpa.pojo.Comment;
+import com.xinfago.jpa.pojo.Comment;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

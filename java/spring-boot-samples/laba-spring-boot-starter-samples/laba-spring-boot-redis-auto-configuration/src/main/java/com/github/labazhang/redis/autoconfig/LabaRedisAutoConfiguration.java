@@ -1,4 +1,4 @@
-package com.github.labazhang.redis.autoconfig;
+package com.xinfago.redis.autoconfig;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

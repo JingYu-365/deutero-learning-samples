@@ -1,4 +1,4 @@
-package com.github.labazhang.redis.pojo;
+package com.xinfago.redis.pojo;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

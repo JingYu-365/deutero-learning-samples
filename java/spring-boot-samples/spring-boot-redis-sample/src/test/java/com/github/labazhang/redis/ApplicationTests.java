@@ -1,7 +1,7 @@
-package com.github.labazhang.redis;
+package com.xinfago.redis;
 
-import com.github.labazhang.redis.pojo.Comment;
-import com.github.labazhang.redis.repository.CommentRepository;
+import com.xinfago.redis.pojo.Comment;
+import com.xinfago.redis.repository.CommentRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

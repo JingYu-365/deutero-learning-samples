@@ -1,4 +1,4 @@
-package com.github.labazhang.anno.autoconfig.service;
+package com.xinfago.anno.autoconfig.service;
 
 /**
  * ServiceThree

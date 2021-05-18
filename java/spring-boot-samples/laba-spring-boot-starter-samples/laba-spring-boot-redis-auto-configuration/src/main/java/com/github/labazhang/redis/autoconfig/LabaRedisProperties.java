@@ -1,4 +1,4 @@
-package com.github.labazhang.redis.autoconfig;
+package com.xinfago.redis.autoconfig;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

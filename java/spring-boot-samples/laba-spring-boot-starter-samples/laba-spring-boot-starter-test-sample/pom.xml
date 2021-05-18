@@ -8,7 +8,7 @@
 		<version>2.4.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.github.labazhang</groupId>
+	<groupId>com.xinfago</groupId>
 	<artifactId>laba-spring-boot-starter-test-sample</artifactId>
 	<version>0.1.0</version>
 
@@ -21,7 +21,7 @@
 <!--			<artifactId>spring-boot-starter-data-redis</artifactId>-->
 <!--		</dependency>-->
 		<dependency>
-			<groupId>com.github.labazhang</groupId>
+			<groupId>com.xinfago</groupId>
 			<artifactId>laba-spring-boot-redis-starter</artifactId>
 			<version>0.1.0</version>
 		</dependency>

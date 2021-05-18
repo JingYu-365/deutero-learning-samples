@@ -1,4 +1,4 @@
-package com.github.labazhang.properties.config;
+package com.xinfago.properties.config;
 
 /**
  * TODO
