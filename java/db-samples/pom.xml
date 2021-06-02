@@ -12,6 +12,7 @@
     <modules>
         <module>dm-db-samples</module>
         <module>kingbase-db-samples</module>
+        <module>druid-samples</module>
     </modules>
 
     <dependencies>
