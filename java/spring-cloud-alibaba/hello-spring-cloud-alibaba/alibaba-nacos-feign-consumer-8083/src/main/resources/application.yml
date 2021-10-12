@@ -1,0 +1,27 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: nacos-feign-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    # 使用 Sentinel 作为熔断器
+    sentinel:
+      transport:
+        port: 8721
+        dashboard: 127.0.0.1:80
+
+# 暴露服务状态信息
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# 开启熔断
+feign:
+  sentinel:
+    enabled: true

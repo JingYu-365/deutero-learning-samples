@@ -1,0 +1,22 @@
+################# 本地测试时，解除注释
+#
+#server:
+#  port: 8081
+#
+#spring:
+#  application:
+#    name: nacos-provider
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 127.0.0.1:8848
+#
+## 暴露服务状态信息
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#
+#user:
+#  name: xinfago
