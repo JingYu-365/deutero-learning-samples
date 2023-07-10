@@ -1,0 +1,12 @@
+**/.idea
+**/bin
+**/pkg
+**/src/github.com
+**/src/gopkg.in
+**/*.iml
+**/target
+**/*.exe
+go/go-concurrency/mutex/counter.o
+**/.mvn/
+**/mvnw
+**/mvnw.cmd
